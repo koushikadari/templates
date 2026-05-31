@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ada Mercer — Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#F6F3EE;
+    --bg-2:#EEE9E0;
+    --ink:#15130F;
+    --ink-2:#2A2620;
+    --mute:#6B6358;
+    --rule:#D9D2C5;
+    --accent:oklch(0.62 0.16 45);
+    --accent-ink:#FFFFFF;
+    --maxw: 1320px;
+    --pad: clamp(20px, 4vw, 56px);
+    --serif: "Instrument Serif", "Times New Roman", serif;
+    --sans: "IBM Plex Sans", system-ui, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  ::selection{background:var(--accent);color:var(--accent-ink)}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+  .rule{border:0;border-top:1px solid var(--rule);margin:0}
+
+  /* ===== TYPE ===== */
+  .display{font-family:var(--serif);font-weight:400;letter-spacing:-0.01em;line-height:0.95}
+  .mono{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--mute)}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--ink)}
+  .lead{font-size:clamp(18px,1.6vw,22px);line-height:1.45;color:var(--ink-2);max-width:62ch}
+
+  /* ===== NAV ===== */
+  .nav{position:sticky;top:0;z-index:50;background:color-mix(in oklab, var(--bg) 88%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand .mark{width:28px;height:28px;border-radius:50%;background:var(--ink);position:relative;overflow:hidden}
+  .brand .mark::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 30%, var(--bg) 0 4px, transparent 5px)}
+  .brand .name{font-family:var(--serif);font-size:22px;line-height:1}
+  .nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0}
+  .nav ul a{font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-2);position:relative;padding:6px 0}
+  .nav ul a:hover{color:var(--ink)}
+  .nav ul a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
+  .nav ul a:hover::after{transform:scaleX(1)}
+  .nav .cta{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--bg);padding:9px 14px;border-radius:999px;font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase}
+  .nav .cta .dot{width:7px;height:7px;border-radius:50%;background:#7FD49B;box-shadow:0 0 0 3px color-mix(in oklab, #7FD49B 35%, transparent)}
+  @media (max-width:820px){ .nav ul{display:none} }
+
+  /* ===== HERO ===== */
+  .hero{padding:clamp(48px,9vw,120px) 0 clamp(40px,6vw,80px)}
+  .hero-grid{display:grid;grid-template-columns: 1fr;gap:48px}
+  @media (min-width:960px){ .hero-grid{grid-template-columns: 1.35fr 1fr;gap:64px;align-items:end} }
+  .hero h1{font-family:var(--serif);font-size:clamp(56px,10vw,148px);line-height:1.0;letter-spacing:-0.015em;margin:18px 0 0;padding-bottom:0.08em}
+  .hero h1 em{font-style:italic;color:var(--accent)}
+  .hero .sub{margin-top:48px;display:grid;gap:18px}
+  .hero .meta{display:flex;flex-wrap:wrap;gap:24px 36px;margin-top:36px}
+  .hero .meta > div .mono{display:block;margin-bottom:6px}
+  .hero .meta > div .v{font-family:var(--serif);font-size:24px;line-height:1.1}
+  .hero-card{border:1px solid var(--rule);background:var(--bg-2);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:18px}
+  .hero-card .photo{aspect-ratio: 4/5;border-radius:12px;background:
+      repeating-linear-gradient(135deg, #D8CFBE 0 10px, #CCC1AC 10px 20px);
+      position:relative;overflow:hidden;border:1px solid var(--rule)}
+  .hero-card .photo .tag{position:absolute;left:14px;bottom:14px;background:color-mix(in oklab, var(--bg) 85%, transparent);backdrop-filter:blur(6px);padding:6px 10px;border-radius:999px;font-family:var(--mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase}
+  .hero-card .row{display:flex;align-items:center;justify-content:space-between;gap:14px}
+  .hero-card .row .label{font-family:var(--mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--mute)}
+  .hero-card .row .val{font-family:var(--serif);font-size:20px}
+  .marquee{margin-top:clamp(48px,7vw,84px);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);overflow:hidden;background:var(--bg)}
+  .marquee-track{display:flex;gap:64px;padding:18px 0;white-space:nowrap;animation: scroll 38s linear infinite;font-family:var(--serif);font-size:32px;color:var(--ink-2)}
+  .marquee-track span{display:inline-flex;align-items:center;gap:64px}
+  .marquee-track span::after{content:"✦";color:var(--accent);font-size:18px}
+  @keyframes scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+  /* ===== SECTION HEAD ===== */
+  .section{padding:clamp(64px,9vw,128px) 0}
+  .sec-head{display:grid;grid-template-columns:1fr;gap:18px;margin-bottom:48px}
+  @media (min-width:820px){ .sec-head{grid-template-columns: 220px 1fr;gap:48px;align-items:end} }
+  .sec-head h2{font-family:var(--serif);font-size:clamp(36px,5vw,64px);line-height:1;letter-spacing:-0.01em;margin:0;max-width:18ch}
+  .sec-head h2 em{font-style:italic;color:var(--accent)}
+  .sec-head .desc{color:var(--ink-2);max-width:52ch}
+
+  /* ===== WORK ===== */
+  .work{display:grid;gap:20px}
+  .project{display:grid;grid-template-columns:1fr;gap:18px;padding:24px;border:1px solid var(--rule);border-radius:18px;background:var(--bg-2);transition:transform .35s ease, border-color .25s ease}
+  .project:hover{border-color:var(--ink)}
+  @media (min-width:880px){ .project{grid-template-columns: 1.1fr 1fr;gap:32px;padding:28px} }
+  .project .thumb{aspect-ratio:16/10;border-radius:12px;overflow:hidden;position:relative;border:1px solid var(--rule)}
+  .project .thumb .chip{position:absolute;top:14px;left:14px;background:var(--bg);padding:6px 10px;border-radius:999px;font-family:var(--mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase}
+  .project .body{display:flex;flex-direction:column;gap:14px;padding:6px 6px 6px 0}
+  .project h3{font-family:var(--serif);font-size:clamp(28px,3vw,40px);line-height:1.05;margin:6px 0 0;letter-spacing:-0.01em}
+  .project .summary{color:var(--ink-2);max-width:52ch}
+  .project .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
+  .project .tags span{font-family:var(--mono);font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;padding:5px 10px;border:1px solid var(--rule);border-radius:999px;color:var(--ink-2);background:var(--bg)}
+  .project .footer{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:14px;padding-top:14px;border-top:1px dashed var(--rule)}
+  .project .footer .read{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase}
+  .project .footer .read .arrow{transition:transform .25s ease}
+  .project:hover .footer .read .arrow{transform:translateX(4px)}
+
+  /* thumbs (placeholder art) */
+  .th-1{background:
+      radial-gradient(120% 80% at 20% 0%, #2A2620 0 30%, transparent 60%),
+      linear-gradient(135deg, #1E1B16 0%, #3a3026 100%);
+      color:#F6F3EE}
+  .th-1::after{content:"$ neo --build ledger";position:absolute;left:18px;bottom:18px;font-family:var(--mono);font-size:13px;color:#F6F3EE;letter-spacing:0.04em}
+  .th-1 .grid{position:absolute;inset:0;background-image:
+      linear-gradient(transparent 0 calc(100% - 1px), rgba(246,243,238,.06) 0),
+      linear-gradient(90deg, transparent 0 calc(100% - 1px), rgba(246,243,238,.06) 0);
+      background-size: 28px 28px}
+  .th-2{background:linear-gradient(135deg,#F0E5D2,#E7D7B7);position:relative}
+  .th-2 .blob{position:absolute;width:62%;height:78%;left:8%;top:12%;border-radius:36% 64% 60% 40% / 38% 32% 68% 62%;background:var(--accent);mix-blend-mode:multiply;opacity:.85}
+  .th-2 .blob.b2{left:auto;right:6%;top:18%;width:48%;height:60%;background:#1f1b14;opacity:.85;border-radius:62% 38% 44% 56% / 50% 58% 42% 50%}
+  .th-3{background:
+      repeating-linear-gradient(0deg, #E7DEC9 0 2px, transparent 2px 6px),
+      linear-gradient(180deg, #F0E8D5, #DCC8A5)}
+  .th-3::after{content:"";position:absolute;inset:18% 14% 18% 14%;border:1px solid #15130F;border-radius:8px;background:
+      linear-gradient(180deg, rgba(21,19,15,.04), transparent 30%)}
+  .th-3 .bar{position:absolute;left:18%;right:14%;height:6px;background:var(--ink);border-radius:3px}
+  .th-3 .b1{top:32%}
+  .th-3 .b2{top:42%;right:30%}
+  .th-3 .b3{top:52%;right:46%}
+  .th-4{background:linear-gradient(135deg, #15130F, #2A2620);color:#F6F3EE;position:relative;overflow:hidden}
+  .th-4 .ring{position:absolute;border:1px solid rgba(246,243,238,.18);border-radius:50%}
+  .th-4 .r1{width:120%;height:220%;left:-10%;top:-60%}
+  .th-4 .r2{width:80%;height:160%;left:10%;top:-30%}
+  .th-4 .r3{width:46%;height:92%;left:27%;top:4%}
+  .th-4 .dot{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--accent);left:50%;top:38%;transform:translate(-50%,-50%);box-shadow:0 0 0 6px color-mix(in oklab, var(--accent) 40%, transparent)}
+
+  /* ===== EXPERIENCE ===== */
+  .xp{display:grid;gap:0;border-top:1px solid var(--rule)}
+  .xp .row{display:grid;grid-template-columns: 110px 1.4fr 1fr 100px;gap:24px;padding:24px 0;border-bottom:1px solid var(--rule);align-items:start}
+  @media (max-width:760px){ .xp .row{grid-template-columns: 1fr;gap:8px} }
+  .xp .yr{font-family:var(--mono);font-size:12px;letter-spacing:0.1em;color:var(--mute);padding-top:6px}
+  .xp .role{font-family:var(--serif);font-size:clamp(22px,2.2vw,30px);line-height:1.1}
+  .xp .role .co{color:var(--mute);font-style:italic}
+  .xp .blurb{color:var(--ink-2);font-size:15px}
+  .xp .loc{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--mute);text-align:right;padding-top:8px}
+  @media (max-width:760px){ .xp .loc{text-align:left} }
+
+  /* ===== STACK ===== */
+  .stack{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+  @media (min-width:820px){ .stack{grid-template-columns:repeat(4,1fr)} }
+  .stack .col h4{font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--mute);margin:0 0 14px;padding-bottom:10px;border-bottom:1px solid var(--rule)}
+  .stack .col ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+  .stack .col li{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--serif);font-size:22px;line-height:1.1}
+  .stack .col li .lvl{font-family:var(--mono);font-size:10px;letter-spacing:0.14em;color:var(--mute);text-transform:uppercase}
+
+  /* ===== WRITING ===== */
+  .posts{display:grid;gap:0;border-top:1px solid var(--rule)}
+  .post{display:grid;grid-template-columns: 110px 1fr 120px;gap:24px;padding:22px 0;border-bottom:1px solid var(--rule);align-items:center;transition:padding .2s ease}
+  @media (max-width:760px){ .post{grid-template-columns: 1fr;gap:6px} }
+  .post:hover{padding-left:8px}
+  .post .d{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;color:var(--mute)}
+  .post .t{font-family:var(--serif);font-size:clamp(20px,2vw,26px);line-height:1.1}
+  .post .r{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--mute);text-align:right}
+  @media (max-width:760px){ .post .r{text-align:left} }
+
+  /* ===== ABOUT ===== */
+  .about{display:grid;grid-template-columns:1fr;gap:40px}
+  @media (min-width:960px){ .about{grid-template-columns: 1.2fr 1fr;gap:80px;align-items:start} }
+  .about p{font-size:18px;line-height:1.6;color:var(--ink-2);max-width:60ch}
+  .about p + p{margin-top:18px}
+  .about .pull{font-family:var(--serif);font-size:clamp(28px,3.2vw,40px);line-height:1.1;color:var(--ink);margin:0 0 24px;letter-spacing:-0.01em}
+  .facts{border:1px solid var(--rule);border-radius:18px;background:var(--bg-2);padding:24px;display:grid;gap:14px}
+  .facts .f{display:grid;grid-template-columns: 130px 1fr;gap:16px;align-items:baseline;padding:10px 0;border-bottom:1px dashed var(--rule)}
+  .facts .f:last-child{border-bottom:0}
+  .facts .f .k{font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--mute)}
+  .facts .f .v{font-family:var(--serif);font-size:20px;line-height:1.1}
+
+  /* ===== CONTACT ===== */
+  .contact{background:var(--ink);color:var(--bg);border-radius:24px;padding:clamp(36px,6vw,72px);position:relative;overflow:hidden}
+  .contact::before{content:"";position:absolute;right:-160px;top:-160px;width:520px;height:520px;border-radius:50%;background:radial-gradient(closest-side, color-mix(in oklab, var(--accent) 65%, transparent), transparent 70%)}
+  .contact .eyebrow{color:color-mix(in oklab, var(--bg) 70%, transparent)}
+  .contact .eyebrow::before{background:var(--bg)}
+  .contact h2{font-family:var(--serif);font-size:clamp(48px,7vw,96px);line-height:0.95;margin:18px 0 28px;letter-spacing:-0.01em;max-width:14ch}
+  .contact h2 em{color:var(--accent);font-style:italic}
+  .contact .mail{display:inline-flex;align-items:center;gap:14px;font-family:var(--serif);font-size:clamp(28px,4vw,48px);border-bottom:1px solid color-mix(in oklab, var(--bg) 40%, transparent);padding-bottom:6px}
+  .contact .mail:hover{border-color:var(--bg)}
+  .contact .socials{margin-top:48px;display:flex;flex-wrap:wrap;gap:10px}
+  .contact .socials a{font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;padding:10px 14px;border:1px solid color-mix(in oklab, var(--bg) 30%, transparent);border-radius:999px;color:var(--bg)}
+  .contact .socials a:hover{background:var(--bg);color:var(--ink)}
+
+  /* ===== FOOT ===== */
+  footer{padding:36px 0 48px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+  footer .mono{color:var(--mute)}
+
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand" aria-label="Home">
+      <span class="mark" aria-hidden="true"></span>
+      <span class="name">Ada Mercer</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#stack">Stack</a></li>
+        <li><a href="#writing">Writing</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+    <a href="#contact" class="cta"><span class="dot" aria-hidden="true"></span>Available · Q3</a>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section id="top" class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="mono eyebrow">Software Engineer · Portfolio 2026</span>
+        <h1>Engineering<br />software with <em>quiet&nbsp;rigor</em><br />and a long view.</h1>
+        <div class="sub">
+          <p class="lead">I&apos;m a backend-leaning full-stack engineer building tools for finance, infrastructure and developer experience. I care about correctness, latency budgets, and writing systems that age well.</p>
+        </div>
+        <div class="meta">
+          <div>
+            <span class="mono">Based</span>
+            <span class="v">Lisbon&nbsp;/ Remote</span>
+          </div>
+          <div>
+            <span class="mono">Focus</span>
+            <span class="v">Distributed systems</span>
+          </div>
+          <div>
+            <span class="mono">Experience</span>
+            <span class="v">9&nbsp;years</span>
+          </div>
+          <div>
+            <span class="mono">Currently</span>
+            <span class="v">Staff @ Northbeam</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero-card" aria-label="At a glance">
+        <div class="photo" role="img" aria-label="Portrait placeholder">
+          <span class="tag">Portrait · drop image</span>
+        </div>
+        <div class="row">
+          <span class="label">Open to</span>
+          <span class="val">Staff &amp; principal roles</span>
+        </div>
+        <div class="row">
+          <span class="label">Languages</span>
+          <span class="val">Go · TypeScript · Rust</span>
+        </div>
+        <div class="row">
+          <span class="label">Response</span>
+          <span class="val">Within 24h</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- marquee -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Distributed Systems</span><span>API Design</span><span>Observability</span><span>Postgres</span><span>Kafka</span><span>Kubernetes</span><span>TypeScript</span><span>Go</span><span>Rust</span><span>Developer Experience</span>
+      <span>Distributed Systems</span><span>API Design</span><span>Observability</span><span>Postgres</span><span>Kafka</span><span>Kubernetes</span><span>TypeScript</span><span>Go</span><span>Rust</span><span>Developer Experience</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WORK ===== -->
+<section id="work" class="section">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="mono eyebrow">§ 01 · Selected work</span>
+      <div>
+        <h2>A small set of projects I&apos;m <em>proud&nbsp;to&nbsp;sign</em>.</h2>
+      </div>
+    </header>
+
+    <div class="sec-head" style="margin-bottom:24px;display:block">
+      <p class="lead" style="max-width:64ch">Each case study below covers the problem, the architecture I shipped, the trade-offs I made, and the measurable result. Click through for the long version.</p>
+    </div>
+
+    <div class="work">
+
+      <article class="project">
+        <div class="thumb th-1"><div class="grid"></div><span class="chip">Case study · 12 min</span></div>
+        <div class="body">
+          <span class="mono">2025 · Northbeam</span>
+          <h3>Neo — a typed ledger for the marketing attribution stack</h3>
+          <p class="summary">Replaced a fragile cron-and-Snowflake pipeline with a typed, append-only event ledger backed by Postgres and ClickHouse. p95 attribution latency dropped from 11 minutes to 38 seconds.</p>
+          <div class="tags"><span>Go</span><span>ClickHouse</span><span>Kafka</span><span>OpenTelemetry</span></div>
+          <div class="footer">
+            <span class="mono">Role · Tech lead, 4 engineers</span>
+            <a class="read" href="#">Read case study <span class="arrow">→</span></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="thumb th-2"><div class="blob"></div><div class="blob b2"></div><span class="chip">Open source</span></div>
+        <div class="body">
+          <span class="mono">2024 · Personal</span>
+          <h3>Quill — a Postgres-first job queue for TypeScript</h3>
+          <p class="summary">A small library that turns a single Postgres table into a durable, exactly-once job queue with cron, retries and observability built in. 4.2k stars; used in production by three companies I know of.</p>
+          <div class="tags"><span>TypeScript</span><span>Postgres</span><span>SKIP LOCKED</span><span>OSS</span></div>
+          <div class="footer">
+            <span class="mono">Role · Sole maintainer</span>
+            <a class="read" href="#">View on GitHub <span class="arrow">→</span></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="thumb th-3"><div class="bar b1"></div><div class="bar b2"></div><div class="bar b3"></div><span class="chip">Internal tool</span></div>
+        <div class="body">
+          <span class="mono">2023 · Linear-ish</span>
+          <h3>Atlas — an internal observability surface for product teams</h3>
+          <p class="summary">Designed and built a metrics &amp; traces explorer aimed at PMs, not SREs. Cut the time from &ldquo;something feels slow&rdquo; to a filed ticket with a trace from 40 minutes to under five.</p>
+          <div class="tags"><span>React</span><span>Remix</span><span>Tempo</span><span>Prometheus</span></div>
+          <div class="footer">
+            <span class="mono">Role · Design + frontend lead</span>
+            <a class="read" href="#">Read case study <span class="arrow">→</span></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="thumb th-4"><div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div><div class="dot"></div><span class="chip">Research</span></div>
+        <div class="body">
+          <span class="mono">2022 · Independent</span>
+          <h3>Sundial — predictive autoscaling for spiky API traffic</h3>
+          <p class="summary">A small autoscaler that learns weekly seasonality from historical request volume and warms pods 90 seconds before predicted spikes. 31% fewer cold-starts on the test fleet, no SLO regressions.</p>
+          <div class="tags"><span>Rust</span><span>Kubernetes</span><span>Time series</span><span>SRE</span></div>
+          <div class="footer">
+            <span class="mono">Role · Solo · Write-up</span>
+            <a class="read" href="#">Read the paper <span class="arrow">→</span></a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== EXPERIENCE ===== -->
+<section id="experience" class="section" style="padding-top:0">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="mono eyebrow">§ 02 · Experience</span>
+      <div>
+        <h2>Nine years, four companies, one&nbsp;<em>throughline</em>: make the&nbsp;hard&nbsp;parts boring.</h2>
+      </div>
+    </header>
+
+    <div class="xp" role="list">
+      <div class="row" role="listitem">
+        <div class="yr">2024 — Now</div>
+        <div class="role">Staff Engineer, <span class="co">Northbeam</span></div>
+        <div class="blurb">Tech lead for the attribution platform. Owning data model, performance, and the on-call experience for 28 engineers downstream.</div>
+        <div class="loc">Remote · EU</div>
+      </div>
+      <div class="row" role="listitem">
+        <div class="yr">2021 — 2024</div>
+        <div class="role">Senior Engineer, <span class="co">Linear-ish</span></div>
+        <div class="blurb">Built internal tooling and the observability surface used by every product team. Mentored four engineers into senior.</div>
+        <div class="loc">Remote</div>
+      </div>
+      <div class="row" role="listitem">
+        <div class="yr">2019 — 2021</div>
+        <div class="role">Engineer, <span class="co">Klaviyo Labs</span></div>
+        <div class="blurb">Shipped the v2 segmentation engine. Wrote the migration playbook still in use today.</div>
+        <div class="loc">Boston</div>
+      </div>
+      <div class="row" role="listitem">
+        <div class="yr">2017 — 2019</div>
+        <div class="role">Engineer, <span class="co">Banco Atlântico (fintech)</span></div>
+        <div class="blurb">Backend on a regulated payments product. First exposure to the joys of double-entry bookkeeping and audit logs.</div>
+        <div class="loc">Lisbon</div>
+      </div>
+      <div class="row" role="listitem">
+        <div class="yr">2016 — 2017</div>
+        <div class="role">Engineer (intern → grad), <span class="co">Subvisual</span></div>
+        <div class="blurb">Where I learned that the README is part of the product.</div>
+        <div class="loc">Porto</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STACK ===== -->
+<section id="stack" class="section" style="padding-top:0">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="mono eyebrow">§ 03 · Stack &amp; tools</span>
+      <div>
+        <h2>What I reach for on a <em>Monday morning</em>.</h2>
+      </div>
+    </header>
+
+    <div class="stack">
+      <div class="col">
+        <h4>Languages</h4>
+        <ul>
+          <li>Go <span class="lvl">Daily</span></li>
+          <li>TypeScript <span class="lvl">Daily</span></li>
+          <li>Rust <span class="lvl">Often</span></li>
+          <li>Python <span class="lvl">Often</span></li>
+          <li>SQL <span class="lvl">Daily</span></li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Backend &amp; data</h4>
+        <ul>
+          <li>Postgres <span class="lvl">Expert</span></li>
+          <li>ClickHouse <span class="lvl">Strong</span></li>
+          <li>Kafka <span class="lvl">Strong</span></li>
+          <li>Redis <span class="lvl">Strong</span></li>
+          <li>gRPC <span class="lvl">Comfortable</span></li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Frontend</h4>
+        <ul>
+          <li>React <span class="lvl">Strong</span></li>
+          <li>Remix <span class="lvl">Strong</span></li>
+          <li>Tailwind <span class="lvl">Daily</span></li>
+          <li>Vite <span class="lvl">Daily</span></li>
+          <li>Storybook <span class="lvl">Often</span></li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Platform</h4>
+        <ul>
+          <li>Kubernetes <span class="lvl">Strong</span></li>
+          <li>Terraform <span class="lvl">Strong</span></li>
+          <li>AWS <span class="lvl">Strong</span></li>
+          <li>OpenTelemetry <span class="lvl">Strong</span></li>
+          <li>GitHub Actions <span class="lvl">Daily</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WRITING ===== -->
+<section id="writing" class="section" style="padding-top:0">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="mono eyebrow">§ 04 · Writing</span>
+      <div>
+        <h2>Notes I&apos;ve <em>actually&nbsp;shipped</em>.</h2>
+      </div>
+    </header>
+
+    <div class="posts">
+      <a class="post" href="#">
+        <span class="d">2026 · 04 · 12</span>
+        <span class="t">The unreasonable effectiveness of SELECT ... FOR UPDATE SKIP LOCKED</span>
+        <span class="r">14 min read →</span>
+      </a>
+      <a class="post" href="#">
+        <span class="d">2026 · 02 · 03</span>
+        <span class="t">A budget for latency: how I think about p99</span>
+        <span class="r">9 min read →</span>
+      </a>
+      <a class="post" href="#">
+        <span class="d">2025 · 11 · 21</span>
+        <span class="t">Append-only is a feature, not a constraint</span>
+        <span class="r">11 min read →</span>
+      </a>
+      <a class="post" href="#">
+        <span class="d">2025 · 08 · 02</span>
+        <span class="t">Three years of on-call, in numbers</span>
+        <span class="r">7 min read →</span>
+      </a>
+      <a class="post" href="#">
+        <span class="d">2025 · 05 · 14</span>
+        <span class="t">Why I still write a design doc before I open my editor</span>
+        <span class="r">6 min read →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section id="about" class="section" style="padding-top:0">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="mono eyebrow">§ 05 · About</span>
+      <div>
+        <h2>Briefly: <em>who I am</em> away from the keyboard.</h2>
+      </div>
+    </header>
+
+    <div class="about">
+      <div>
+        <p class="pull">I like systems you can hold in your head, code reviews that change your mind, and shipping the boring version first.</p>
+        <p>I grew up writing PHP guestbooks in a coastal town in Portugal, got serious in university, and have spent the last nine years split between fintech, developer tools and analytics. My favourite part of the job is the design phase — the hour with a whiteboard and a stale coffee where the shape of the thing actually gets decided.</p>
+        <p>Outside work I run slowly, cook ambitiously, and maintain a small open-source library that more people use than I expected. I&apos;m a careful writer, a patient mentor, and an enthusiastic generator of small command-line tools that nobody asked for.</p>
+        <p>I&apos;m currently happy at Northbeam, but I keep a short list of teams I&apos;d consider — if you&apos;re working on developer tools, financial infrastructure or anything that involves a really hard data model, I&apos;d love to hear about it.</p>
+      </div>
+
+      <aside class="facts">
+        <div class="f"><span class="k">Education</span><span class="v">B.Sc. Informatics, U.&nbsp;Porto</span></div>
+        <div class="f"><span class="k">Speaking</span><span class="v">GopherCon EU · QCon · 4 others</span></div>
+        <div class="f"><span class="k">Open source</span><span class="v">11 repos · 6.4k stars</span></div>
+        <div class="f"><span class="k">Mentorship</span><span class="v">ADPList · 80+ sessions</span></div>
+        <div class="f"><span class="k">Time zone</span><span class="v">WET / WEST (UTC+0/+1)</span></div>
+        <div class="f"><span class="k">Pronouns</span><span class="v">she / her</span></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact" class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="contact">
+      <span class="mono eyebrow">§ 06 · Get in touch</span>
+      <h2>Have a hard problem? Let&apos;s <em>talk&nbsp;about&nbsp;it</em>.</h2>
+      <a class="mail" href="/cdn-cgi/l/email-protection#1e767b7272715e7f7a7f737b6c7d7b6c307a7b68"><span class="__cf_email__" data-cfemail="b2dad7dededdf2d3d6d3dfd7c0d1d7c09cd6d7c4">[email&#160;protected]</span> <span aria-hidden="true">↗</span></a>
+      <div class="socials">
+        <a href="#">GitHub</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Read.cv</a>
+        <a href="#">Bluesky</a>
+        <a href="#">RSS</a>
+        <a href="#">Download CV (PDF)</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<footer>
+  <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;width:100%">
+    <span class="mono">© 2026 Ada Mercer · Built by hand, deployed on a Tuesday</span>
+    <span class="mono">v3.2 · Last updated May 2026</span>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</html>

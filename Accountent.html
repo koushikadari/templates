@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Elena Vasquez | Chartered Accountant & Financial Strategist</title>
+    <!-- Google Fonts: Clean, Professional Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fefefe;
+            color: #1a2a3a;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        /* Color Palette: Trustworthy, Elegant, Neutral */
+        :root {
+            --navy: #0a2540;
+            --gold: #c6a15b;
+            --gold-light: #e8d5b5;
+            --slate: #4a5b6e;
+            --light-bg: #f8fafc;
+            --white: #ffffff;
+            --border-light: #e9ecef;
+            --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.03), 0 2px 6px rgba(0, 0, 0, 0.02);
+            --shadow-md: 0 20px 35px -10px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        section {
+            padding: 90px 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+            color: var(--navy);
+            font-family: 'Playfair Display', serif;
+        }
+
+        h2 em {
+            color: var(--gold);
+            font-style: normal;
+        }
+
+        .section-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            display: inline-block;
+            background: var(--navy);
+            color: white;
+            padding: 14px 32px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 0.03em;
+            text-decoration: none;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            border-radius: 2px;
+        }
+
+        .btn-primary:hover {
+            background: var(--gold);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(198, 161, 91, 0.2);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--navy);
+            color: var(--navy);
+            padding: 12px 28px;
+            font-weight: 500;
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .btn-outline:hover {
+            background: var(--navy);
+            color: white;
+            border-color: var(--navy);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 60px;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(10, 37, 64, 0.08);
+            transition: var(--transition);
+        }
+
+        nav.scrolled {
+            padding: 12px 60px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--navy);
+            text-decoration: none;
+            letter-spacing: -0.3px;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 36px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--slate);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-cta {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: var(--navy);
+            color: white;
+            padding: 10px 24px;
+            text-decoration: none;
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .nav-cta:hover {
+            background: var(--gold);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--navy);
+            transition: 0.3s;
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: white;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+        }
+
+        .mobile-nav.open {
+            display: flex;
+        }
+
+        .mobile-nav a {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--navy);
+            text-decoration: none;
+        }
+
+        .mobile-nav-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--navy);
+        }
+
+        /* Hero Section - Two Columns with Medium Photo */
+        .hero {
+            padding: 140px 0 80px;
+            background: linear-gradient(135deg, #fefefe 0%, #f8fafc 100%);
+        }
+
+        .hero-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 0.8fr;
+            gap: 60px;
+            align-items: center;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        .hero-content {
+            max-width: 580px;
+        }
+
+        .hero-badge {
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 500;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        .hero-name {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1.2;
+            margin-bottom: 16px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .hero-name .glow {
+            color: var(--gold);
+        }
+
+        .hero-title {
+            font-size: 1rem;
+            color: var(--slate);
+            margin-bottom: 24px;
+            font-weight: 400;
+        }
+
+        .hero-desc {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #4a5b6e;
+            margin-bottom: 32px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .stat-item .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .stat-item .stat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--slate);
+        }
+
+        /* Hero Right Image - Medium Size */
+        .hero-image {
+            display: flex;
+            justify-content: center;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+            max-width: 300px;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 25px 35px -12px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-card img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 12px;
+            display: block;
+        }
+
+        .profile-badge {
+            text-align: center;
+            margin-top: 14px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--gold);
+            font-family: 'Inter', monospace;
+            letter-spacing: 0.05em;
+            border-top: 1px solid var(--border-light);
+            padding-top: 12px;
+        }
+
+        /* About Section - Medium Photo */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image {
+            display: flex;
+            justify-content: center;
+        }
+
+        .about-img-card {
+            max-width: 320px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+        }
+
+        .about-img-card img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            display: block;
+        }
+
+        .about-img-card:hover {
+            transform: scale(1.02);
+        }
+
+        .about-text p {
+            color: var(--slate);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .signature {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--gold);
+            margin-top: 24px;
+        }
+
+        /* Experience Grid */
+        .exp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 28px;
+            margin-top: 20px;
+        }
+
+        .exp-card {
+            background: white;
+            padding: 28px;
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+            border-radius: 12px;
+        }
+
+        .exp-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+            box-shadow: var(--shadow-md);
+        }
+
+        .exp-icon {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .exp-role {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--navy);
+        }
+
+        .exp-company {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .exp-desc {
+            font-size: 0.85rem;
+            color: var(--slate);
+            line-height: 1.6;
+        }
+
+        /* Skills Cards */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 28px;
+        }
+
+        .skill-card {
+            background: white;
+            padding: 32px 24px;
+            text-align: center;
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+
+        .skill-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-4px);
+        }
+
+        .skill-icon {
+            font-size: 2.2rem;
+            color: var(--gold);
+            margin-bottom: 18px;
+        }
+
+        .skill-card h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .skill-card p {
+            font-size: 0.8rem;
+            color: var(--slate);
+        }
+
+        /* Projects / Client Work */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--gold);
+        }
+
+        .project-info {
+            padding: 24px;
+        }
+
+        .project-cat {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .project-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 8px 0;
+        }
+
+        .project-desc {
+            font-size: 0.8rem;
+            color: var(--slate);
+        }
+
+        /* Certifications */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border-light);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .cert-card {
+            background: white;
+            padding: 28px 16px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .cert-card:hover {
+            background: #fefaf5;
+        }
+
+        .cert-icon {
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+
+        .cert-year {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 0.05em;
+        }
+
+        .cert-name {
+            font-weight: 600;
+            margin: 8px 0 4px;
+        }
+
+        .cert-org {
+            font-size: 0.7rem;
+            color: var(--slate);
+        }
+
+        /* Languages */
+        .languages-wrap {
+            background: var(--light-bg);
+            border-radius: 20px;
+            padding: 40px 32px;
+            border: 1px solid var(--border-light);
+        }
+
+        .lang-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 48px;
+            justify-content: center;
+        }
+
+        .lang-item {
+            text-align: center;
+        }
+
+        .lang-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .lang-level {
+            font-size: 0.65rem;
+            color: var(--gold);
+            margin-top: 6px;
+            letter-spacing: 0.05em;
+        }
+
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .contact-info p {
+            color: var(--slate);
+            margin-bottom: 28px;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin: 28px 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .contact-icon {
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+        }
+
+        .map-minimal {
+            background: var(--light-bg);
+            height: 140px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: var(--slate);
+            border: 1px solid var(--border-light);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            background: var(--light-bg);
+            border: 1px solid var(--border-light);
+            padding: 14px 16px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .btn-submit {
+            background: var(--navy);
+            border: none;
+            color: white;
+            padding: 14px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: 8px;
+        }
+
+        .btn-submit:hover {
+            background: var(--gold);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--navy);
+            padding: 48px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            color: var(--gold);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.7rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .social-links a {
+            color: rgba(255, 255, 255, 0.7);
+            margin-left: 20px;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--gold);
+        }
+
+        .copyright {
+            width: 100%;
+            text-align: center;
+            margin-top: 28px;
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .nav-links,
+            .nav-cta {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            section {
+                padding: 70px 0;
+            }
+
+            .hero-wrapper,
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 40px;
+            }
+
+            .hero-content,
+            .about-text {
+                text-align: center;
+                margin: 0 auto;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cert-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            nav {
+                padding: 16px 32px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cert-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .exp-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                flex-direction: column;
+                text-align: center;
+                padding: 40px 24px;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Custom Cursor (Minimal) -->
+    <div class="cursor-glow" id="cursorGlow" style="width:6px;height:6px;background:#c6a15b;border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transition:0.05s linear;"></div>
+
+    <!-- Navigation -->
+    <nav id="mainNav">
+        <a href="#" class="logo">Elena <span>Vasquez</span></a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#languages">Languages</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a href="#contact" class="nav-cta">Schedule a Call</a>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="mobile-nav" id="mobileNav">
+        <button class="mobile-nav-close" id="mobileNavClose">✕</button>
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#languages">Languages</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <!-- Hero Section with Medium Photo -->
+    <section class="hero">
+        <div class="hero-wrapper">
+            <div class="hero-content">
+                <span class="hero-badge">Chartered Accountant & Financial Strategist</span>
+                <h1 class="hero-name">Elena <span class="glow">Vasquez</span></h1>
+                <div class="hero-title">CPA, MBA | 15+ Years of Financial Excellence</div>
+                <p class="hero-desc">Precision-driven accounting, tax optimization, and strategic financial planning for high-growth enterprises and individuals.</p>
+                <a href="#contact" class="btn-primary">Let's Talk Numbers →</a>
+                <div class="hero-stats">
+                    <div class="stat-item"><div class="stat-number">$2.3B+</div><div class="stat-label">Managed Assets</div></div>
+                    <div class="stat-item"><div class="stat-number">98%</div><div class="stat-label">Client Retention</div></div>
+                    <div class="stat-item"><div class="stat-number">120+</div><div class="stat-label">Business Clients</div></div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="profile-card">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Elena Vasquez - Accountant">
+                    <div class="profile-badge">CPA · CMA · CGMA</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section with Medium Photo -->
+    <section id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image reveal">
+                    <div class="about-img-card">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Elena Vasquez - Professional Headshot">
+                    </div>
+                </div>
+                <div class="about-text reveal">
+                    <div class="section-label">// About Me</div>
+                    <h2>Precision, Integrity & <em>Financial Clarity</em></h2>
+                    <p>I’m Elena Vasquez — a Chartered Accountant and financial strategist dedicated to transforming complex numbers into actionable insights. With over 15 years of experience across Big Four firms and private wealth management, I partner with business owners and executives to optimize tax structures, ensure regulatory compliance, and drive sustainable growth.</p>
+                    <p>My philosophy is simple: financial clarity breeds confidence. Whether it's forensic accounting, CFO advisory, or audit preparation, I bring meticulous attention to detail and a forward-thinking approach to every engagement.</p>
+                    <div class="signature">— Trusted by 120+ enterprises globally</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience">
+        <div class="container">
+            <div class="section-label reveal">// Professional Journey</div>
+            <h2 class="reveal">Financial <em>Experience</em></h2>
+            <div class="exp-grid">
+                <div class="exp-card reveal"><div class="exp-icon"><i class="fas fa-chart-line"></i></div><div class="exp-role">Senior Financial Controller</div><div class="exp-company">Deloitte · 2021–Present</div><div class="exp-desc">Lead audit and advisory for Fortune 500 clients, overseeing $500M+ portfolios.</div></div>
+                <div class="exp-card reveal"><div class="exp-icon"><i class="fas fa-calculator"></i></div><div class="exp-role">Tax Strategy Consultant</div><div class="exp-company">PwC · 2016–2021</div><div class="exp-desc">Designed tax-efficient structures saving clients an average of 18% annually.</div></div>
+                <div class="exp-card reveal"><div class="exp-icon"><i class="fas fa-building"></i></div><div class="exp-role">Corporate Accountant</div><div class="exp-company">Ernst & Young · 2010–2016</div><div class="exp-desc">Managed financial reporting for multinational manufacturing firms.</div></div>
+                <div class="exp-card reveal"><div class="exp-icon"><i class="fas fa-chart-pie"></i></div><div class="exp-role">Wealth Management Advisor</div><div class="exp-company">Merrill Lynch · 2008–2010</div><div class="exp-desc">Advised HNW individuals on investment strategies and retirement planning.</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+        <div class="container">
+            <div class="section-label reveal">// Core Expertise</div>
+            <h2 class="reveal">Accounting & <em>Advisory Skills</em></h2>
+            <div class="skills-grid">
+                <div class="skill-card reveal"><div class="skill-icon"><i class="fas fa-file-invoice-dollar"></i></div><h4>Financial Auditing</h4><p>GAAP/IFRS compliance, internal controls, and risk assessment.</p></div>
+                <div class="skill-card reveal"><div class="skill-icon"><i class="fas fa-calculator"></i></div><h4>Tax Planning</h4><p>Corporate & individual tax optimization, cross-border structuring.</p></div>
+                <div class="skill-card reveal"><div class="skill-icon"><i class="fas fa-chart-line"></i></div><h4>Forensic Accounting</h4><p>Fraud investigation, litigation support, and asset tracing.</p></div>
+                <div class="skill-card reveal"><div class="skill-icon"><i class="fas fa-robot"></i></div><h4>FinTech & Automation</h4><p>ERP implementation (SAP, Oracle), RPA for accounting workflows.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects / Client Success -->
+    <section id="projects">
+        <div class="container">
+            <div class="section-label reveal">// Client Success</div>
+            <h2 class="reveal">Featured <em>Engagements</em></h2>
+            <div class="projects-grid">
+                <div class="project-card reveal"><div class="project-info"><div class="project-cat">Tax Optimization</div><div class="project-title">Global E-commerce Group</div><div class="project-desc">Restructured international operations, saving $4.2M in annual taxes.</div></div></div>
+                <div class="project-card reveal"><div class="project-info"><div class="project-cat">Forensic Audit</div><div class="project-title">Manufacturing Firm M&A</div><div class="project-desc">Uncovered $8M in discrepancies, enabling fair acquisition price.</div></div></div>
+                <div class="project-card reveal"><div class="project-info"><div class="project-cat">CFO Advisory</div><div class="project-title">Tech Startup Scaling</div><div class="project-desc">Built financial models that raised $15M Series B funding.</div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications -->
+    <section id="certifications">
+        <div class="container">
+            <div class="section-label reveal">// Credentials</div>
+            <h2 class="reveal">Certifications & <em>Licenses</em></h2>
+            <div class="cert-grid">
+                <div class="cert-card reveal"><div class="cert-icon"><i class="fas fa-certificate"></i></div><div class="cert-year">2024</div><div class="cert-name">CPA (Certified Public Accountant)</div><div class="cert-org">AICPA</div></div>
+                <div class="cert-card reveal"><div class="cert-icon"><i class="fas fa-chart-line"></i></div><div class="cert-year">2023</div><div class="cert-name">CMA (Certified Management Accountant)</div><div class="cert-org">IMA</div></div>
+                <div class="cert-card reveal"><div class="cert-icon"><i class="fas fa-globe"></i></div><div class="cert-year">2022</div><div class="cert-name">CGMA (Chartered Global Management Accountant)</div><div class="cert-org">CIMA</div></div>
+                <div class="cert-card reveal"><div class="cert-icon"><i class="fas fa-shield-alt"></i></div><div class="cert-year">2021</div><div class="cert-name">CFF (Certified in Financial Forensics)</div><div class="cert-org">AICPA</div></div>
+                <div class="cert-card reveal"><div class="cert-icon"><i class="fas fa-chart-simple"></i></div><div class="cert-year">2020</div><div class="cert-name">CFA Level III</div><div class="cert-org">CFA Institute</div></div>
+                <div class="cert-card reveal"><div class="cert-icon"><i class="fas fa-laptop-code"></i></div><div class="cert-year">2019</div><div class="cert-name">QuickBooks ProAdvisor</div><div class="cert-org">Intuit</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Languages -->
+    <section id="languages">
+        <div class="container">
+            <div class="section-label reveal">// Multilingual Advantage</div>
+            <h2 class="reveal">Spoken <em>Languages</em></h2>
+            <div class="languages-wrap reveal">
+                <div class="lang-items">
+                    <div class="lang-item"><div class="lang-name">English</div><div class="lang-level">Native</div></div>
+                    <div class="lang-item"><div class="lang-name">Spanish</div><div class="lang-level">Fluent (C2)</div></div>
+                    <div class="lang-item"><div class="lang-name">Portuguese</div><div class="lang-level">Professional</div></div>
+                    <div class="lang-item"><div class="lang-name">Mandarin</div><div class="lang-level">Conversational</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-label reveal">// Let's Connect</div>
+            <h2 class="reveal">Schedule a <em>Consultation</em></h2>
+            <div class="contact-grid">
+                <div class="contact-info reveal">
+                    <p>Ready to gain financial clarity? Whether you need tax strategy, audit support, or fractional CFO services — let's talk.</p>
+                    <div class="contact-details">
+                        <div class="contact-item"><div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div><div><strong>📍 Financial District</strong><br>New York, NY / Remote Worldwide</div></div>
+                        <div class="contact-item"><div class="contact-icon"><i class="fas fa-envelope"></i></div><div><strong>📧 Secure Email</strong><br>elena.vasquez@accounting.pro</div></div>
+                        <div class="contact-item"><div class="contact-icon"><i class="fas fa-phone-alt"></i></div><div><strong>📞 Direct Line</strong><br>+1 (212) 555 7890</div></div>
+                    </div>
+                    <div class="map-minimal">📍 Wall Street Area — New York City</div>
+                </div>
+                <form class="contact-form reveal" id="contactForm" onsubmit="handleSubmit(event)">
+                    <div class="form-group"><input type="text" placeholder="Full Name" id="name" required></div>
+                    <div class="form-group"><input type="email" placeholder="Email Address" id="email" required></div>
+                    <div class="form-group"><textarea rows="4" placeholder="Tell me about your financial needs..."></textarea></div>
+                    <button type="submit" class="btn-submit">Request a Call →</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">Elena Vasquez, CPA</div>
+        <div class="footer-links">
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+        </div>
+        <div class="copyright">© 2025 Elena Vasquez — Chartered Accountant | Financial Integrity & Precision</div>
+    </footer>
+
+    <script>
+        // Custom cursor subtle
+        const glow = document.getElementById('cursorGlow');
+        let mx = 0, my = 0;
+        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+        function animateCursor() {
+            if(glow) { glow.style.left = mx + 'px'; glow.style.top = my + 'px'; }
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Nav scroll effect
+        const navEl = document.getElementById('mainNav');
+        window.addEventListener('scroll', () => navEl.classList.toggle('scrolled', window.scrollY > 50));
+
+        // Reveal animations
+        const observer = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }), { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Mobile nav
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+        const closeBtn = document.getElementById('mobileNavClose');
+        hamburger?.addEventListener('click', () => mobileNav.classList.add('open'));
+        closeBtn?.addEventListener('click', () => mobileNav.classList.remove('open'));
+        document.querySelectorAll('.mobile-nav a').forEach(a => a.addEventListener('click', () => mobileNav.classList.remove('open')));
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+            });
+        });
+
+        // Form submit simulation
+        function handleSubmit(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('.btn-submit');
+            const original = btn.textContent;
+            btn.textContent = '✓ Message Sent';
+            btn.style.background = '#c6a15b';
+            setTimeout(() => {
+                btn.textContent = original;
+                btn.style.background = '#0a2540';
+                e.target.reset();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

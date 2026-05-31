@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Koushik — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #161616;
+    --card: #1a1a1a;
+    --border: rgba(255,255,255,0.07);
+    --accent: #c8f560;
+    --accent2: #7effc4;
+    --text: #f0ede6;
+    --muted: #8a8680;
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.65;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CURSOR */
+  .cursor {
+    position: fixed; top: 0; left: 0; z-index: 9999;
+    pointer-events: none;
+  }
+  .cursor-dot {
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    transform: translate(-50%,-50%);
+    transition: width .2s, height .2s, background .2s;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid rgba(200,245,96,0.4);
+    border-radius: 50%;
+    transform: translate(-50%,-50%);
+    transition: all .12s ease-out;
+  }
+  body:has(a:hover) .cursor-ring,
+  body:has(button:hover) .cursor-ring {
+    width: 56px; height: 56px;
+    border-color: var(--accent);
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 60px;
+    backdrop-filter: blur(24px);
+    background: rgba(10,10,10,0.7);
+    border-bottom: 1px solid var(--border);
+    animation: fadeDown .8s ease both;
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-decoration: none;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .nav-logo span {
+    display: inline-block;
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s ease infinite;
+  }
+
+  .nav-links {
+    display: flex; gap: 36px; list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color .2s;
+    font-weight: 400;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-cta {
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 10px 22px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: background .2s, transform .2s;
+  }
+  .nav-cta:hover { background: var(--accent2); transform: scale(1.03); }
+
+  /* SECTIONS */
+  section { position: relative; }
+
+  /* ——— HERO ——— */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 60px 80px;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 70% 30%, rgba(200,245,96,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 50% at 20% 80%, rgba(126,255,196,0.05) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(200,245,96,0.25);
+    padding: 7px 16px;
+    border-radius: 100px;
+    margin-bottom: 32px;
+    animation: fadeUp .8s .2s ease both;
+    position: relative; z-index: 1;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s ease infinite;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 9vw, 8.5rem);
+    font-weight: 800;
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    position: relative; z-index: 1;
+    animation: fadeUp .9s .35s ease both;
+  }
+  .hero-title .line { display: block; overflow: hidden; }
+  .hero-title em {
+    font-style: normal;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(240,237,230,0.35);
+  }
+  .hero-title .accent-word { color: var(--accent); }
+
+  .hero-bottom {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-top: 48px;
+    position: relative; z-index: 1;
+    animation: fadeUp 1s .5s ease both;
+  }
+
+  .hero-desc {
+    max-width: 380px;
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .hero-stats {
+    display: flex; gap: 48px;
+  }
+  .stat-item { text-align: right; }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .scroll-hint {
+    position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+    animation: fadeUp 1s .7s ease both;
+    z-index: 1;
+  }
+  .scroll-line {
+    width: 1px; height: 48px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scrollAnim 2s ease infinite;
+  }
+
+  /* ——— SHARED SECTION STYLES ——— */
+  .section-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 120px 60px;
+  }
+
+  .section-label {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 24px; height: 1px;
+    background: var(--accent);
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin-bottom: 64px;
+  }
+
+  /* ——— EDUCATION ——— */
+  #education { background: var(--bg2); }
+
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .edu-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color .3s, transform .3s;
+  }
+  .edu-card:hover {
+    border-color: rgba(200,245,96,0.3);
+    transform: translateY(-4px);
+  }
+  .edu-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity .3s;
+  }
+  .edu-card:hover::before { opacity: 1; }
+
+  .edu-year {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+  .edu-degree {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .edu-school {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .edu-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .edu-gpa {
+    position: absolute; top: 32px; right: 32px;
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    background: rgba(200,245,96,0.12);
+    color: var(--accent);
+    padding: 6px 12px;
+    border-radius: 100px;
+    letter-spacing: 0.06em;
+  }
+
+  /* ——— WORK EXPERIENCE ——— */
+  #work { background: var(--bg); }
+
+  .work-list { display: flex; flex-direction: column; gap: 0; }
+
+  .work-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    transition: all .3s;
+  }
+  .work-item:first-child { border-top: 1px solid var(--border); }
+  .work-item::after {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 0;
+    background: linear-gradient(90deg, rgba(200,245,96,0.04), transparent);
+    transition: width .4s;
+  }
+  .work-item:hover::after { width: 100%; }
+
+  .work-left { padding-top: 4px; }
+  .work-period {
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1.5;
+  }
+  .work-type {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(200,245,96,0.25);
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+
+  .work-right {}
+  .work-header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .work-role {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .work-company {
+    font-size: 0.9rem;
+    color: var(--accent);
+    margin-top: 4px;
+    font-weight: 400;
+  }
+  .work-arrow {
+    width: 40px; height: 40px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted);
+    font-size: 1rem;
+    flex-shrink: 0;
+    transition: all .3s;
+  }
+  .work-item:hover .work-arrow {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(200,245,96,0.08);
+  }
+  .work-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 20px;
+    max-width: 560px;
+  }
+  .work-tags {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .work-tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: rgba(255,255,255,0.05);
+    padding: 5px 12px;
+    border-radius: 6px;
+  }
+
+  /* ——— CASE STUDIES ——— */
+  #casestudies { background: var(--bg3); }
+
+  .case-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .case-grid .case-featured {
+    grid-column: span 2;
+  }
+
+  .case-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    overflow: hidden;
+    transition: transform .35s ease, border-color .3s;
+    cursor: pointer;
+    position: relative;
+  }
+  .case-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(200,245,96,0.25);
+  }
+
+  .case-thumb {
+    height: 260px;
+    position: relative;
+    overflow: hidden;
+  }
+  .case-featured .case-thumb { height: 380px; }
+
+  .case-thumb-bg {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 7rem;
+    transition: transform .5s ease;
+  }
+  .case-card:hover .case-thumb-bg { transform: scale(1.08); }
+
+  .bg-a { background: linear-gradient(135deg, #1a2a1a 0%, #0d1f15 100%); }
+  .bg-b { background: linear-gradient(135deg, #1a1a2a 0%, #0d0d20 100%); }
+  .bg-c { background: linear-gradient(135deg, #2a1a1a 0%, #1f0d0d 100%); }
+
+  .case-num {
+    position: absolute; top: 24px; left: 24px;
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.3);
+  }
+  .case-chip {
+    position: absolute; top: 24px; right: 24px;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(200,245,96,0.12);
+    border: 1px solid rgba(200,245,96,0.2);
+    padding: 5px 12px;
+    border-radius: 100px;
+  }
+
+  .case-body {
+    padding: 28px 32px 32px;
+  }
+  .case-category {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .case-title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .case-featured .case-title { font-size: 2rem; }
+  .case-excerpt {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+  .case-footer {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .case-metrics {
+    display: flex; gap: 24px;
+  }
+  .metric {
+    text-align: left;
+  }
+  .metric-val {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .metric-key {
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .case-link {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    transition: gap .2s;
+  }
+  .case-link:hover { gap: 12px; }
+
+  /* ——— CONTACT ——— */
+  #contact { background: var(--bg2); }
+
+  .contact-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .contact-left {}
+  .contact-intro {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.75;
+    max-width: 380px;
+    margin-bottom: 48px;
+  }
+
+  .contact-links {
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .contact-link-item {
+    display: flex; align-items: center; gap: 16px;
+    padding: 20px 24px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    text-decoration: none;
+    transition: border-color .3s, transform .2s;
+  }
+  .contact-link-item:hover {
+    border-color: rgba(200,245,96,0.3);
+    transform: translateX(4px);
+  }
+  .contact-icon {
+    width: 42px; height: 42px;
+    background: rgba(200,245,96,0.1);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .contact-link-text {}
+  .contact-link-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2px;
+  }
+  .contact-link-value {
+    font-size: 0.95rem;
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  /* FORM */
+  .contact-form {
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-group label {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 18px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 300;
+    outline: none;
+    transition: border-color .2s;
+    resize: none;
+    appearance: none;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    border-color: rgba(200,245,96,0.4);
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: rgba(138,134,128,0.5);
+  }
+  .form-group textarea { height: 120px; }
+
+  .form-submit {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 8px;
+  }
+  .submit-btn {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--accent);
+    border: none;
+    padding: 16px 32px;
+    border-radius: 100px;
+    cursor: none;
+    transition: background .2s, transform .2s;
+  }
+  .submit-btn:hover { background: var(--accent2); transform: scale(1.02); }
+  .submit-note {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--bg);
+  }
+  .footer-copy {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  .footer-back {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color .2s;
+  }
+  .footer-back:hover { color: var(--accent); }
+
+  /* ANIMATIONS */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  @keyframes scrollAnim {
+    0% { opacity: 1; transform: scaleY(1); transform-origin: top; }
+    100% { opacity: 0; transform: scaleY(0); transform-origin: top; }
+  }
+
+  /* REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: .1s; }
+  .reveal-delay-2 { transition-delay: .2s; }
+  .reveal-delay-3 { transition-delay: .3s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    #hero { padding: 0 24px 64px; }
+    .hero-stats { gap: 24px; }
+    .section-wrap { padding: 80px 24px; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .work-item { grid-template-columns: 1fr; gap: 12px; }
+    .work-left { display: flex; align-items: center; gap: 12px; }
+    .case-grid { grid-template-columns: 1fr; }
+    .case-grid .case-featured { grid-column: span 1; }
+    .contact-wrap { grid-template-columns: 1fr; gap: 48px; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor">
+  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo"><span></span>Koushik.</a>
+  <ul class="nav-links">
+    <li><a href="#education">Education</a></li>
+    <li><a href="#work">Experience</a></li>
+    <li><a href="#casestudies">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Let's Talk</a>
+</nav>
+
+<!-- ——— HERO ——— -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-badge">
+    <span></span> Available for opportunities · 2026
+  </div>
+
+  <h1 class="hero-title">
+    <span class="line">Designer &amp;</span>
+    <span class="line"><em>Developer</em></span>
+    <span class="line accent-word">Koushik</span>
+  </h1>
+
+  <div class="hero-bottom">
+    <p class="hero-desc">
+      Crafting thoughtful digital experiences through clean code, sharp interfaces, and user-first thinking. Turning complex problems into elegant solutions.
+    </p>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">3+</div>
+        <div class="stat-label">Years Exp.</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">18</div>
+        <div class="stat-label">Projects</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">12</div>
+        <div class="stat-label">Clients</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- ——— EDUCATION ——— -->
+<section id="education">
+  <div class="section-wrap">
+    <div class="section-label">Education</div>
+    <h2 class="section-title">Where I learned<br/>to think.</h2>
+
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <div class="edu-gpa">GPA 3.9</div>
+        <div class="edu-year">2019 — 2023</div>
+        <div class="edu-degree">B.Tech in Computer Science</div>
+        <div class="edu-school">Indian Institute of Technology · Delhi</div>
+        <p class="edu-desc">Specialized in Human-Computer Interaction and Software Engineering. Led the university's UX Research Club and won the Annual Hackathon in 2022.</p>
+      </div>
+
+      <div class="edu-card reveal reveal-delay-1">
+        <div class="edu-gpa">Distinction</div>
+        <div class="edu-year">2024 — Ongoing</div>
+        <div class="edu-degree">M.S. in Human-Computer Interaction</div>
+        <div class="edu-school">Carnegie Mellon University · Pittsburgh</div>
+        <p class="edu-desc">Research focus on AI-augmented design tools and accessible interface patterns. TA for the foundational Interaction Design course under Prof. Sarah Kim.</p>
+      </div>
+
+      <div class="edu-card reveal reveal-delay-2">
+        <div class="edu-year">2023</div>
+        <div class="edu-degree">Google UX Design Certificate</div>
+        <div class="edu-school">Google · Coursera</div>
+        <p class="edu-desc">Completed a 7-course professional certificate covering design thinking, wireframing, prototyping, and usability testing with a comprehensive capstone project.</p>
+      </div>
+
+      <div class="edu-card reveal reveal-delay-3">
+        <div class="edu-year">2022</div>
+        <div class="edu-degree">AWS Certified Developer</div>
+        <div class="edu-school">Amazon Web Services</div>
+        <p class="edu-desc">Certified in cloud-native application development, serverless architectures, and DevOps practices on the AWS platform. Associate level certification.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ——— WORK EXPERIENCE ——— -->
+<section id="work">
+  <div class="section-wrap">
+    <div class="section-label">Experience</div>
+    <h2 class="section-title">Where I've<br/>made impact.</h2>
+
+    <div class="work-list">
+
+      <div class="work-item reveal">
+        <div class="work-left">
+          <div class="work-period">Jan 2025<br/>Present</div>
+          <div class="work-type">Full-time</div>
+        </div>
+        <div class="work-right">
+          <div class="work-header">
+            <div>
+              <div class="work-role">Senior Product Designer</div>
+              <div class="work-company">Vercel Inc.</div>
+            </div>
+            <div class="work-arrow">↗</div>
+          </div>
+          <p class="work-desc">Leading the design system overhaul for the developer dashboard, improving developer experience for 2M+ users. Collaborating cross-functionally with engineering and PM to ship high-impact features in 2-week sprints.</p>
+          <div class="work-tags">
+            <span class="work-tag">Design Systems</span>
+            <span class="work-tag">Figma</span>
+            <span class="work-tag">User Research</span>
+            <span class="work-tag">React</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-item reveal">
+        <div class="work-left">
+          <div class="work-period">Jun 2023<br/>Dec 2024</div>
+          <div class="work-type">Full-time</div>
+        </div>
+        <div class="work-right">
+          <div class="work-header">
+            <div>
+              <div class="work-role">Frontend Engineer</div>
+              <div class="work-company">Razorpay · Bangalore</div>
+            </div>
+            <div class="work-arrow">↗</div>
+          </div>
+          <p class="work-desc">Built and shipped the merchant analytics dashboard from 0 to 1, processing ₹500Cr+ in monthly transactions. Reduced page load time by 62% through lazy loading and bundle optimization strategies.</p>
+          <div class="work-tags">
+            <span class="work-tag">Next.js</span>
+            <span class="work-tag">TypeScript</span>
+            <span class="work-tag">Tailwind</span>
+            <span class="work-tag">D3.js</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-item reveal">
+        <div class="work-left">
+          <div class="work-period">May 2022<br/>Aug 2022</div>
+          <div class="work-type">Internship</div>
+        </div>
+        <div class="work-right">
+          <div class="work-header">
+            <div>
+              <div class="work-role">UX Design Intern</div>
+              <div class="work-company">Microsoft · Hyderabad</div>
+            </div>
+            <div class="work-arrow">↗</div>
+          </div>
+          <p class="work-desc">Redesigned onboarding flow for Microsoft Teams Education, reducing new user drop-off by 38%. Conducted 24 usability sessions and synthesized findings into actionable design improvements.</p>
+          <div class="work-tags">
+            <span class="work-tag">UX Research</span>
+            <span class="work-tag">Prototyping</span>
+            <span class="work-tag">A/B Testing</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-item reveal">
+        <div class="work-left">
+          <div class="work-period">2021<br/>2023</div>
+          <div class="work-type">Freelance</div>
+        </div>
+        <div class="work-right">
+          <div class="work-header">
+            <div>
+              <div class="work-role">Independent Designer</div>
+              <div class="work-company">Self-employed</div>
+            </div>
+            <div class="work-arrow">↗</div>
+          </div>
+          <p class="work-desc">Designed and developed web products for 8 startups across fintech, edtech, and SaaS verticals. Delivered full design-to-code pipelines solo, consistently on-time and within budget.</p>
+          <div class="work-tags">
+            <span class="work-tag">Branding</span>
+            <span class="work-tag">Web Design</span>
+            <span class="work-tag">Vue.js</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ——— CASE STUDIES ——— -->
+<section id="casestudies">
+  <div class="section-wrap">
+    <div class="section-label">Case Studies</div>
+    <h2 class="section-title">Thinking behind<br/>the work.</h2>
+
+    <div class="case-grid">
+
+      <!-- Featured -->
+      <div class="case-card case-featured reveal">
+        <div class="case-thumb bg-a">
+          <div class="case-thumb-bg">📊</div>
+          <div class="case-num">01 / Featured</div>
+          <div class="case-chip">Product Design</div>
+        </div>
+        <div class="case-body">
+          <div class="case-category">Dashboard Redesign · Razorpay</div>
+          <div class="case-title">Merchant Analytics: From Chaos to Clarity</div>
+          <p class="case-excerpt">Merchants were abandoning the analytics section. The data was there — but it wasn't speaking. Over 12 weeks, I led a complete redesign of the analytics dashboard: mapping jobs-to-be-done, cutting cognitive load by 40%, and turning passive data-viewing into active business decision-making.</p>
+          <div class="case-footer">
+            <div class="case-metrics">
+              <div class="metric">
+                <div class="metric-val">+62%</div>
+                <div class="metric-key">Engagement</div>
+              </div>
+              <div class="metric">
+                <div class="metric-val">–40%</div>
+                <div class="metric-key">Support Tickets</div>
+              </div>
+              <div class="metric">
+                <div class="metric-val">4.7★</div>
+                <div class="metric-key">User Rating</div>
+              </div>
+            </div>
+            <a href="#" class="case-link">Read Case Study ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="case-card reveal reveal-delay-1">
+        <div class="case-thumb bg-b">
+          <div class="case-thumb-bg">🎓</div>
+          <div class="case-num">02</div>
+          <div class="case-chip">UX Research</div>
+        </div>
+        <div class="case-body">
+          <div class="case-category">Onboarding · Microsoft Teams</div>
+          <div class="case-title">Helping Educators Actually Use Teams</div>
+          <p class="case-excerpt">24 usability sessions revealed a hidden mental model mismatch. Redesigned onboarding reduced first-week churn by 38%.</p>
+          <div class="case-footer">
+            <div class="case-metrics">
+              <div class="metric">
+                <div class="metric-val">–38%</div>
+                <div class="metric-key">Drop-off</div>
+              </div>
+            </div>
+            <a href="#" class="case-link">Read ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="case-card reveal reveal-delay-2">
+        <div class="case-thumb bg-c">
+          <div class="case-thumb-bg">⚡</div>
+          <div class="case-num">03</div>
+          <div class="case-chip">Engineering</div>
+        </div>
+        <div class="case-body">
+          <div class="case-category">Performance · Frontend</div>
+          <div class="case-title">62% Faster: The Optimization Playbook</div>
+          <p class="case-excerpt">How a systematic approach to bundle splitting, lazy loading, and CDN strategy transformed a sluggish fintech app into a sub-second experience.</p>
+          <div class="case-footer">
+            <div class="case-metrics">
+              <div class="metric">
+                <div class="metric-val">0.8s</div>
+                <div class="metric-key">Load Time</div>
+              </div>
+            </div>
+            <a href="#" class="case-link">Read ↗</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ——— CONTACT ——— -->
+<section id="contact">
+  <div class="section-wrap">
+    <div class="section-label">Contact</div>
+    <h2 class="section-title">Let's build<br/>something great.</h2>
+
+    <div class="contact-wrap">
+      <div class="contact-left">
+        <p class="contact-intro">
+          I'm currently open to full-time roles, freelance projects, and design collaborations. If you have something interesting brewing, I'd love to hear about it.
+        </p>
+
+        <div class="contact-links">
+          <a href="mailto:koushik@email.com" class="contact-link-item">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-link-text">
+              <div class="contact-link-label">Email</div>
+              <div class="contact-link-value">koushik@email.com</div>
+            </div>
+          </a>
+          <a href="#" class="contact-link-item">
+            <div class="contact-icon">💼</div>
+            <div class="contact-link-text">
+              <div class="contact-link-label">LinkedIn</div>
+              <div class="contact-link-value">linkedin.com/in/koushik</div>
+            </div>
+          </a>
+          <a href="#" class="contact-link-item">
+            <div class="contact-icon">🐙</div>
+            <div class="contact-link-text">
+              <div class="contact-link-label">GitHub</div>
+              <div class="contact-link-value">github.com/koushik</div>
+            </div>
+          </a>
+          <a href="#" class="contact-link-item">
+            <div class="contact-icon">🎨</div>
+            <div class="contact-link-text">
+              <div class="contact-link-label">Dribbble</div>
+              <div class="contact-link-value">dribbble.com/koushik</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-right">
+        <div class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" placeholder="Your name" />
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="your@email.com" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Subject</label>
+            <select>
+              <option value="" disabled selected>What's this about?</option>
+              <option>Full-time Role</option>
+              <option>Freelance Project</option>
+              <option>Collaboration</option>
+              <option>Just Saying Hi 👋</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Budget (optional)</label>
+            <select>
+              <option value="" disabled selected>Project budget range</option>
+              <option>Under $5K</option>
+              <option>$5K – $15K</option>
+              <option>$15K – $50K</option>
+              <option>$50K+</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea placeholder="Tell me about your project, timeline, and goals…"></textarea>
+          </div>
+          <div class="form-submit">
+            <button class="submit-btn" onclick="handleSubmit(this)">
+              Send Message <span>→</span>
+            </button>
+            <span class="submit-note">Usually replies within 24h</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2026 Koushik. Designed &amp; developed with ♥</div>
+  <a href="#hero" class="footer-back">Back to top ↑</a>
+</footer>
+
+<script>
+  // Cursor
+  const ring = document.getElementById('cursorRing');
+  const dot = document.getElementById('cursorDot');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animCursor() {
+    rx += (mx - rx) * 0.15;
+    ry += (my - ry) * 0.15;
+    dot.style.left = mx + 'px';
+    dot.style.top = my + 'px';
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animCursor);
+  }
+  animCursor();
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // Form submit
+  function handleSubmit(btn) {
+    btn.textContent = '✓ Sent!';
+    btn.style.background = '#7effc4';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.innerHTML = 'Send Message <span>→</span>';
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 3000);
+  }
+</script>
+</body>
+</html>

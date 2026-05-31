@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sarah Mitchell — HR Leader</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  /* ── Reset & Base ──────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --white:   #fafaf8;
+    --offwhite:#f2f0eb;
+    --stone:   #e8e4dc;
+    --mist:    #c9d4d0;
+    --sage:    #7a9e8e;
+    --sage-dk: #4e7a6a;
+    --slate:   #3c4f5c;
+    --ink:     #1e2b33;
+    --gold:    #b89b6a;
+    --text:    #2a3540;
+    --text-lt: #6b7f8a;
+    --radius:  6px;
+    --section: 110px;
+    font-size: 16px;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  h1,h2,h3,h4 { font-family: 'Cormorant Garamond', serif; font-weight: 600; line-height: 1.15; }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+
+  /* ── Utility ───────────────────────────────────────── */
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+  .label {
+    font-size: .7rem; font-weight: 500; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--sage); display: block; margin-bottom: 14px;
+  }
+  .tag {
+    display: inline-block; font-size: .72rem; font-weight: 500; letter-spacing: .1em;
+    text-transform: uppercase; padding: 5px 14px; border-radius: 40px;
+    background: var(--offwhite); color: var(--text-lt); border: 1px solid var(--stone);
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 30px; border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif; font-size: .85rem; font-weight: 500;
+    letter-spacing: .04em; cursor: pointer; transition: all .25s;
+  }
+  .btn-primary { background: var(--slate); color: #fff; }
+  .btn-primary:hover { background: var(--ink); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(30,43,51,.18); }
+  .btn-outline { background: transparent; color: var(--slate); border: 1.5px solid var(--slate); }
+  .btn-outline:hover { background: var(--slate); color: #fff; transform: translateY(-2px); }
+
+  /* fade-in on scroll */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── Nav ───────────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 20px 0;
+    transition: background .3s, box-shadow .3s;
+  }
+  nav.scrolled { background: rgba(250,250,248,.95); backdrop-filter: blur(12px); box-shadow: 0 1px 0 var(--stone); }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-weight: 600; color: var(--ink); letter-spacing: .02em; }
+  .nav-logo span { color: var(--sage); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { font-size: .82rem; font-weight: 500; letter-spacing: .05em; color: var(--text-lt); transition: color .2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta { font-size: .8rem; font-weight: 500; padding: 10px 22px; border-radius: var(--radius); background: var(--sage); color: #fff; transition: background .2s, transform .2s; }
+  .nav-cta:hover { background: var(--sage-dk); transform: translateY(-1px); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 24px; height: 2px; background: var(--ink); transition: .3s; display: block; }
+
+  /* ── Hero ──────────────────────────────────────────── */
+  #hero {
+    min-height: 100vh; display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    background: linear-gradient(135deg, #f5f3ee 0%, #eaede8 50%, #dfe7e3 100%);
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      radial-gradient(ellipse 60% 70% at 75% 50%, rgba(122,158,142,.13) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 50% at 20% 80%, rgba(184,155,106,.08) 0%, transparent 60%);
+  }
+  .hero-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 80px; position: relative; z-index: 1; padding: var(--section) 0; }
+  .hero-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+  .hero-eyebrow::before { content: ''; width: 36px; height: 1.5px; background: var(--sage); }
+  .hero-eyebrow span { font-size: .75rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--sage); }
+  .hero-title { font-size: clamp(2.6rem, 5vw, 4.2rem); color: var(--ink); margin-bottom: 22px; line-height: 1.1; }
+  .hero-title em { font-style: italic; color: var(--sage-dk); }
+  .hero-sub { font-size: 1.05rem; color: var(--text-lt); max-width: 460px; margin-bottom: 38px; line-height: 1.75; }
+  .hero-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 38px; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
+  .hero-image-wrap {
+    position: relative; border-radius: 200px 200px 60% 60% / 200px 200px 80px 80px;
+    overflow: hidden; aspect-ratio: 3/4; max-height: 620px;
+    box-shadow: 0 40px 80px rgba(30,43,51,.15);
+  }
+  .hero-image-wrap img { width: 100%; height: 100%; object-fit: cover; }
+  .hero-badge {
+    position: absolute; bottom: 32px; left: -24px;
+    background: var(--white); border-radius: 14px;
+    padding: 16px 22px; box-shadow: 0 12px 40px rgba(30,43,51,.12);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .hero-badge-icon { width: 44px; height: 44px; border-radius: 50%; background: var(--sage); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+  .hero-badge-text strong { display: block; font-size: .9rem; font-weight: 600; color: var(--ink); }
+  .hero-badge-text span { font-size: .76rem; color: var(--text-lt); }
+  .hero-stat-row { display: flex; gap: 40px; margin-top: 44px; padding-top: 32px; border-top: 1px solid var(--stone); }
+  .hero-stat strong { display: block; font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 600; color: var(--ink); line-height: 1; }
+  .hero-stat span { font-size: .78rem; color: var(--text-lt); letter-spacing: .04em; }
+
+  /* ── Section headings ──────────────────────────────── */
+  .section-head { text-align: center; max-width: 580px; margin: 0 auto 72px; }
+  .section-head h2 { font-size: clamp(2rem, 4vw, 3rem); color: var(--ink); margin-bottom: 16px; }
+  .section-head p { color: var(--text-lt); font-size: .98rem; }
+
+  /* ── About ─────────────────────────────────────────── */
+  #about { padding: var(--section) 0; }
+  .about-grid { display: grid; grid-template-columns: 400px 1fr; gap: 80px; align-items: center; }
+  .about-photo {
+    position: relative; border-radius: 20px; overflow: hidden;
+    aspect-ratio: 4/5; box-shadow: 0 24px 64px rgba(30,43,51,.12);
+  }
+  .about-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .about-photo-accent {
+    position: absolute; bottom: -1px; left: -1px; right: -1px; padding: 28px;
+    background: linear-gradient(to top, rgba(30,43,51,.75) 0%, transparent 100%);
+    color: #fff;
+  }
+  .about-photo-accent strong { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; display: block; }
+  .about-photo-accent span { font-size: .78rem; opacity: .8; }
+  .about-content h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); color: var(--ink); margin-bottom: 20px; }
+  .about-content p { color: var(--text-lt); margin-bottom: 16px; font-size: .97rem; }
+  .about-strengths { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 32px; }
+  .strength-item { display: flex; align-items: flex-start; gap: 12px; padding: 16px; background: var(--offwhite); border-radius: var(--radius); border-left: 3px solid var(--sage); }
+  .strength-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+  .strength-item strong { display: block; font-size: .88rem; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
+  .strength-item span { font-size: .78rem; color: var(--text-lt); }
+
+  /* ── Services ──────────────────────────────────────── */
+  #services { padding: var(--section) 0; background: var(--offwhite); }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .service-card {
+    background: var(--white); border-radius: 16px; padding: 36px 30px;
+    border: 1px solid var(--stone); transition: all .3s; position: relative; overflow: hidden;
+  }
+  .service-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(122,158,142,.04), transparent); opacity: 0; transition: opacity .3s; }
+  .service-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(30,43,51,.1); border-color: var(--mist); }
+  .service-card:hover::after { opacity: 1; }
+  .service-icon { width: 52px; height: 52px; border-radius: 14px; background: linear-gradient(135deg, var(--sage), var(--sage-dk)); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 22px; }
+  .service-card h3 { font-size: 1.25rem; color: var(--ink); margin-bottom: 10px; }
+  .service-card p { font-size: .85rem; color: var(--text-lt); line-height: 1.7; }
+
+  /* ── Timeline ──────────────────────────────────────── */
+  #experience { padding: var(--section) 0; }
+  .timeline { position: relative; max-width: 820px; margin: 0 auto; }
+  .timeline::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--stone); transform: translateX(-50%); }
+  .tl-item { display: grid; grid-template-columns: 1fr 60px 1fr; gap: 0 20px; margin-bottom: 60px; align-items: start; }
+  .tl-content { background: var(--white); border: 1px solid var(--stone); border-radius: 14px; padding: 28px 26px; }
+  .tl-content.right { grid-column: 3; }
+  .tl-content.left { grid-column: 1; text-align: right; }
+  .tl-dot { grid-column: 2; display: flex; justify-content: center; align-items: center; padding-top: 22px; }
+  .tl-dot-inner { width: 14px; height: 14px; border-radius: 50%; background: var(--sage); border: 3px solid var(--white); box-shadow: 0 0 0 3px var(--sage); }
+  .tl-year { font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--sage); margin-bottom: 6px; }
+  .tl-content h3 { font-size: 1.15rem; color: var(--ink); margin-bottom: 4px; }
+  .tl-company { font-size: .83rem; color: var(--text-lt); margin-bottom: 12px; }
+  .tl-content p { font-size: .84rem; color: var(--text-lt); line-height: 1.7; }
+  .tl-metric { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; background: var(--offwhite); border-radius: 40px; padding: 5px 14px; font-size: .76rem; font-weight: 500; color: var(--sage-dk); }
+
+  /* ── Skills ────────────────────────────────────────── */
+  #skills { padding: var(--section) 0; background: var(--slate); }
+  #skills .label { color: var(--mist); }
+  #skills .section-head h2 { color: var(--white); }
+  #skills .section-head p { color: var(--mist); }
+  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+  .skill-group h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--white); margin-bottom: 28px; }
+  .skill-row { margin-bottom: 22px; }
+  .skill-row-top { display: flex; justify-content: space-between; margin-bottom: 8px; }
+  .skill-name { font-size: .84rem; font-weight: 500; color: rgba(255,255,255,.85); }
+  .skill-pct { font-size: .78rem; color: var(--mist); }
+  .skill-bar { height: 5px; background: rgba(255,255,255,.1); border-radius: 10px; overflow: hidden; }
+  .skill-fill { height: 100%; background: linear-gradient(90deg, var(--sage), var(--gold)); border-radius: 10px; width: 0; transition: width 1.2s cubic-bezier(.4,0,.2,1); }
+  .tools-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+  .tool-chip { padding: 8px 16px; border-radius: 40px; border: 1px solid rgba(255,255,255,.15); font-size: .78rem; color: rgba(255,255,255,.75); background: rgba(255,255,255,.05); transition: all .2s; }
+  .tool-chip:hover { background: rgba(255,255,255,.12); color: #fff; }
+
+  /* ── Certifications ────────────────────────────────── */
+  #certifications { padding: var(--section) 0; }
+  .certs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .cert-card {
+    border: 1px solid var(--stone); border-radius: 14px; padding: 28px 22px; text-align: center;
+    transition: all .3s; background: var(--white);
+  }
+  .cert-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(30,43,51,.08); border-color: var(--mist); }
+  .cert-badge { width: 56px; height: 56px; margin: 0 auto 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; background: var(--offwhite); }
+  .cert-card strong { display: block; font-size: .95rem; color: var(--ink); margin-bottom: 6px; }
+  .cert-card span { font-size: .78rem; color: var(--text-lt); }
+  .cert-year { display: block; margin-top: 10px; font-size: .72rem; font-weight: 600; letter-spacing: .08em; color: var(--sage); text-transform: uppercase; }
+
+  /* ── Testimonials ──────────────────────────────────── */
+  #testimonials { padding: var(--section) 0; background: var(--offwhite); }
+  .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .testi-card { background: var(--white); border-radius: 16px; padding: 34px 28px; border: 1px solid var(--stone); position: relative; }
+  .testi-quote { font-size: 3rem; line-height: 1; color: var(--mist); font-family: 'Cormorant Garamond', serif; position: absolute; top: 18px; right: 26px; }
+  .testi-text { font-family: 'Cormorant Garamond', serif; font-size: 1.12rem; font-style: italic; color: var(--text); line-height: 1.7; margin-bottom: 24px; }
+  .testi-person { display: flex; align-items: center; gap: 14px; }
+  .testi-avatar { width: 44px; height: 44px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: var(--mist); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+  .testi-person strong { display: block; font-size: .88rem; font-weight: 600; color: var(--ink); }
+  .testi-person span { font-size: .76rem; color: var(--text-lt); }
+
+  /* ── Case Studies ──────────────────────────────────── */
+  #cases { padding: var(--section) 0; }
+  .cases-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+  .case-card {
+    border-radius: 18px; overflow: hidden; border: 1px solid var(--stone);
+    transition: all .3s; display: flex; flex-direction: column;
+  }
+  .case-card:hover { transform: translateY(-5px); box-shadow: 0 24px 64px rgba(30,43,51,.1); }
+  .case-header { padding: 36px 32px 28px; background: linear-gradient(135deg, var(--slate), var(--ink)); color: #fff; }
+  .case-header .tag { background: rgba(255,255,255,.15); color: rgba(255,255,255,.9); border-color: transparent; }
+  .case-header h3 { font-size: 1.4rem; margin-top: 14px; margin-bottom: 8px; }
+  .case-header p { font-size: .85rem; opacity: .8; }
+  .case-body { padding: 28px 32px; flex: 1; }
+  .case-metrics { display: flex; gap: 24px; margin-bottom: 20px; }
+  .case-metric { text-align: center; }
+  .case-metric strong { display: block; font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--sage-dk); line-height: 1; }
+  .case-metric span { font-size: .72rem; color: var(--text-lt); letter-spacing: .04em; }
+  .case-body p { font-size: .86rem; color: var(--text-lt); line-height: 1.7; }
+
+  /* ── Contact ───────────────────────────────────────── */
+  #contact { padding: var(--section) 0; background: var(--offwhite); }
+  .contact-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .contact-info h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); color: var(--ink); margin-bottom: 16px; }
+  .contact-info p { color: var(--text-lt); margin-bottom: 36px; }
+  .contact-links { display: flex; flex-direction: column; gap: 16px; }
+  .contact-link { display: flex; align-items: center; gap: 14px; padding: 16px 20px; background: var(--white); border-radius: var(--radius); border: 1px solid var(--stone); transition: all .2s; }
+  .contact-link:hover { border-color: var(--sage); transform: translateX(4px); }
+  .contact-link-icon { width: 38px; height: 38px; border-radius: 50%; background: var(--offwhite); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+  .contact-link strong { display: block; font-size: .88rem; color: var(--ink); }
+  .contact-link span { font-size: .78rem; color: var(--text-lt); }
+  .contact-form { background: var(--white); border-radius: 18px; padding: 40px 36px; border: 1px solid var(--stone); }
+  .form-group { margin-bottom: 20px; }
+  .form-group label { display: block; font-size: .78rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--text-lt); margin-bottom: 8px; }
+  .form-group input, .form-group textarea {
+    width: 100%; padding: 13px 16px; border: 1.5px solid var(--stone);
+    border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: .9rem;
+    color: var(--text); background: var(--offwhite); transition: border-color .2s, background .2s; outline: none;
+  }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--sage); background: var(--white); }
+  .form-group textarea { resize: vertical; min-height: 130px; }
+  .form-submit { width: 100%; padding: 15px; background: var(--slate); color: #fff; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: .9rem; font-weight: 500; cursor: pointer; transition: all .25s; letter-spacing: .04em; }
+  .form-submit:hover { background: var(--ink); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(30,43,51,.18); }
+
+  /* ── Footer ────────────────────────────────────────── */
+  footer { background: var(--ink); color: rgba(255,255,255,.6); padding: 48px 0; }
+  .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: #fff; }
+  .footer-logo span { color: var(--sage); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: .78rem; letter-spacing: .04em; transition: color .2s; }
+  .footer-links a:hover { color: #fff; }
+  .footer-copy { font-size: .76rem; }
+  .footer-socials { display: flex; gap: 12px; }
+  .social-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,.15); display: flex; align-items: center; justify-content: center; font-size: .9rem; transition: all .2s; }
+  .social-btn:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.3); }
+
+  /* ── Responsive ────────────────────────────────────── */
+  @media (max-width: 1020px) {
+    .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    .about-photo { max-width: 360px; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .certs-grid { grid-template-columns: repeat(2, 1fr); }
+    .testi-grid { grid-template-columns: 1fr 1fr; }
+    .cases-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; gap: 48px; }
+    .contact-wrap { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 760px) {
+    :root { --section: 72px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 48px; text-align: center; }
+    .hero-image-wrap { max-height: 440px; margin: 0 auto; }
+    .hero-badge { left: 0; }
+    .hero-stat-row { justify-content: center; }
+    .hero-chips, .hero-actions { justify-content: center; }
+    .hero-eyebrow { justify-content: center; }
+    .tl-item { grid-template-columns: 1fr; }
+    .timeline::before { left: 20px; }
+    .tl-content.left, .tl-content.right { grid-column: 1; text-align: left; }
+    .tl-dot { display: none; }
+    .services-grid, .testi-grid, .certs-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .about-strengths { grid-template-columns: 1fr; }
+    .footer-inner { flex-direction: column; text-align: center; }
+    .contact-form { padding: 28px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ─────────────────────────────────────────────── -->
+<nav id="nav">
+  <div class="wrap">
+    <a href="#hero" class="nav-logo">Sarah<span>.</span>Mitchell</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#cases">Work</a></li>
+    </ul>
+    <a href="#contact" class="btn nav-cta">Let's Talk</a>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="hero-eyebrow"><span>People First — Always</span></div>
+        <h1 class="hero-title">Building Strong Teams &amp; <em>Positive Work Cultures</em></h1>
+        <p class="hero-sub">Senior HR leader with 12+ years helping organizations attract, develop, and retain top talent while building workplaces where people genuinely thrive.</p>
+        <div class="hero-chips">
+          <span class="tag">Talent Acquisition</span>
+          <span class="tag">Employee Engagement</span>
+          <span class="tag">HR Strategy</span>
+          <span class="tag">Organisational Design</span>
+        </div>
+        <div class="hero-actions">
+          <a href="#experience" class="btn btn-primary">View Experience →</a>
+          <a href="#contact" class="btn btn-outline">Contact Me</a>
+        </div>
+        <div class="hero-stat-row">
+          <div class="hero-stat"><strong>12+</strong><span>Years in HR</span></div>
+          <div class="hero-stat"><strong>3K+</strong><span>Hires Placed</span></div>
+          <div class="hero-stat"><strong>8</strong><span>Organisations</span></div>
+        </div>
+      </div>
+      <div style="position:relative;">
+        <div class="hero-image-wrap">
+          <!-- Professional HR photo via Unsplash -->
+          <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&q=85&auto=format&fit=crop" alt="Sarah Mitchell, HR Director" />
+        </div>
+        <div class="hero-badge">
+          <div class="hero-badge-icon">🏆</div>
+          <div class="hero-badge-text">
+            <strong>SHRM-SCP Certified</strong>
+            <span>Senior Certified Professional</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ───────────────────────────────────────────── -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid reveal">
+      <div class="about-photo">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&q=85&auto=format&fit=crop" alt="Sarah Mitchell" />
+        <div class="about-photo-accent">
+          <strong>Sarah Mitchell</strong>
+          <span>HR Director · London, UK</span>
+        </div>
+      </div>
+      <div class="about-content">
+        <span class="label">About Me</span>
+        <h2>A Strategic HR Leader Who Believes in the Power of People</h2>
+        <p>I'm Sarah Mitchell, a strategic HR professional with over 12 years of experience spanning financial services, technology, and retail. I specialise in designing HR frameworks that balance business objectives with genuine employee wellbeing.</p>
+        <p>My philosophy is simple: when people feel seen, valued, and challenged, organisations flourish. I've led transformational HR programmes across EMEA and partnered with C-suite executives to build cultures where performance and humanity coexist.</p>
+        <p>When I'm not redesigning onboarding journeys or coaching managers, you'll find me mentoring early-career HR professionals through the CIPD network.</p>
+        <div class="about-strengths">
+          <div class="strength-item"><span class="strength-icon">🤝</span><div><strong>Active Listening</strong><span>Creating space for honest, productive dialogue</span></div></div>
+          <div class="strength-item"><span class="strength-icon">🎯</span><div><strong>Strategic Thinking</strong><span>Aligning people strategy with business goals</span></div></div>
+          <div class="strength-item"><span class="strength-icon">⚖️</span><div><strong>Conflict Resolution</strong><span>Impartial, fair, and outcome-focused mediation</span></div></div>
+          <div class="strength-item"><span class="strength-icon">🌱</span><div><strong>Culture Building</strong><span>Crafting environments where teams grow</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ────────────────────────────────────────── -->
+<section id="services">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="label">What I Do</span>
+      <h2>Core HR Services</h2>
+      <p>End-to-end human resources expertise — from attracting great people to building the structures that help them excel.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">🔍</div>
+        <h3>Talent Acquisition &amp; Recruitment</h3>
+        <p>Full-cycle recruitment strategy including employer branding, job design, structured interviewing, and ATS implementation to attract and convert top talent efficiently.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🤝</div>
+        <h3>Employee Relations</h3>
+        <p>Navigating complex workplace matters including grievances, disciplinary processes, and TUPE transfers with a fair, legally sound, and human-centred approach.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">📊</div>
+        <h3>Performance Management</h3>
+        <p>Designing and embedding performance frameworks — from OKRs and calibration to capability improvement plans — that drive accountability without fear.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">📚</div>
+        <h3>Training &amp; Development</h3>
+        <p>Building L&D strategies and learning academies that develop future leaders, close skills gaps, and connect individual growth to organisational capability.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">📋</div>
+        <h3>HR Policies &amp; Compliance</h3>
+        <p>Drafting, auditing, and implementing compliant HR policies across employment law, GDPR, D&I obligations, and workplace health and safety requirements.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">💡</div>
+        <h3>HR Strategy &amp; Advisory</h3>
+        <p>Acting as a strategic business partner to executive teams — workforce planning, org design, M&A people integration, and change management advisory.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERIENCE ──────────────────────────────────────── -->
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="label">Career Journey</span>
+      <h2>Experience &amp; Impact</h2>
+      <p>A track record of meaningful HR transformation across diverse sectors and scales.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-content left">
+          <div class="tl-year">2021 — Present</div>
+          <h3>HR Director</h3>
+          <div class="tl-company">Meridian Financial Group · London</div>
+          <p>Leading a team of 14 HR professionals across the UK and EMEA. Redesigned the entire performance management cycle and launched a flagship leadership development programme.</p>
+          <span class="tl-metric">📉 Turnover reduced by 28%</span>
+        </div>
+        <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+        <div></div>
+      </div>
+      <div class="tl-item reveal">
+        <div></div>
+        <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+        <div class="tl-content right">
+          <div class="tl-year">2018 — 2021</div>
+          <h3>Senior HR Business Partner</h3>
+          <div class="tl-company">NovaTech Solutions · London</div>
+          <p>Embedded HR partner for Engineering and Product divisions (800+ headcount). Drove a 40% improvement in new hire time-to-productivity through a revamped onboarding programme.</p>
+          <span class="tl-metric">🚀 eNPS score lifted from 22 to 54</span>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-content left">
+          <div class="tl-year">2015 — 2018</div>
+          <h3>HR Business Partner</h3>
+          <div class="tl-company">Clearwater Retail Group · Manchester</div>
+          <p>Supported 1,200-person retail operation through a major restructure and ERP system transition. Led consultation process and managed TUPE obligations for acquired entities.</p>
+          <span class="tl-metric">✅ Zero employment tribunal claims</span>
+        </div>
+        <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+        <div></div>
+      </div>
+      <div class="tl-item reveal">
+        <div></div>
+        <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+        <div class="tl-content right">
+          <div class="tl-year">2012 — 2015</div>
+          <h3>HR Advisor</h3>
+          <div class="tl-company">Vantage Consulting Group · Birmingham</div>
+          <p>Generalist HR role spanning recruitment, L&D coordination, and employee relations advisory. Managed end-to-end graduate recruitment campaigns attracting 300+ applications per cycle.</p>
+          <span class="tl-metric">🎓 Top 10 Graduate Employer award</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SKILLS ──────────────────────────────────────────── -->
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="label">Competencies</span>
+      <h2>Skills &amp; Tools</h2>
+      <p>The human and technical capabilities I bring to every engagement.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group reveal">
+        <h3>HR Competencies</h3>
+        <div class="skill-row">
+          <div class="skill-row-top"><span class="skill-name">Talent Strategy &amp; Acquisition</span><span class="skill-pct">95%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="95"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-row-top"><span class="skill-name">Employee Relations &amp; ER</span><span class="skill-pct">92%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="92"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-row-top"><span class="skill-name">L&D Design &amp; Delivery</span><span class="skill-pct">88%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="88"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-row-top"><span class="skill-name">Change Management</span><span class="skill-pct">85%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-row-top"><span class="skill-name">Employment Law (UK/EMEA)</span><span class="skill-pct">80%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <h3>HRIS &amp; Technology</h3>
+        <div class="tools-grid">
+          <span class="tool-chip">Workday</span>
+          <span class="tool-chip">SAP SuccessFactors</span>
+          <span class="tool-chip">BambooHR</span>
+          <span class="tool-chip">Greenhouse ATS</span>
+          <span class="tool-chip">Lattice</span>
+          <span class="tool-chip">Culture Amp</span>
+          <span class="tool-chip">Lever</span>
+          <span class="tool-chip">ServiceNow HR</span>
+          <span class="tool-chip">MS Teams</span>
+          <span class="tool-chip">Tableau</span>
+          <span class="tool-chip">Power BI</span>
+          <span class="tool-chip">Miro</span>
+        </div>
+        <div style="margin-top:36px;">
+          <h3>Leadership Qualities</h3>
+          <div class="tools-grid" style="margin-top:16px;">
+            <span class="tool-chip">Strategic Thinking</span>
+            <span class="tool-chip">Stakeholder Management</span>
+            <span class="tool-chip">Coaching &amp; Mentoring</span>
+            <span class="tool-chip">Cross-cultural Fluency</span>
+            <span class="tool-chip">Data-driven Decision Making</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CERTIFICATIONS ──────────────────────────────────── -->
+<section id="certifications">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="label">Credentials</span>
+      <h2>Certifications &amp; Education</h2>
+      <p>Continuous professional development underpins everything I do.</p>
+    </div>
+    <div class="certs-grid">
+      <div class="cert-card reveal">
+        <div class="cert-badge">🎓</div>
+        <strong>SHRM-SCP</strong>
+        <span>Senior Certified Professional — Society for Human Resource Management</span>
+        <span class="cert-year">Certified 2020</span>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-badge">📜</div>
+        <strong>CIPD Level 7</strong>
+        <span>Advanced Diploma in Strategic People Management</span>
+        <span class="cert-year">Completed 2018</span>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-badge">💼</div>
+        <strong>BA (Hons) Business</strong>
+        <span>University of Manchester — First Class Honours</span>
+        <span class="cert-year">Graduated 2012</span>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-badge">🔧</div>
+        <strong>Workday HCM Pro</strong>
+        <span>Certified Workday HCM Implementation Professional</span>
+        <span class="cert-year">Certified 2022</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ────────────────────────────────────── -->
+<section id="testimonials">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="label">Social Proof</span>
+      <h2>What People Say</h2>
+      <p>Trusted by leaders, respected by teams.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Sarah transformed how we think about people at Meridian. Her ability to connect the dots between business strategy and human experience is genuinely rare. She doesn't just implement HR — she elevates it.</p>
+        <div class="testi-person">
+          <div class="testi-avatar">👔</div>
+          <div>
+            <strong>James Hargreaves</strong>
+            <span>CEO, Meridian Financial Group</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Working with Sarah felt different. She listened before she acted, and the solutions she designed were always practical and people-centred. Our team culture shifted noticeably within 18 months.</p>
+        <div class="testi-person">
+          <div class="testi-avatar">👩‍💼</div>
+          <div>
+            <strong>Priya Nair</strong>
+            <span>VP Engineering, NovaTech Solutions</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Sarah navigated one of the most complex restructures I've seen with complete professionalism and genuine compassion. Her guidance through the TUPE process saved us from significant legal exposure.</p>
+        <div class="testi-person">
+          <div class="testi-avatar">👨‍💼</div>
+          <div>
+            <strong>Tom Aldridge</strong>
+            <span>CFO, Clearwater Retail Group</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CASE STUDIES ────────────────────────────────────── -->
+<section id="cases">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="label">Impact Stories</span>
+      <h2>Case Studies &amp; Achievements</h2>
+      <p>Real challenges. Measurable outcomes. Human solutions.</p>
+    </div>
+    <div class="cases-grid">
+      <div class="case-card reveal">
+        <div class="case-header">
+          <span class="tag">Talent Strategy</span>
+          <h3>Tech Talent Acquisition Overhaul</h3>
+          <p>Rebuilding the recruitment engine for a 600-person SaaS company amid a global talent shortage.</p>
+        </div>
+        <div class="case-body">
+          <div class="case-metrics">
+            <div class="case-metric"><strong>42%</strong><span>Faster Time-to-Hire</span></div>
+            <div class="case-metric"><strong>60%</strong><span>Offer Acceptance Rate ↑</span></div>
+            <div class="case-metric"><strong>£280K</strong><span>Agency Fees Saved</span></div>
+          </div>
+          <p>Designed and deployed a structured interviewing framework, partnered with universities for early talent pipelines, and built an in-house sourcing function that replaced reliance on external agencies for 70% of roles.</p>
+        </div>
+      </div>
+      <div class="case-card reveal">
+        <div class="case-header">
+          <span class="tag">Culture &amp; Engagement</span>
+          <h3>Employee Engagement Transformation</h3>
+          <p>Rebuilding trust and psychological safety after a difficult period of executive turnover.</p>
+        </div>
+        <div class="case-body">
+          <div class="case-metrics">
+            <div class="case-metric"><strong>+32pts</strong><span>eNPS Improvement</span></div>
+            <div class="case-metric"><strong>20%</strong><span>Turnover Reduction</span></div>
+            <div class="case-metric"><strong>94%</strong><span>Survey Participation</span></div>
+          </div>
+          <p>Designed a multi-layered listening strategy including pulse surveys, manager effectiveness reviews, and skip-level conversations. Developed a transparent action-planning process that restored confidence in leadership decisions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ─────────────────────────────────────────── -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-wrap">
+      <div class="contact-info reveal">
+        <span class="label">Get in Touch</span>
+        <h2>Let's Start a Conversation</h2>
+        <p>Whether you're looking for an HR leader, a strategic advisor, or a speaking engagement, I'd love to hear from you.</p>
+        <div class="contact-links">
+          <a class="contact-link" href="mailto:sarah@mitchellhr.co.uk">
+            <div class="contact-link-icon">✉️</div>
+            <div><strong>Email</strong><span>sarah@mitchellhr.co.uk</span></div>
+          </a>
+          <a class="contact-link" href="https://linkedin.com" target="_blank">
+            <div class="contact-link-icon">💼</div>
+            <div><strong>LinkedIn</strong><span>linkedin.com/in/sarahmitchellhr</span></div>
+          </a>
+          <a class="contact-link" href="tel:+447700900123">
+            <div class="contact-link-icon">📞</div>
+            <div><strong>Phone</strong><span>+44 7700 900 123</span></div>
+          </a>
+        </div>
+      </div>
+      <div class="contact-form reveal">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" placeholder="Jane Smith" />
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="jane@company.com" />
+        </div>
+        <div class="form-group">
+          <label>Organisation</label>
+          <input type="text" placeholder="Acme Corp (optional)" />
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Tell me a little about what you're looking for…"></textarea>
+        </div>
+        <button class="form-submit" onclick="handleSubmit(this)">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ──────────────────────────────────────────── -->
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <span class="footer-logo">Sarah<span>.</span>Mitchell</span>
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-socials">
+        <a class="social-btn" href="https://linkedin.com" target="_blank" title="LinkedIn">in</a>
+        <a class="social-btn" href="#" title="Twitter">𝕏</a>
+        <a class="social-btn" href="mailto:sarah@mitchellhr.co.uk" title="Email">@</a>
+      </div>
+      <span class="footer-copy">© 2024 Sarah Mitchell. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Nav scroll effect
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), 80);
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+reveals.forEach(el => io.observe(el));
+
+// Skill bars — animate when visible
+const bars = document.querySelectorAll('.skill-fill');
+const barObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const w = e.target.getAttribute('data-width');
+      setTimeout(() => { e.target.style.width = w + '%'; }, 200);
+      barObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+bars.forEach(b => barObserver.observe(b));
+
+// Stagger child reveals within grids
+document.querySelectorAll('.services-grid, .testi-grid, .certs-grid, .cases-grid').forEach(grid => {
+  const children = grid.querySelectorAll('.reveal');
+  children.forEach((child, i) => {
+    child.style.transitionDelay = (i * 80) + 'ms';
+  });
+});
+
+// Form submit mock
+function handleSubmit(btn) {
+  const orig = btn.textContent;
+  btn.textContent = 'Sending…';
+  btn.style.opacity = '.7';
+  setTimeout(() => {
+    btn.textContent = '✓ Message Sent!';
+    btn.style.background = 'var(--sage-dk)';
+    setTimeout(() => {
+      btn.textContent = orig;
+      btn.style.opacity = '1';
+      btn.style.background = '';
+    }, 3000);
+  }, 1200);
+}
+
+// Mobile menu (basic toggle)
+function toggleMenu() {
+  const links = document.querySelector('.nav-links');
+  if (links.style.display === 'flex') {
+    links.style.display = '';
+  } else {
+    links.style.display = 'flex';
+    links.style.flexDirection = 'column';
+    links.style.position = 'absolute';
+    links.style.top = '72px';
+    links.style.left = '0';
+    links.style.right = '0';
+    links.style.background = 'var(--white)';
+    links.style.padding = '24px 28px';
+    links.style.borderBottom = '1px solid var(--stone)';
+    links.style.gap = '20px';
+  }
+}
+</script>
+</body>
+</html>

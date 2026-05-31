@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Alex Morgan — Product Designer & Engineer</title>
+<meta name="description" content="Portfolio of Alex Morgan, an independent product designer & engineer crafting digital experiences." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0b0d;
+    --bg-2:#111114;
+    --surface:#15151a;
+    --line:rgba(255,255,255,0.08);
+    --line-2:rgba(255,255,255,0.14);
+    --text:#f5f3ef;
+    --muted:#9a978f;
+    --dim:#6b6864;
+    --accent:#e8ff5a;          /* electric lime */
+    --accent-2:#ff6a3d;        /* burnt orange */
+    --grad: linear-gradient(135deg,#e8ff5a 0%,#9bff8c 35%,#ff6a3d 100%);
+    --serif:'Fraunces',ui-serif,Georgia,serif;
+    --sans:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    --radius:18px;
+    --maxw:1240px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  html{scroll-behavior:smooth}
+  body{overflow-x:hidden;line-height:1.55;font-weight:400;font-size:16px}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  ::selection{background:var(--accent);color:#000}
+
+  /* Ambient background */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:
+      radial-gradient(900px 600px at 85% -10%, rgba(232,255,90,0.10), transparent 60%),
+      radial-gradient(700px 500px at -10% 30%, rgba(255,106,61,0.08), transparent 60%),
+      radial-gradient(600px 400px at 50% 110%, rgba(155,255,140,0.06), transparent 60%);
+  }
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.04 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  .wrap{position:relative;z-index:1;max-width:var(--maxw);margin:0 auto;padding:0 28px}
+
+  /* NAV */
+  nav.top{
+    position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:50;
+    width:min(960px,calc(100% - 32px));
+    display:flex;align-items:center;justify-content:space-between;
+    padding:10px 14px 10px 20px;
+    background:rgba(15,15,18,0.65);
+    backdrop-filter:blur(18px) saturate(140%);
+    -webkit-backdrop-filter:blur(18px) saturate(140%);
+    border:1px solid var(--line);
+    border-radius:999px;
+  }
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:600;font-size:18px;letter-spacing:-.01em}
+  .logo .dot{width:10px;height:10px;border-radius:50%;background:var(--grad);box-shadow:0 0 14px rgba(232,255,90,.6)}
+  .nav-links{display:flex;gap:6px}
+  .nav-links a{font-size:13.5px;color:var(--muted);padding:8px 14px;border-radius:999px;transition:all .25s ease}
+  .nav-links a:hover{color:var(--text);background:rgba(255,255,255,0.06)}
+  .nav-cta{display:inline-flex;align-items:center;gap:8px;background:var(--text);color:#0a0a0a;font-size:13px;font-weight:600;padding:9px 16px;border-radius:999px;transition:transform .2s ease}
+  .nav-cta:hover{transform:translateY(-1px)}
+  @media(max-width:720px){.nav-links{display:none}}
+
+  /* HERO */
+  header.hero{padding:170px 0 90px;position:relative}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,0.02)}
+  .eyebrow .pulse{width:7px;height:7px;border-radius:50%;background:#9bff8c;box-shadow:0 0 0 0 rgba(155,255,140,.7);animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(155,255,140,.7)}70%{box-shadow:0 0 0 12px rgba(155,255,140,0)}100%{box-shadow:0 0 0 0 rgba(155,255,140,0)}}
+  h1.display{
+    font-family:var(--serif);font-weight:400;letter-spacing:-0.035em;
+    font-size:clamp(54px,9vw,128px);line-height:0.95;margin:26px 0 0;
+  }
+  h1.display em{font-style:italic;font-weight:300;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:60px;align-items:end;margin-top:48px}
+  .lede{color:var(--muted);font-size:18px;max-width:520px;line-height:1.6}
+  .lede strong{color:var(--text);font-weight:500}
+  .hero-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:36px}
+  .meta{border-top:1px solid var(--line);padding-top:14px}
+  .meta .k{font-family:var(--mono);font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.1em}
+  .meta .v{font-family:var(--serif);font-size:22px;margin-top:6px}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr;gap:32px}.hero-meta{grid-template-columns:repeat(2,1fr)}}
+
+  /* SECTION FRAME */
+  section{padding:110px 0;position:relative}
+  .section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:56px;border-bottom:1px solid var(--line);padding-bottom:24px}
+  .section-num{font-family:var(--mono);font-size:12px;color:var(--dim);letter-spacing:.15em}
+  .section-title{font-family:var(--serif);font-weight:400;font-size:clamp(36px,5vw,64px);letter-spacing:-0.025em;line-height:1;margin:8px 0 0}
+  .section-title em{font-style:italic;color:var(--accent)}
+  .section-aside{color:var(--muted);font-size:14px;max-width:340px;text-align:right}
+  @media(max-width:720px){.section-head{flex-direction:column;align-items:flex-start}.section-aside{text-align:left}}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:60px;align-items:start}
+  .about p{font-size:18px;color:#d8d4cc;line-height:1.75;margin:0 0 22px}
+  .about p:first-child::first-letter{font-family:var(--serif);font-size:62px;float:left;line-height:.9;padding:6px 12px 0 0;color:var(--accent)}
+  .signature{font-family:var(--serif);font-style:italic;font-size:28px;color:var(--text);margin-top:30px}
+  .portrait{aspect-ratio:4/5;border-radius:var(--radius);background:
+    radial-gradient(circle at 30% 30%, rgba(232,255,90,.25), transparent 55%),
+    radial-gradient(circle at 70% 80%, rgba(255,106,61,.25), transparent 60%),
+    linear-gradient(135deg,#1a1a20,#0e0e12);
+    border:1px solid var(--line);position:relative;overflow:hidden}
+  .portrait::after{content:"AM";position:absolute;inset:0;display:grid;place-items:center;font-family:var(--serif);font-style:italic;font-size:180px;color:rgba(255,255,255,.06);font-weight:300}
+  @media(max-width:860px){.about-grid{grid-template-columns:1fr}}
+
+  /* SKILLS */
+  .skills{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  .skill{background:var(--bg-2);padding:32px 28px;transition:background .3s ease;position:relative}
+  .skill:hover{background:#1a1a20}
+  .skill .icon{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(232,255,90,.08);color:var(--accent);margin-bottom:22px;border:1px solid rgba(232,255,90,.15)}
+  .skill h3{font-family:var(--serif);font-weight:500;font-size:22px;margin:0 0 10px;letter-spacing:-.01em}
+  .skill p{color:var(--muted);font-size:14px;line-height:1.6;margin:0 0 18px}
+  .tags{display:flex;flex-wrap:wrap;gap:6px}
+  .tag{font-family:var(--mono);font-size:10.5px;color:var(--muted);padding:4px 9px;border:1px solid var(--line);border-radius:999px;letter-spacing:.04em}
+  @media(max-width:980px){.skills{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.skills{grid-template-columns:1fr}}
+
+  /* TIMELINE */
+  .timeline{position:relative;padding-left:0}
+  .item{display:grid;grid-template-columns:180px 1fr;gap:40px;padding:32px 0;border-top:1px solid var(--line);transition:padding .3s ease}
+  .item:last-child{border-bottom:1px solid var(--line)}
+  .item:hover{padding-left:14px}
+  .item .when{font-family:var(--mono);font-size:12px;color:var(--dim);letter-spacing:.08em;padding-top:6px}
+  .item h4{font-family:var(--serif);font-weight:500;font-size:26px;margin:0;letter-spacing:-.015em}
+  .item h4 .at{color:var(--muted);font-style:italic;font-weight:400}
+  .item .role{font-size:13px;color:var(--accent);font-family:var(--mono);margin:8px 0 12px;letter-spacing:.04em;text-transform:uppercase}
+  .item p{color:var(--muted);font-size:15.5px;line-height:1.7;margin:0;max-width:680px}
+  .item ul{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+  .item ul li{font-family:var(--mono);font-size:11px;color:var(--muted);padding:4px 10px;border:1px solid var(--line);border-radius:999px}
+  @media(max-width:720px){.item{grid-template-columns:1fr;gap:8px}}
+
+  /* CONTACT */
+  .contact-card{
+    border-radius:28px;padding:80px 60px;position:relative;overflow:hidden;
+    background:
+      radial-gradient(700px 400px at 80% 20%, rgba(232,255,90,.18), transparent 60%),
+      radial-gradient(500px 360px at 10% 90%, rgba(255,106,61,.16), transparent 60%),
+      linear-gradient(180deg,#13131a,#0c0c10);
+    border:1px solid var(--line-2);
+  }
+  .contact-card h2{font-family:var(--serif);font-weight:400;font-size:clamp(40px,6vw,84px);letter-spacing:-.03em;line-height:1;margin:0 0 28px;max-width:780px}
+  .contact-card h2 em{font-style:italic;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .contact-card p{color:var(--muted);font-size:17px;max-width:520px;margin:0 0 36px}
+  .email-btn{
+    display:inline-flex;align-items:center;gap:14px;
+    background:var(--accent);color:#0a0a0a;
+    padding:18px 28px;border-radius:999px;font-weight:600;font-size:15px;
+    transition:transform .2s ease, box-shadow .3s ease;
+    box-shadow:0 10px 40px -10px rgba(232,255,90,.6);
+  }
+  .email-btn:hover{transform:translateY(-2px);box-shadow:0 20px 50px -10px rgba(232,255,90,.8)}
+  .socials{display:flex;gap:10px;margin-top:36px;flex-wrap:wrap}
+  .socials a{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid var(--line-2);border-radius:999px;font-size:13px;color:var(--muted);transition:all .25s ease}
+  .socials a:hover{color:var(--text);border-color:var(--text);background:rgba(255,255,255,.04)}
+
+  footer{padding:40px 0 60px;border-top:1px solid var(--line);margin-top:80px;display:flex;justify-content:space-between;color:var(--dim);font-family:var(--mono);font-size:12px;letter-spacing:.05em}
+  @media(max-width:560px){footer{flex-direction:column;gap:12px}}
+
+  /* PROJECTS */
+  .projects{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+  .project{
+    grid-column:span 3;background:var(--bg-2);border:1px solid var(--line);
+    border-radius:var(--radius);overflow:hidden;position:relative;
+    transition:transform .4s ease, border-color .3s ease;
+    display:flex;flex-direction:column;
+  }
+  .project:hover{transform:translateY(-4px);border-color:var(--line-2)}
+  .project.featured{grid-column:span 6}
+  .project .thumb{
+    aspect-ratio:16/10;position:relative;overflow:hidden;
+    background:linear-gradient(135deg,#1a1a22,#0d0d12);
+    border-bottom:1px solid var(--line);
+  }
+  .project.featured .thumb{aspect-ratio:21/9}
+  .project .thumb::before{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(circle at 30% 40%, var(--g1,rgba(232,255,90,.3)), transparent 55%),
+      radial-gradient(circle at 75% 70%, var(--g2,rgba(255,106,61,.3)), transparent 60%);
+  }
+  .project .thumb::after{
+    content:attr(data-label);position:absolute;left:24px;bottom:20px;
+    font-family:var(--serif);font-style:italic;font-size:42px;color:rgba(255,255,255,.85);
+    letter-spacing:-.02em;text-shadow:0 4px 30px rgba(0,0,0,.4);
+  }
+  .project .body{padding:26px 28px 28px;display:flex;flex-direction:column;gap:12px;flex:1}
+  .project .meta-row{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase}
+  .project .meta-row .year{color:var(--accent)}
+  .project h3{font-family:var(--serif);font-weight:500;font-size:26px;margin:0;letter-spacing:-.015em;line-height:1.15}
+  .project p{color:var(--muted);font-size:14.5px;line-height:1.65;margin:0;flex:1}
+  .project .view{display:inline-flex;align-items:center;gap:8px;color:var(--text);font-size:13px;font-weight:500;margin-top:8px;border-top:1px solid var(--line);padding-top:16px}
+  .project .view svg{transition:transform .3s ease}
+  .project:hover .view svg{transform:translate(3px,-3px)}
+  @media(max-width:860px){.project,.project.featured{grid-column:span 6}}
+
+
+  /* reveal animation */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease, transform .8s ease}
+  .reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <a href="#" class="logo"><span class="dot"></span> Alex Morgan</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Work</a>
+    <a href="#education">Education</a>
+  </div>
+  <a class="nav-cta" href="#contact">Let's talk →</a>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <span class="eyebrow"><span class="pulse"></span> Available for select projects · 2026</span>
+    <h1 class="display">Designing<br/>products with <em>quiet craft</em><br/>& sharp detail.</h1>
+    <div class="hero-grid">
+      <p class="lede">I'm <strong>Alex Morgan</strong>, an independent product designer and front-end engineer based in Lisbon. For the last nine years I've helped founders and teams ship digital products that feel inevitable — calm interfaces, considered typography, and code that ages well.</p>
+      <div class="hero-meta">
+        <div class="meta"><div class="k">Based in</div><div class="v">Lisbon, PT</div></div>
+        <div class="meta"><div class="k">Experience</div><div class="v">9 years</div></div>
+        <div class="meta"><div class="k">Shipped</div><div class="v">60+ products</div></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-head">
+      <div>
+        <div class="section-num">01 — About</div>
+        <h2 class="section-title">A short <em>introduction</em></h2>
+      </div>
+      <p class="section-aside">A designer's bio, written the way I'd tell it across a table.</p>
+    </div>
+    <div class="about-grid">
+      <div class="about">
+        <p>I started building websites in a small coastal town at fourteen, mostly to put my friends' bands online. Two decades later, the curiosity hasn't moved much — I'm still trying to make the screen feel like something you'd want to touch.</p>
+        <p>Today I partner with early-stage teams as a designer-engineer hybrid: shaping the product, writing the interface, and obsessing over the seams in between. My favorite work sits at the intersection of editorial design and software — fast, elegant, opinionated.</p>
+        <p>When I'm not at the desk you'll find me restoring an old film camera, swimming somewhere cold, or cooking for too many people.</p>
+        <div class="signature">— Alex</div>
+      </div>
+      <div class="portrait" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-head">
+      <div>
+        <div class="section-num">02 — Skills</div>
+        <h2 class="section-title">What I do <em>well</em></h2>
+      </div>
+      <p class="section-aside">A focused toolkit, sharpened over years of shipping.</p>
+    </div>
+    <div class="skills">
+      <div class="skill">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></div>
+        <h3>Product Design</h3>
+        <p>End-to-end design from first sketch to ship — discovery, IA, interaction, and visual polish.</p>
+        <div class="tags"><span class="tag">Figma</span><span class="tag">Prototyping</span><span class="tag">Design systems</span></div>
+      </div>
+      <div class="skill">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg></div>
+        <h3>Front-end</h3>
+        <p>Production interfaces built with care. Performance, accessibility, and motion as first-class concerns.</p>
+        <div class="tags"><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">CSS</span><span class="tag">Motion</span></div>
+      </div>
+      <div class="skill">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg></div>
+        <h3>Brand & Typography</h3>
+        <p>Identity systems with a strong type voice — marks, type pairings, and editorial layouts.</p>
+        <div class="tags"><span class="tag">Identity</span><span class="tag">Editorial</span><span class="tag">Type design</span></div>
+      </div>
+      <div class="skill">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div>
+        <h3>Strategy</h3>
+        <p>Helping founders sharpen the story — positioning, narrative, and the shape of the v1.</p>
+        <div class="tags"><span class="tag">Positioning</span><span class="tag">0→1</span><span class="tag">Workshops</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-head">
+      <div>
+        <div class="section-num">03 — Projects</div>
+        <h2 class="section-title">Selected <em>projects</em></h2>
+      </div>
+      <p class="section-aside">A handful of recent things I'm proud of.</p>
+    </div>
+    <div class="projects">
+      <article class="project featured" style="--g1:rgba(232,255,90,.35);--g2:rgba(155,255,140,.25)">
+        <div class="thumb" data-label="Halo OS"></div>
+        <div class="body">
+          <div class="meta-row"><span>Product · Web App</span><span class="year">2025</span></div>
+          <h3>Halo — an operating system for solo founders</h3>
+          <p>End-to-end product design and front-end build for a venture-backed productivity tool. Shipped from blank canvas to public launch in eleven weeks.</p>
+          <a href="#" class="view">View case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+        </div>
+      </article>
+
+      <article class="project" style="--g1:rgba(255,106,61,.4);--g2:rgba(232,255,90,.2)">
+        <div class="thumb" data-label="Ember"></div>
+        <div class="body">
+          <div class="meta-row"><span>Brand · Identity</span><span class="year">2024</span></div>
+          <h3>Ember — identity for a climate fund</h3>
+          <p>A confident, warm identity system for a €40M early-stage climate fund based in Berlin.</p>
+          <a href="#" class="view">View project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+        </div>
+      </article>
+
+      <article class="project" style="--g1:rgba(155,255,140,.35);--g2:rgba(120,180,255,.25)">
+        <div class="thumb" data-label="Tide"></div>
+        <div class="body">
+          <div class="meta-row"><span>iOS · App</span><span class="year">2024</span></div>
+          <h3>Tide — a calm habit tracker</h3>
+          <p>Design and SwiftUI front-end for an indie habit app. Featured by Apple in "New Apps We Love".</p>
+          <a href="#" class="view">View project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+        </div>
+      </article>
+
+      <article class="project" style="--g1:rgba(200,160,255,.35);--g2:rgba(255,106,61,.2)">
+        <div class="thumb" data-label="Folio"></div>
+        <div class="body">
+          <div class="meta-row"><span>Editorial · Web</span><span class="year">2023</span></div>
+          <h3>Folio — a quarterly design journal</h3>
+          <p>Editorial site for an independent print journal. Custom CMS, custom typography, very slow scroll.</p>
+          <a href="#" class="view">View project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+        </div>
+      </article>
+
+      <article class="project" style="--g1:rgba(120,200,255,.3);--g2:rgba(155,255,140,.2)">
+        <div class="thumb" data-label="North"></div>
+        <div class="body">
+          <div class="meta-row"><span>Design System</span><span class="year">2023</span></div>
+          <h3>North — a design system for fintech</h3>
+          <p>Tokens, components, and motion guidelines for a multi-product fintech platform across five teams.</p>
+          <a href="#" class="view">View project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-head">
+      <div>
+        <div class="section-num">04 — Experience</div>
+        <h2 class="section-title">Selected <em>work</em></h2>
+      </div>
+      <p class="section-aside">Nine years of teams, products, and the occasional all-nighter.</p>
+    </div>
+    <div class="timeline">
+      <article class="item">
+        <div class="when">2023 — Now</div>
+        <div>
+          <h4>Independent practice <span class="at">/ Lisbon</span></h4>
+          <div class="role">Design & Engineering Partner</div>
+          <p>Partnering with a small handful of founders each year. Shaping product, identity, and the first production builds — usually staying on through launch.</p>
+          <ul><li>Product strategy</li><li>Brand</li><li>Web</li><li>iOS</li></ul>
+        </div>
+      </article>
+      <article class="item">
+        <div class="when">2020 — 2023</div>
+        <div>
+          <h4>Linear <span class="at">/ Remote</span></h4>
+          <div class="role">Senior Product Designer</div>
+          <p>Designed core workflows across the issue tracker — cycles, projects, and the mobile app. Helped grow the design team from four to twelve.</p>
+          <ul><li>Mobile</li><li>Workflows</li><li>Design system</li></ul>
+        </div>
+      </article>
+      <article class="item">
+        <div class="when">2017 — 2020</div>
+        <div>
+          <h4>Stripe <span class="at">/ Dublin</span></h4>
+          <div class="role">Product Designer</div>
+          <p>Worked on Dashboard and Connect onboarding. Shipped the first version of the verification flow used by millions of platforms.</p>
+          <ul><li>Dashboard</li><li>Onboarding</li><li>Compliance UX</li></ul>
+        </div>
+      </article>
+      <article class="item">
+        <div class="when">2015 — 2017</div>
+        <div>
+          <h4>Studio Output <span class="at">/ London</span></h4>
+          <div class="role">Junior Designer</div>
+          <p>My first studio job. Brand and digital work for cultural clients — museums, festivals, and a great deal of risograph print.</p>
+          <ul><li>Brand</li><li>Editorial</li><li>Print</li></ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-head">
+      <div>
+        <div class="section-num">05 — Education</div>
+        <h2 class="section-title">Where I <em>studied</em></h2>
+      </div>
+      <p class="section-aside">Formal training, plus a great deal of self-teaching.</p>
+    </div>
+    <div class="timeline">
+      <article class="item">
+        <div class="when">2013 — 2015</div>
+        <div>
+          <h4>Royal College of Art <span class="at">/ London</span></h4>
+          <div class="role">MA, Visual Communication</div>
+          <p>Thesis on systems thinking in editorial design. Awarded the Helen Hamlyn scholarship for inclusive design research.</p>
+        </div>
+      </article>
+      <article class="item">
+        <div class="when">2009 — 2013</div>
+        <div>
+          <h4>TU Munich <span class="at">/ Munich</span></h4>
+          <div class="role">BSc, Informatics</div>
+          <p>Computer science with a minor in HCI. Spent the final year building a thesis project on collaborative drawing tools.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-card">
+      <div class="section-num" style="margin-bottom:18px">06 — Contact</div>
+      <h2>Have something <em>good</em> in mind? Let's build it.</h2>
+      <p>I take on a small number of projects each quarter. The best way to start is a short note about what you're working on and when you'd like to ship.</p>
+      <a class="email-btn" href="mailto:hello@alexmorgan.studio">
+        hello@alexmorgan.studio
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg>
+      </a>
+      <div class="socials">
+        <a href="#">↗ Twitter</a>
+        <a href="#">↗ LinkedIn</a>
+        <a href="#">↗ Dribbble</a>
+        <a href="#">↗ GitHub</a>
+        <a href="#">↗ Read.cv</a>
+      </div>
+    </div>
+    <footer>
+      <span>© 2026 Alex Morgan · All rights reserved</span>
+      <span>Designed & built in Lisbon</span>
+    </footer>
+  </section>
+
+</div>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
+  },{threshold:0.12});
+  document.querySelectorAll('section, .hero, .item, .skill').forEach(el=>{el.classList.add('reveal');io.observe(el)});
+</script>
+</body>
+</html>

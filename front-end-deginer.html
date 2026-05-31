@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Alex Morgan — Fresh Graduate Portfolio</title>
+<meta name="description" content="Portfolio of Alex Morgan, recent Computer Science graduate. Web development, design, and product." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#f6f3ee;
+    --bg-2:#efeae1;
+    --ink:#14110f;
+    --ink-2:#3a352f;
+    --muted:#7b7268;
+    --line:#1a1714;
+    --accent:#ff5b2e;
+    --accent-2:#e94a1d;
+    --card:#ffffff;
+    --radius:18px;
+    --maxw:1240px;
+    --shadow:0 30px 60px -30px rgba(20,17,15,.25);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .serif{font-family:'Fraunces',Georgia,serif;font-weight:400;letter-spacing:-.02em}
+  .eyebrow{
+    font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--muted);font-weight:600;
+    display:inline-flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:"";width:24px;height:1px;background:currentColor}
+
+  /* NAV */
+  nav{
+    position:fixed;inset:0 0 auto 0;z-index:50;
+    backdrop-filter:saturate(180%) blur(14px);
+    background:color-mix(in oklab,var(--bg) 78%,transparent);
+    border-bottom:1px solid color-mix(in oklab,var(--line) 8%,transparent);
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .logo{font-family:'Fraunces',serif;font-size:22px;font-weight:600;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+  .logo .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);display:inline-block}
+  .nav-links{display:flex;gap:36px;font-size:14px;font-weight:500}
+  .nav-links a{position:relative;color:var(--ink-2)}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;height:1px;width:0;background:var(--ink);transition:width .25s ease}
+  .nav-links a:hover::after{width:100%}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:11px 18px;border-radius:999px;
+    background:var(--ink);color:var(--bg);
+    font-size:13px;font-weight:600;letter-spacing:.01em;
+    transition:transform .2s ease,background .2s ease;
+    border:1px solid var(--ink);
+  }
+  .btn:hover{transform:translateY(-1px);background:var(--accent);border-color:var(--accent);color:#fff}
+  .btn.ghost{background:transparent;color:var(--ink)}
+  .btn.ghost:hover{background:var(--ink);color:var(--bg)}
+
+  /* HERO */
+  header.hero{padding:140px 0 80px;position:relative;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.3fr .9fr;gap:60px;align-items:end}
+  .badge{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:6px 14px 6px 8px;border-radius:999px;
+    background:#fff;border:1px solid color-mix(in oklab,var(--line) 10%,transparent);
+    font-size:12px;color:var(--ink-2);font-weight:500;
+    box-shadow:0 1px 0 rgba(0,0,0,.02);
+  }
+  .badge .pulse{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.18)}
+  h1.title{
+    font-family:'Fraunces',serif;font-weight:300;
+    font-size:clamp(56px,9vw,148px);line-height:.92;letter-spacing:-.045em;
+    margin:28px 0 24px;
+  }
+  h1.title em{font-style:italic;font-weight:400;color:var(--accent)}
+  h1.title .stroke{
+    -webkit-text-stroke:1.5px var(--ink);color:transparent;font-style:italic;font-weight:400;
+  }
+  .lede{font-size:18px;color:var(--ink-2);max-width:520px;margin-bottom:36px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .hero-meta{
+    display:flex;gap:32px;margin-top:48px;padding-top:28px;
+    border-top:1px solid color-mix(in oklab,var(--line) 12%,transparent);
+    flex-wrap:wrap;
+  }
+  .hero-meta div{font-size:13px;color:var(--muted)}
+  .hero-meta strong{display:block;color:var(--ink);font-size:15px;font-weight:600;margin-bottom:2px}
+
+  .portrait{
+    position:relative;aspect-ratio:4/5;border-radius:var(--radius);
+    overflow:hidden;background:#ddd;box-shadow:var(--shadow);
+  }
+  .portrait img{width:100%;height:100%;object-fit:cover;filter:saturate(1.05) contrast(1.02)}
+  .portrait .tag{
+    position:absolute;left:18px;bottom:18px;right:18px;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:12px 16px;border-radius:12px;
+    background:color-mix(in oklab,var(--bg) 92%,transparent);
+    backdrop-filter:blur(10px);font-size:12px;font-weight:500;
+  }
+  .portrait .tag span:last-child{color:var(--accent);font-weight:600}
+
+  /* Marquee */
+  .marquee{
+    margin-top:80px;padding:18px 0;
+    border-top:1px solid color-mix(in oklab,var(--line) 12%,transparent);
+    border-bottom:1px solid color-mix(in oklab,var(--line) 12%,transparent);
+    overflow:hidden;white-space:nowrap;
+  }
+  .marquee-track{display:inline-flex;gap:48px;animation:slide 35s linear infinite;font-family:'Fraunces',serif;font-size:22px;color:var(--ink-2)}
+  .marquee-track span{display:inline-flex;align-items:center;gap:48px}
+  .marquee-track span::after{content:"✦";color:var(--accent)}
+  @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* Sections */
+  section{padding:120px 0;position:relative}
+  .section-head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:60px;flex-wrap:wrap}
+  .section-head h2{
+    font-family:'Fraunces',serif;font-weight:400;
+    font-size:clamp(36px,5vw,68px);line-height:1;letter-spacing:-.035em;max-width:700px;
+  }
+  .section-head h2 em{font-style:italic;color:var(--accent)}
+  .section-head p{color:var(--muted);max-width:340px;font-size:15px}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+  .about-text p{font-size:17px;color:var(--ink-2);margin-bottom:18px}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+  .stat{padding:24px;background:#fff;border-radius:14px;border:1px solid color-mix(in oklab,var(--line) 8%,transparent)}
+  .stat .num{font-family:'Fraunces',serif;font-size:42px;line-height:1;color:var(--accent);font-weight:500}
+  .stat .lbl{font-size:12px;color:var(--muted);margin-top:8px;letter-spacing:.05em;text-transform:uppercase;font-weight:500}
+  .about-visual{
+    aspect-ratio:1/1.1;border-radius:var(--radius);overflow:hidden;
+    background:linear-gradient(135deg,var(--accent),#ff8a5b);
+    position:relative;box-shadow:var(--shadow);
+  }
+  .about-visual img{width:100%;height:100%;object-fit:cover;mix-blend-mode:luminosity;opacity:.85}
+  .about-visual::after{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(circle at 30% 20%,transparent 0%,rgba(255,91,46,.4) 100%);
+  }
+
+  /* EXPERIENCE / EDUCATION */
+  .timeline{display:flex;flex-direction:column;gap:0}
+  .row{
+    display:grid;grid-template-columns:140px 1fr auto;gap:40px;align-items:start;
+    padding:36px 0;border-top:1px solid color-mix(in oklab,var(--line) 12%,transparent);
+    transition:padding .3s ease;cursor:default;
+  }
+  .row:last-child{border-bottom:1px solid color-mix(in oklab,var(--line) 12%,transparent)}
+  .row:hover{padding-left:16px}
+  .row .year{font-family:'Fraunces',serif;font-size:24px;color:var(--muted);font-weight:400}
+  .row h3{font-family:'Fraunces',serif;font-size:28px;font-weight:500;letter-spacing:-.02em;margin-bottom:6px}
+  .row .org{color:var(--muted);font-size:14px;margin-bottom:10px}
+  .row p{color:var(--ink-2);font-size:15px;max-width:560px}
+  .row .tag-sm{font-size:12px;padding:6px 12px;border-radius:999px;background:var(--bg-2);color:var(--ink-2);font-weight:500;white-space:nowrap}
+
+  /* SKILLS */
+  .skills-section{background:var(--ink);color:var(--bg)}
+  .skills-section .section-head h2{color:var(--bg)}
+  .skills-section .section-head p{color:#a39a8e}
+  .skills-section .eyebrow{color:#a39a8e}
+  .skills-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#2a2520;border-radius:var(--radius);overflow:hidden}
+  .skill{padding:36px 28px;background:var(--ink);transition:background .3s ease}
+  .skill:hover{background:#1e1a16}
+  .skill .ico{
+    width:44px;height:44px;border-radius:12px;
+    background:color-mix(in oklab,var(--accent) 18%,transparent);
+    color:var(--accent);display:flex;align-items:center;justify-content:center;
+    margin-bottom:24px;
+  }
+  .skill h4{font-family:'Fraunces',serif;font-size:22px;font-weight:500;margin-bottom:10px}
+  .skill p{font-size:13px;color:#a39a8e;line-height:1.6}
+  .skill .list{margin-top:18px;display:flex;flex-wrap:wrap;gap:6px}
+  .skill .list span{font-size:11px;padding:4px 10px;border-radius:999px;background:#2a2520;color:#d5cdc1}
+
+  /* WORK */
+  .work-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:24px}
+  .project{
+    grid-column:span 3;background:#fff;border-radius:var(--radius);overflow:hidden;
+    border:1px solid color-mix(in oklab,var(--line) 8%,transparent);
+    transition:transform .35s ease,box-shadow .35s ease;
+    display:flex;flex-direction:column;
+  }
+  .project:nth-child(3){grid-column:span 6}
+  .project:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+  .project .thumb{aspect-ratio:16/10;overflow:hidden;background:var(--bg-2)}
+  .project:nth-child(3) .thumb{aspect-ratio:21/8}
+  .project .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+  .project:hover .thumb img{transform:scale(1.04)}
+  .project .body{padding:28px 28px 32px}
+  .project .meta-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-size:12px;color:var(--muted);font-weight:500;letter-spacing:.05em;text-transform:uppercase}
+  .project h3{font-family:'Fraunces',serif;font-size:30px;font-weight:500;letter-spacing:-.02em;margin-bottom:10px}
+  .project p{color:var(--ink-2);font-size:15px;margin-bottom:18px}
+  .project .stack{display:flex;gap:8px;flex-wrap:wrap}
+  .project .stack span{font-size:11px;padding:5px 11px;border-radius:999px;background:var(--bg-2);color:var(--ink-2);font-weight:500}
+  .project .arrow{display:inline-flex;align-items:center;gap:6px;margin-top:20px;font-size:13px;font-weight:600;color:var(--ink)}
+  .project .arrow svg{transition:transform .25s ease}
+  .project:hover .arrow svg{transform:translateX(4px)}
+
+  /* CONTACT */
+  .contact{
+    background:var(--ink);color:var(--bg);
+    border-radius:32px;padding:90px 60px;
+    margin-bottom:80px;
+    position:relative;overflow:hidden;
+  }
+  .contact::before{
+    content:"";position:absolute;right:-100px;top:-100px;width:400px;height:400px;
+    background:radial-gradient(circle,var(--accent) 0%,transparent 70%);opacity:.35;
+  }
+  .contact-inner{position:relative;display:grid;grid-template-columns:1.4fr 1fr;gap:60px;align-items:center}
+  .contact h2{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(44px,6vw,84px);line-height:1;letter-spacing:-.04em;margin-bottom:24px}
+  .contact h2 em{font-style:italic;color:var(--accent);font-weight:400}
+  .contact p{color:#bdb4a7;max-width:480px;margin-bottom:36px;font-size:17px}
+  .contact .btn{background:var(--accent);border-color:var(--accent);color:#fff;padding:16px 28px;font-size:14px}
+  .contact .btn:hover{background:#fff;border-color:#fff;color:var(--ink)}
+  .links{display:flex;flex-direction:column;gap:2px}
+  .link-row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:20px 0;border-top:1px solid #2a2520;
+    font-size:15px;transition:padding .3s ease;
+  }
+  .link-row:last-child{border-bottom:1px solid #2a2520}
+  .link-row:hover{padding-left:12px}
+  .link-row .lbl{color:#a39a8e;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+  .link-row .val{font-family:'Fraunces',serif;font-size:20px}
+  .link-row .val:hover{color:var(--accent)}
+
+  /* FOOTER */
+  footer{padding:40px 0 60px;color:var(--muted);font-size:13px}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+
+  /* RESPONSIVE */
+  @media (max-width:900px){
+    .nav-links{display:none}
+    .hero-grid,.about-grid,.contact-inner{grid-template-columns:1fr;gap:48px}
+    .portrait{max-width:400px}
+    .stats{grid-template-columns:1fr 1fr}
+    .skills-grid{grid-template-columns:1fr 1fr}
+    .work-grid{grid-template-columns:1fr}
+    .project,.project:nth-child(3){grid-column:span 1}
+    .row{grid-template-columns:1fr;gap:8px}
+    .row .tag-sm{justify-self:start}
+    .contact{padding:60px 32px;border-radius:24px}
+    section{padding:80px 0}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#"><span class="dot"></span>Alex Morgan</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#work">Work</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a class="btn" href="#contact">Let's talk →</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="badge"><span class="pulse"></span> Open for opportunities · 2025</span>
+        <h1 class="title">Designing <em>thoughtful</em><br/><span class="stroke">digital</span> experiences.</h1>
+        <p class="lede">I'm Alex — a recent Computer Science graduate crafting interfaces that feel as good as they look. Currently seeking a junior product / front-end role.</p>
+        <div class="hero-cta">
+          <a class="btn" href="#work">View selected work →</a>
+          <a class="btn ghost" href="#" download>Download CV</a>
+        </div>
+        <div class="hero-meta">
+          <div><strong>B.Sc. Computer Science</strong>University of Westfield, 2025</div>
+          <div><strong>Based in Berlin</strong>Available worldwide · Remote</div>
+          <div><strong>3.9 / 4.0 GPA</strong>Magna Cum Laude</div>
+        </div>
+      </div>
+      <div class="portrait">
+        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80" alt="Portrait of Alex Morgan" />
+        <div class="tag"><span>Currently</span><span>Building things ✦</span></div>
+      </div>
+    </div>
+
+    <div class="marquee">
+      <div class="marquee-track">
+        <span>React</span><span>TypeScript</span><span>Figma</span><span>Node.js</span><span>UI Design</span><span>Python</span><span>Tailwind</span><span>Product Thinking</span>
+        <span>React</span><span>TypeScript</span><span>Figma</span><span>Node.js</span><span>UI Design</span><span>Python</span><span>Tailwind</span><span>Product Thinking</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">About me</span>
+        <h2>A curious mind with a <em>builder's</em> heart.</h2>
+      </div>
+      <p>Three years of side projects, hackathons, and one stubborn refusal to ship anything ugly.</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-visual">
+        <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=900&q=80" alt="Workspace" />
+      </div>
+      <div class="about-text">
+        <p>I fell in love with the web the day I realized a single line of CSS could change how a thousand people feel. Since then I've spent every free weekend turning small ideas into shippable things.</p>
+        <p>I care equally about pixel-perfect interfaces and the code beneath them. My goal: join a team where craft, curiosity, and kindness are non-negotiable.</p>
+        <div class="stats">
+          <div class="stat"><div class="num">14</div><div class="lbl">Projects shipped</div></div>
+          <div class="stat"><div class="num">5</div><div class="lbl">Hackathon wins</div></div>
+          <div class="stat"><div class="num">2k+</div><div class="lbl">GitHub stars</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Education & Experience</span>
+        <h2>A short, focused <em>journey</em> so far.</h2>
+      </div>
+      <p>Formal study, real internships, and the long nights in between.</p>
+    </div>
+    <div class="timeline">
+      <div class="row">
+        <div class="year">2025</div>
+        <div>
+          <h3>B.Sc. Computer Science</h3>
+          <div class="org">University of Westfield · Magna Cum Laude · 3.9 GPA</div>
+          <p>Concentration in Human-Computer Interaction. Thesis on accessibility patterns in modern component libraries, awarded department honors.</p>
+        </div>
+        <span class="tag-sm">Graduated</span>
+      </div>
+      <div class="row">
+        <div class="year">2024</div>
+        <div>
+          <h3>Product Engineering Intern</h3>
+          <div class="org">Northwind Studio · Berlin · Summer 2024</div>
+          <p>Shipped a design-tokens pipeline and three customer-facing features. Worked closely with senior designers on a brand-wide refresh.</p>
+        </div>
+        <span class="tag-sm">Internship</span>
+      </div>
+      <div class="row">
+        <div class="year">2023</div>
+        <div>
+          <h3>Teaching Assistant — Web Systems</h3>
+          <div class="org">University of Westfield · 2023 – 2024</div>
+          <p>Mentored 60+ students through their first React & Node projects. Authored two new lab assignments adopted into the curriculum.</p>
+        </div>
+        <span class="tag-sm">On-campus</span>
+      </div>
+      <div class="row">
+        <div class="year">2022</div>
+        <div>
+          <h3>Freelance Web Designer</h3>
+          <div class="org">Independent · 2022 – present</div>
+          <p>Designed and built marketing sites for small studios, restaurants, and one very patient cat photographer.</p>
+        </div>
+        <span class="tag-sm">Freelance</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="skills-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">What I do</span>
+        <h2>Skills sharpened across <em>design</em> and <em>code</em>.</h2>
+      </div>
+      <p>I move comfortably between the brief, the Figma file, and the pull request.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17l6-6 4 4 6-6"/></svg></div>
+        <h4>Front-end</h4>
+        <p>Building interfaces that perform and feel right.</p>
+        <div class="list"><span>React</span><span>TypeScript</span><span>Next.js</span><span>Tailwind</span></div>
+      </div>
+      <div class="skill">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18"/></svg></div>
+        <h4>Back-end</h4>
+        <p>APIs, databases, and the glue in between.</p>
+        <div class="list"><span>Node.js</span><span>Python</span><span>PostgreSQL</span><span>Supabase</span></div>
+      </div>
+      <div class="skill">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></div>
+        <h4>Design</h4>
+        <p>From rough wireframes to delightful detail.</p>
+        <div class="list"><span>Figma</span><span>Design Systems</span><span>Prototyping</span></div>
+      </div>
+      <div class="skill">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M8 4v6"/></svg></div>
+        <h4>Product</h4>
+        <p>Research, scoping, and shipping the right thing.</p>
+        <div class="list"><span>User Research</span><span>A/B Testing</span><span>Analytics</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Selected work</span>
+        <h2>Recent things I've <em>shipped</em>.</h2>
+      </div>
+      <p>A small, honest sample. Full case studies available on request.</p>
+    </div>
+    <div class="work-grid">
+      <article class="project">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80" alt="Analytics dashboard"/></div>
+        <div class="body">
+          <div class="meta-top"><span>01 — Product</span><span>2024</span></div>
+          <h3>Lumen Analytics</h3>
+          <p>A lightweight analytics dashboard for indie founders. Designed, built, and shipped solo in 6 weeks.</p>
+          <div class="stack"><span>React</span><span>Supabase</span><span>D3</span></div>
+          <a class="arrow" href="#">Read case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+        </div>
+      </article>
+      <article class="project">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1200&q=80" alt="Mobile app"/></div>
+        <div class="body">
+          <div class="meta-top"><span>02 — Mobile</span><span>2024</span></div>
+          <h3>Quiet — focus timer</h3>
+          <p>A minimal focus app with ambient soundscapes. Featured in 3 newsletters within a week of launch.</p>
+          <div class="stack"><span>React Native</span><span>Expo</span><span>Figma</span></div>
+          <a class="arrow" href="#">View project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+        </div>
+      </article>
+      <article class="project">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&q=80" alt="Design system"/></div>
+        <div class="body">
+          <div class="meta-top"><span>03 — Design system</span><span>2025 · Thesis</span></div>
+          <h3>Northwind UI — an accessible component library</h3>
+          <p>The capstone of my degree: a fully accessible React component library with 40+ primitives, tokens, and a documentation site. Open source, MIT licensed, and currently used by two early-stage teams.</p>
+          <div class="stack"><span>React</span><span>TypeScript</span><span>Radix</span><span>Storybook</span><span>WCAG 2.2</span></div>
+          <a class="arrow" href="#">Explore the library <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact">
+      <div class="contact-inner">
+        <div>
+          <span class="eyebrow" style="color:#a39a8e">Let's work together</span>
+          <h2 style="margin-top:18px">Have a role, a project, or just a <em>hello</em>?</h2>
+          <p>I'm currently looking for junior product engineering and design roles. The fastest way to reach me is email — I reply within a day.</p>
+          <a class="btn" href="mailto:hello@alexmorgan.dev">hello@alexmorgan.dev →</a>
+        </div>
+        <div class="links">
+          <a class="link-row" href="#"><span class="lbl">Email</span><span class="val">hello@alexmorgan.dev</span></a>
+          <a class="link-row" href="#"><span class="lbl">LinkedIn</span><span class="val">/in/alexmorgan</span></a>
+          <a class="link-row" href="#"><span class="lbl">GitHub</span><span class="val">@alexmorgan</span></a>
+          <a class="link-row" href="#"><span class="lbl">Read.cv</span><span class="val">/alexmorgan</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>© 2025 Alex Morgan. Designed & built with care.</div>
+    <div>Last updated · January 2025</div>
+  </div>
+</footer>
+
+</body>
+</html>
