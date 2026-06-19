@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lena Hart — Photographer Portfolio</title>
+<meta name="description" content="Lena Hart - Professional photographer specializing in wedding, portrait, travel and fashion photography." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: #0b0b0b; color: #ece8e1; font-family: 'Inter', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  .serif { font-family: 'Cormorant Garamond', serif; font-weight: 400; letter-spacing: 0.01em; }
+
+  /* Ambient grain + vignette */
+  body::before {
+    content:""; position: fixed; inset:0; pointer-events:none; z-index:1;
+    background:
+      radial-gradient(120% 80% at 50% 0%, rgba(212,175,109,0.08), transparent 60%),
+      radial-gradient(120% 80% at 50% 100%, rgba(0,0,0,0.6), transparent 60%);
+  }
+  body::after {
+    content:""; position: fixed; inset:0; pointer-events:none; z-index:2; opacity:.07;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.6'/></svg>");
+  }
+
+  .wrap { position: relative; z-index: 3; max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+
+  /* NAV */
+  nav.top { position: fixed; top: 0; left: 0; right: 0; z-index: 50; padding: 1.4rem 2rem;
+    display:flex; justify-content:space-between; align-items:center;
+    backdrop-filter: blur(14px); background: rgba(11,11,11,0.55);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  nav.top .logo { font-family:'Cormorant Garamond', serif; font-size:1.5rem; letter-spacing:.18em; text-transform:uppercase; }
+  nav.top ul { display:flex; gap:2rem; list-style:none; }
+  nav.top ul a { font-size:.78rem; letter-spacing:.2em; text-transform:uppercase; color:#cfc9be; transition:color .3s; position:relative; }
+  nav.top ul a::after { content:""; position:absolute; left:0; bottom:-6px; height:1px; width:0; background:#d4af6d; transition:width .35s ease; }
+  nav.top ul a:hover { color:#fff; } nav.top ul a:hover::after { width:100%; }
+  @media (max-width: 720px) { nav.top ul { display:none; } }
+
+  /* HERO */
+  .hero { min-height: 100vh; display:grid; grid-template-columns: 1.1fr .9fr; align-items:center; gap:3rem; padding: 8rem 0 4rem; }
+  .hero-left h1 { font-family:'Cormorant Garamond', serif; font-weight: 500;
+    font-size: clamp(3.5rem, 9vw, 8rem); line-height: .95; letter-spacing:-.02em;
+    background: linear-gradient(180deg, #f5efe3 0%, #d4af6d 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: rise 1.2s ease both;
+  }
+  .hero-left .kicker { display:inline-block; font-size:.75rem; letter-spacing:.3em; text-transform:uppercase; color:#d4af6d; margin-bottom:1.5rem; }
+  .hero-left p.tag { margin-top:1.5rem; max-width:480px; color:#b8b1a5; font-size:1.05rem; line-height:1.7; }
+  .hero-cta { margin-top:2.5rem; display:flex; gap:1rem; flex-wrap:wrap; }
+  .btn { display:inline-flex; align-items:center; gap:.6rem; padding: 1rem 2rem; font-size:.78rem; letter-spacing:.22em; text-transform:uppercase; border-radius:999px; transition: all .4s cubic-bezier(.2,.7,.2,1); cursor:pointer; border:1px solid transparent; }
+  .btn-primary { background: linear-gradient(135deg,#d4af6d,#8a6a3d); color:#0b0b0b; box-shadow: 0 12px 40px -10px rgba(212,175,109,.5); }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 50px -10px rgba(212,175,109,.7); }
+  .btn-ghost { border-color: rgba(255,255,255,.2); color:#ece8e1; }
+  .btn-ghost:hover { border-color:#d4af6d; color:#d4af6d; }
+
+  .hero-right { position:relative; aspect-ratio: 4/5; overflow:hidden; border-radius: 4px;
+    box-shadow: 0 40px 80px -20px rgba(0,0,0,.8);
+    animation: fadeIn 1.4s ease both;
+  }
+  .hero-right img { width:100%; height:100%; object-fit:cover; filter: grayscale(.15) contrast(1.05); transition: transform 8s ease; }
+  .hero-right:hover img { transform: scale(1.08); }
+  .hero-right::before { content:"FEATURED"; position:absolute; top:1.5rem; left:1.5rem; z-index:2; font-size:.65rem; letter-spacing:.4em; color:#fff; background:rgba(0,0,0,.4); padding:.5rem .8rem; backdrop-filter:blur(8px); }
+  .hero-right::after { content:""; position:absolute; inset:0; background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,.5)); }
+
+  @media (max-width: 900px) { .hero { grid-template-columns: 1fr; padding-top: 7rem; } .hero-right { max-width: 420px; margin: 0 auto; } }
+
+  /* SECTION */
+  section { padding: 7rem 0; position: relative; }
+  .sec-label { font-size:.7rem; letter-spacing:.4em; text-transform:uppercase; color:#d4af6d; margin-bottom:1rem; display:block; }
+  .sec-title { font-family:'Cormorant Garamond', serif; font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1; margin-bottom: 2rem; font-weight: 500; }
+  .sec-title em { font-style: italic; color:#d4af6d; }
+
+  /* ABOUT */
+  .about { display:grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items:center; }
+  .about-img { position:relative; aspect-ratio: 3/4; overflow:hidden; border-radius:4px; }
+  .about-img img { width:100%; height:100%; object-fit:cover; filter: grayscale(.3); transition: filter .8s, transform 1.2s; }
+  .about-img:hover img { filter:none; transform:scale(1.05); }
+  .about-img::before { content:""; position:absolute; inset:-15px; border:1px solid #d4af6d; border-radius:4px; z-index:-1; }
+  .about p { color:#b8b1a5; line-height:1.9; font-size:1.05rem; margin-bottom:1.2rem; }
+  .stats { display:grid; grid-template-columns: repeat(3, 1fr); gap:2rem; margin-top: 3rem; padding-top: 2.5rem; border-top: 1px solid rgba(255,255,255,.08); }
+  .stat .n { font-family:'Cormorant Garamond', serif; font-size: 2.8rem; color:#d4af6d; line-height:1; }
+  .stat .l { font-size:.7rem; letter-spacing:.25em; text-transform:uppercase; color:#8a8378; margin-top:.6rem; }
+  @media (max-width:900px) { .about { grid-template-columns: 1fr; gap:3rem; } }
+
+  /* PORTFOLIO */
+  .filters { display:flex; gap:.8rem; flex-wrap:wrap; margin-bottom: 3rem; }
+  .chip { padding:.6rem 1.2rem; font-size:.7rem; letter-spacing:.25em; text-transform:uppercase; border:1px solid rgba(255,255,255,.15); border-radius:999px; color:#cfc9be; }
+  .chip.active, .chip:hover { background:#d4af6d; color:#0b0b0b; border-color:#d4af6d; }
+  .gallery { display:grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: 180px; gap: 1rem; }
+  .tile { position:relative; overflow:hidden; border-radius:4px; cursor:pointer; }
+  .tile img { width:100%; height:100%; object-fit:cover; transition: transform 1.5s ease, filter .6s; filter: brightness(.85); }
+  .tile:hover img { transform: scale(1.1); filter: brightness(1); }
+  .tile .meta { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end; padding:1.5rem; background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,.85)); opacity:0; transition:opacity .5s; }
+  .tile:hover .meta { opacity:1; }
+  .tile .meta .cat { font-size:.65rem; letter-spacing:.3em; text-transform:uppercase; color:#d4af6d; }
+  .tile .meta h4 { font-family:'Cormorant Garamond', serif; font-size: 1.6rem; margin-top:.4rem; }
+  .t1 { grid-column: span 6; grid-row: span 2; }
+  .t2 { grid-column: span 6; grid-row: span 1; }
+  .t3 { grid-column: span 3; grid-row: span 1; }
+  .t4 { grid-column: span 3; grid-row: span 1; }
+  .t5 { grid-column: span 4; grid-row: span 2; }
+  .t6 { grid-column: span 4; grid-row: span 1; }
+  .t7 { grid-column: span 4; grid-row: span 1; }
+  .t8 { grid-column: span 6; grid-row: span 1; }
+  .t9 { grid-column: span 6; grid-row: span 1; }
+  @media (max-width: 768px) { .gallery { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 200px; } .tile { grid-column: span 1 !important; grid-row: span 1 !important; } .t1, .t5 { grid-column: span 2 !important; } }
+
+  /* SERVICES */
+  .services-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .service { padding: 2.5rem; border:1px solid rgba(255,255,255,.08); border-radius:6px; background: linear-gradient(180deg, rgba(255,255,255,.02), transparent); transition: all .5s; position:relative; overflow:hidden; }
+  .service::before { content:""; position:absolute; top:0; left:0; width:100%; height:1px; background:linear-gradient(90deg, transparent, #d4af6d, transparent); transform: translateX(-100%); transition: transform .8s; }
+  .service:hover { transform: translateY(-8px); border-color: rgba(212,175,109,.4); }
+  .service:hover::before { transform: translateX(100%); }
+  .service .num { font-family:'Cormorant Garamond', serif; font-size:3rem; color:#d4af6d; opacity:.5; line-height:1; }
+  .service h3 { font-family:'Cormorant Garamond', serif; font-size:1.8rem; margin: 1rem 0 .8rem; font-weight:500; }
+  .service p { color:#b8b1a5; line-height:1.7; font-size:.95rem; }
+  .service ul { list-style:none; margin-top:1.5rem; }
+  .service li { padding: .5rem 0; font-size:.85rem; color:#cfc9be; border-bottom: 1px dashed rgba(255,255,255,.06); display:flex; justify-content:space-between; }
+  .service li::before { content:"—"; color:#d4af6d; margin-right:.6rem; }
+  @media (max-width:900px) { .services-grid { grid-template-columns: 1fr; } }
+
+  /* TESTIMONIALS */
+  .testimonials { display:grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+  .test { padding: 2.5rem; background: rgba(255,255,255,.02); border-radius:6px; border:1px solid rgba(255,255,255,.06); position:relative; }
+  .test::before { content:"“"; position:absolute; top: -20px; left: 20px; font-family:'Cormorant Garamond', serif; font-size:8rem; color:#d4af6d; line-height:1; opacity:.5; }
+  .test p { color:#cfc9be; line-height:1.9; font-style:italic; font-family:'Cormorant Garamond', serif; font-size:1.25rem; }
+  .test .who { margin-top: 1.8rem; display:flex; align-items:center; gap:1rem; }
+  .test .who img { width:50px; height:50px; border-radius:50%; object-fit:cover; }
+  .test .who .name { font-weight:600; }
+  .test .who .role { font-size:.75rem; color:#8a8378; letter-spacing:.15em; text-transform:uppercase; margin-top:.2rem; }
+  @media (max-width:768px) { .testimonials { grid-template-columns: 1fr; } }
+
+  /* PRICING */
+  .pricing { display:grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .price { padding: 3rem 2rem; border:1px solid rgba(255,255,255,.08); border-radius:6px; text-align:center; transition: all .5s; position:relative; }
+  .price:hover { transform: translateY(-6px); border-color:#d4af6d; }
+  .price.featured { background: linear-gradient(180deg, rgba(212,175,109,.08), transparent); border-color: rgba(212,175,109,.3); transform: scale(1.03); }
+  .price.featured::before { content:"MOST POPULAR"; position:absolute; top: -12px; left:50%; transform: translateX(-50%); background:#d4af6d; color:#0b0b0b; padding:.4rem 1rem; font-size:.65rem; letter-spacing:.25em; border-radius:999px; }
+  .price h3 { font-family:'Cormorant Garamond', serif; font-size:1.6rem; letter-spacing:.05em; }
+  .price .amt { font-family:'Cormorant Garamond', serif; font-size:4rem; color:#d4af6d; margin: 1.5rem 0 .5rem; line-height:1; }
+  .price .amt span { font-size:1rem; color:#8a8378; }
+  .price ul { list-style:none; margin: 2rem 0; text-align:left; }
+  .price li { padding:.7rem 0; color:#cfc9be; font-size:.9rem; border-bottom:1px dashed rgba(255,255,255,.06); }
+  .price li::before { content:"✓ "; color:#d4af6d; }
+  @media (max-width:900px) { .pricing { grid-template-columns: 1fr; } .price.featured { transform:none; } }
+
+  /* CONTACT */
+  .contact-wrap { display:grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items:start; }
+  .contact-info p { color:#b8b1a5; line-height:1.8; margin-bottom: 2.5rem; }
+  .info-item { display:flex; align-items:flex-start; gap:1rem; padding: 1.2rem 0; border-top: 1px solid rgba(255,255,255,.08); }
+  .info-item:last-of-type { border-bottom:1px solid rgba(255,255,255,.08); }
+  .info-item .ic { width:40px; height:40px; border-radius:50%; background: rgba(212,175,109,.1); display:flex; align-items:center; justify-content:center; color:#d4af6d; flex-shrink:0; }
+  .info-item .lbl { font-size:.7rem; letter-spacing:.25em; text-transform:uppercase; color:#8a8378; }
+  .info-item .val { margin-top:.3rem; font-size:1rem; }
+  .socials { display:flex; gap:.8rem; margin-top: 2rem; }
+  .socials a { width:42px; height:42px; border-radius:50%; border:1px solid rgba(255,255,255,.15); display:flex; align-items:center; justify-content:center; font-size:.75rem; letter-spacing:.1em; transition: all .4s; }
+  .socials a:hover { background:#d4af6d; color:#0b0b0b; border-color:#d4af6d; transform: translateY(-3px); }
+
+  form { display:grid; gap: 1.2rem; }
+  .row { display:grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .field label { display:block; font-size:.7rem; letter-spacing:.25em; text-transform:uppercase; color:#8a8378; margin-bottom:.5rem; }
+  .field input, .field textarea, .field select { width:100%; padding: 1rem; background: rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.1); border-radius:4px; color:#ece8e1; font-family:inherit; font-size:.95rem; transition: border-color .3s; }
+  .field input:focus, .field textarea:focus, .field select:focus { outline:none; border-color:#d4af6d; }
+  .field textarea { min-height:140px; resize:vertical; }
+  @media (max-width:900px) { .contact-wrap, .row { grid-template-columns: 1fr; } }
+
+  /* FOOTER */
+  footer { padding: 3rem 0; border-top: 1px solid rgba(255,255,255,.06); text-align:center; color:#8a8378; font-size:.8rem; letter-spacing:.15em; }
+
+  /* Animations */
+  @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+  @keyframes rise { from { opacity:0; transform: translateY(40px); } to { opacity:1; transform:none; } }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+  .reveal { animation: rise 1s ease both; }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="logo">Lena · Hart</div>
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="home" class="wrap hero">
+  <div class="hero-left">
+    <span class="kicker">— Photographer · Est. 2014</span>
+    <h1 class="serif">Lena<br/><em style="font-style:italic;">Hart</em></h1>
+    <p class="tag">Capturing fleeting moments with cinematic light and quiet intention — wedding, portrait, travel & editorial photography across Europe and beyond.</p>
+    <div class="hero-cta">
+      <a href="#portfolio" class="btn btn-primary">View Portfolio →</a>
+      <a href="#contact" class="btn btn-ghost">Book a Session</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&q=80" alt="Featured portrait" loading="lazy"/>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="wrap">
+  <div class="about">
+    <div class="about-img">
+      <img src="https://images.unsplash.com/photo-1554151228-14d9def656e4?w=700&q=80" alt="Lena portrait"/>
+    </div>
+    <div>
+      <span class="sec-label">About Me</span>
+      <h2 class="sec-title">A storyteller with <em>a camera</em>.</h2>
+      <p>I'm Lena — a photographer based in Lisbon with a soft spot for golden hour, honest emotion, and the small details others miss. For over a decade I've been telling stories through light, shadow, and silence.</p>
+      <p>My style blends documentary realism with editorial elegance. I work slowly and quietly, letting moments unfold rather than directing them. Every frame is an invitation to remember.</p>
+      <div class="stats">
+        <div class="stat"><div class="n">12+</div><div class="l">Years Experience</div></div>
+        <div class="stat"><div class="n">240</div><div class="l">Weddings Shot</div></div>
+        <div class="stat"><div class="n">38</div><div class="l">Countries Visited</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio" class="wrap">
+  <span class="sec-label">Portfolio</span>
+  <h2 class="sec-title">Selected <em>work</em>.</h2>
+  <div class="filters">
+    <span class="chip active">All</span>
+    <span class="chip">Wedding</span>
+    <span class="chip">Portrait</span>
+    <span class="chip">Travel</span>
+    <span class="chip">Fashion</span>
+    <span class="chip">Editorial</span>
+  </div>
+  <div class="gallery">
+    <div class="tile t1"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=900&q=80" alt=""/><div class="meta"><span class="cat">Wedding</span><h4>Amalfi Vows</h4></div></div>
+    <div class="tile t2"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&q=80" alt=""/><div class="meta"><span class="cat">Portrait</span><h4>Quiet Hours</h4></div></div>
+    <div class="tile t3"><img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=80" alt=""/><div class="meta"><span class="cat">Fashion</span><h4>Linen</h4></div></div>
+    <div class="tile t4"><img src="https://images.unsplash.com/photo-1502635385003-ee1e6a1a742d?w=600&q=80" alt=""/><div class="meta"><span class="cat">Travel</span><h4>Kyoto Mist</h4></div></div>
+    <div class="tile t5"><img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=800&q=80" alt=""/><div class="meta"><span class="cat">Editorial</span><h4>Soft Power</h4></div></div>
+    <div class="tile t6"><img src="https://images.unsplash.com/photo-1505944270255-72b8c68c6a70?w=700&q=80" alt=""/><div class="meta"><span class="cat">Wedding</span><h4>First Look</h4></div></div>
+    <div class="tile t7"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=700&q=80" alt=""/><div class="meta"><span class="cat">Portrait</span><h4>Studio 14</h4></div></div>
+    <div class="tile t8"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900&q=80" alt=""/><div class="meta"><span class="cat">Travel</span><h4>Dolomites</h4></div></div>
+    <div class="tile t9"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=900&q=80" alt=""/><div class="meta"><span class="cat">Fashion</span><h4>Atelier</h4></div></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="wrap">
+  <span class="sec-label">Services</span>
+  <h2 class="sec-title">What I <em>offer</em>.</h2>
+  <div class="services-grid">
+    <div class="service">
+      <div class="num">01</div>
+      <h3>Wedding Photography</h3>
+      <p>Full-day documentary coverage of your celebration — from morning rituals to last dance.</p>
+      <ul><li>Engagement Session<span>+</span></li><li>Full Day Coverage<span>+</span></li><li>Digital Gallery<span>+</span></li><li>Fine Art Album<span>+</span></li></ul>
+    </div>
+    <div class="service">
+      <div class="num">02</div>
+      <h3>Portrait Sessions</h3>
+      <p>Individual, couple, family and maternity portraits with natural light, in studio or outdoors.</p>
+      <ul><li>90 min Session<span>+</span></li><li>2 Outfit Changes<span>+</span></li><li>Retouched Images<span>+</span></li><li>Print Release<span>+</span></li></ul>
+    </div>
+    <div class="service">
+      <div class="num">03</div>
+      <h3>Editorial & Fashion</h3>
+      <p>Commissioned shoots for magazines, brands and lookbooks — concept-led and art-directed.</p>
+      <ul><li>Concept Development<span>+</span></li><li>On-location Shoot<span>+</span></li><li>Post Production<span>+</span></li><li>Usage Rights<span>+</span></li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" class="wrap">
+  <span class="sec-label">Testimonials</span>
+  <h2 class="sec-title">Kind <em>words</em>.</h2>
+  <div class="testimonials">
+    <div class="test">
+      <p>Lena has an extraordinary eye. She turned our small ceremony into a series of timeless images — every single one feels like a memory we can step back into.</p>
+      <div class="who">
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&q=80" alt=""/>
+        <div><div class="name">Sophia & Marco</div><div class="role">Wedding · Tuscany</div></div>
+      </div>
+    </div>
+    <div class="test">
+      <p>Working with Lena on our editorial was effortless. Her instinct for light and composition elevated the entire campaign beyond what we imagined.</p>
+      <div class="who">
+        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&q=80" alt=""/>
+        <div><div class="name">Daniel Reyes</div><div class="role">Creative Director · Maison</div></div>
+      </div>
+    </div>
+    <div class="test">
+      <p>I've never felt so comfortable in front of a camera. The portraits feel like me — not a posed version of me. Truly magical work.</p>
+      <div class="who">
+        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&q=80" alt=""/>
+        <div><div class="name">Aria Linden</div><div class="role">Portrait Client</div></div>
+      </div>
+    </div>
+    <div class="test">
+      <p>Lena documented our travel campaign across three countries and delivered images that felt like cinema. Calm, professional, and wildly talented.</p>
+      <div class="who">
+        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&q=80" alt=""/>
+        <div><div class="name">James Okafor</div><div class="role">Brand Manager · Voyage Co.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="wrap">
+  <span class="sec-label">Pricing</span>
+  <h2 class="sec-title">Investment & <em>packages</em>.</h2>
+  <div class="pricing">
+    <div class="price">
+      <h3>Essential</h3>
+      <div class="amt">$890<span> / session</span></div>
+      <ul>
+        <li>60 minute session</li>
+        <li>1 location</li>
+        <li>25 retouched images</li>
+        <li>Online gallery</li>
+        <li>Print release</li>
+      </ul>
+      <a href="#contact" class="btn btn-ghost">Choose Essential</a>
+    </div>
+    <div class="price featured">
+      <h3>Signature</h3>
+      <div class="amt">$1,650<span> / day</span></div>
+      <ul>
+        <li>Half day coverage</li>
+        <li>2 locations</li>
+        <li>70 retouched images</li>
+        <li>Premium gallery</li>
+        <li>10 fine art prints</li>
+        <li>Pre-shoot consultation</li>
+      </ul>
+      <a href="#contact" class="btn btn-primary">Choose Signature</a>
+    </div>
+    <div class="price">
+      <h3>Heritage</h3>
+      <div class="amt">$3,200<span> / event</span></div>
+      <ul>
+        <li>Full day coverage</li>
+        <li>Unlimited locations</li>
+        <li>200+ retouched images</li>
+        <li>Linen-bound album</li>
+        <li>Second photographer</li>
+        <li>Highlight film (3 min)</li>
+      </ul>
+      <a href="#contact" class="btn btn-ghost">Choose Heritage</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="wrap">
+  <span class="sec-label">Contact</span>
+  <h2 class="sec-title">Let's create <em>together</em>.</h2>
+  <div class="contact-wrap">
+    <div class="contact-info">
+      <p>I'd love to hear about your project, wedding, or creative vision. Fill out the form or reach me directly — I respond within 24 hours.</p>
+      <div class="info-item">
+        <div class="ic">✉</div>
+        <div><div class="lbl">Email</div><div class="val">hello@lenahart.studio</div></div>
+      </div>
+      <div class="info-item">
+        <div class="ic">☎</div>
+        <div><div class="lbl">Phone</div><div class="val">+351 912 345 678</div></div>
+      </div>
+      <div class="info-item">
+        <div class="ic">⌖</div>
+        <div><div class="lbl">Studio</div><div class="val">Rua das Flores 22, Lisbon</div></div>
+      </div>
+      <div class="socials">
+        <a href="#" title="Instagram">IG</a>
+        <a href="#" title="Behance">BE</a>
+        <a href="#" title="Pinterest">PT</a>
+        <a href="#" title="Vimeo">VM</a>
+        <a href="#" title="LinkedIn">IN</a>
+      </div>
+    </div>
+    <form onsubmit="event.preventDefault(); alert('Thank you — I will be in touch shortly.');">
+      <div class="row">
+        <div class="field"><label>First Name</label><input type="text" required placeholder="Jane"/></div>
+        <div class="field"><label>Last Name</label><input type="text" required placeholder="Doe"/></div>
+      </div>
+      <div class="row">
+        <div class="field"><label>Email</label><input type="email" required placeholder="you@email.com"/></div>
+        <div class="field"><label>Phone</label><input type="tel" placeholder="+1 555 123 4567"/></div>
+      </div>
+      <div class="field">
+        <label>Service</label>
+        <select>
+          <option>Wedding Photography</option>
+          <option>Portrait Session</option>
+          <option>Editorial / Fashion</option>
+          <option>Travel / Commercial</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="field"><label>Your Message</label><textarea required placeholder="Tell me about your vision..."></textarea></div>
+      <button type="submit" class="btn btn-primary" style="justify-self:start;">Send Message →</button>
+    </form>
+  </div>
+</section>
+
+<footer>© 2026 LENA HART STUDIO · ALL RIGHTS RESERVED · CRAFTED WITH LIGHT</footer>
+
+</body>
+</html>
