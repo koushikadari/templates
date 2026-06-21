@@ -1,0 +1,2488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Summer Zhou — Social Media Marketing Lead</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ===========================
+     TOKENS & RESET
+  =========================== */
+  :root {
+    --forest:      #0F1F1C;
+    --teal-deep:   #1A2F2B;
+    --teal-mid:    #2A5C52;
+    --teal-bright: #3D8C7A;
+    --sage-pale:   #E8F4F2;
+    --cream:       #F5F0E8;
+    --gold:        #D4A853;
+    --gold-light:  #E8C47A;
+    --white:       #FFFFFF;
+    --text-dark:   #0F1F1C;
+    --text-mid:    #4A6B63;
+    --text-light:  rgba(245,240,232,0.7);
+
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body:    'DM Sans', system-ui, sans-serif;
+    --font-mono:    'DM Mono', monospace;
+
+    --max-w: 1600px;
+    --gap:   clamp(2rem, 5vw, 6rem);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  button { cursor: pointer; border: none; background: none; font: inherit; }
+
+  /* ===========================
+     UTILITIES
+  =========================== */
+  .container {
+    width: min(var(--max-w), 100%);
+    padding-inline: clamp(1.5rem, 5vw, 5rem);
+    margin-inline: auto;
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal-mid);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .tag::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 1px;
+    background: var(--teal-mid);
+  }
+
+  .tag--light { color: var(--teal-bright); }
+  .tag--light::before { background: var(--teal-bright); }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ===========================
+     NAVIGATION
+  =========================== */
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1.4rem 0;
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .nav.scrolled {
+    background: rgba(15,31,28,0.95);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 1px 0 rgba(61,140,122,0.15);
+  }
+
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav__logo {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    color: var(--cream);
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+  }
+  .nav__logo span { color: var(--teal-bright); }
+
+  .nav__links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav__links a {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    transition: color 0.25s;
+  }
+  .nav__links a:hover { color: var(--cream); }
+
+  .nav__cta {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.65rem 1.5rem;
+    border: 1px solid var(--teal-bright);
+    color: var(--teal-bright);
+    transition: background 0.25s, color 0.25s;
+  }
+  .nav__cta:hover {
+    background: var(--teal-mid);
+    color: var(--cream);
+  }
+
+  /* ===========================
+     HERO
+  =========================== */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 42% 1fr;
+    background: var(--forest);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* LEFT PANEL */
+  .hero__left {
+    background: var(--teal-deep);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero__eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+  }
+
+  .hero__name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(3.5rem, 5.5vw, 7rem);
+    line-height: 0.95;
+    color: var(--cream);
+    margin-bottom: 1.5rem;
+  }
+  .hero__name em {
+    font-style: italic;
+    color: var(--teal-bright);
+  }
+
+  .hero__title {
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+    color: var(--text-light);
+    line-height: 1.7;
+    margin-bottom: 3rem;
+    max-width: 26ch;
+  }
+
+  .hero__photo-wrap {
+    position: relative;
+    width: 220px;
+    height: 270px;
+    align-self: flex-start;
+    margin-top: -1rem;
+  }
+
+  .hero__photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    filter: saturate(0.6) contrast(1.1);
+    mix-blend-mode: luminosity;
+  }
+
+  .hero__photo-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--teal-mid) 0%, transparent 60%);
+    mix-blend-mode: color;
+    z-index: 1;
+  }
+
+  /* Avatar placeholder when no image provided */
+  .hero__avatar {
+    width: 200px;
+    height: 240px;
+    background: linear-gradient(160deg, var(--teal-mid), var(--teal-deep));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 4rem;
+    color: var(--cream);
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero__avatar::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(to top, var(--teal-deep), transparent);
+  }
+
+  /* RIGHT PANEL */
+  .hero__right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10rem 5rem 5rem;
+    position: relative;
+  }
+
+  /* Animated social posts */
+  .social-feed {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .post-card {
+    position: absolute;
+    background: rgba(42,92,82,0.12);
+    border: 1px solid rgba(61,140,122,0.2);
+    backdrop-filter: blur(4px);
+    padding: 1.2rem 1.4rem;
+    border-radius: 2px;
+    width: 220px;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .post-card__platform {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal-bright);
+    margin-bottom: 0.5rem;
+  }
+
+  .post-card__stat {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1;
+  }
+
+  .post-card__label {
+    font-size: 0.65rem;
+    color: var(--text-light);
+    margin-top: 0.25rem;
+    letter-spacing: 0.05em;
+  }
+
+  .post-card--1 { top: 18%; left: 8%; animation-delay: 0s; }
+  .post-card--2 { top: 12%; right: 12%; animation-delay: -2.5s; }
+  .post-card--3 { top: 55%; left: 5%; animation-delay: -5s; }
+  .post-card--4 { bottom: 20%; right: 8%; animation-delay: -1.5s; }
+  .post-card--5 { top: 35%; right: 20%; animation-delay: -3.8s; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    33% { transform: translateY(-10px) rotate(0.5deg); }
+    66% { transform: translateY(6px) rotate(-0.5deg); }
+  }
+
+  .hero__headline {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.5vw, 4.2rem);
+    font-weight: 400;
+    color: var(--cream);
+    line-height: 1.15;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero__headline em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero__desc {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-light);
+    max-width: 40ch;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero__actions {
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--gold);
+    color: var(--forest);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    transition: background 0.25s, transform 0.25s;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  .btn-secondary {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.25s;
+  }
+  .btn-secondary:hover { color: var(--cream); }
+  .btn-secondary::after {
+    content: '↓';
+    font-style: normal;
+  }
+
+  .hero__scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 10;
+  }
+
+  .hero__scroll span {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-light);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, var(--teal-bright), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  /* ===========================
+     TICKER
+  =========================== */
+  .ticker {
+    background: var(--teal-mid);
+    padding: 0.85rem 0;
+    overflow: hidden;
+    position: relative;
+    z-index: 5;
+  }
+
+  .ticker__track {
+    display: flex;
+    gap: 0;
+    animation: ticker 25s linear infinite;
+    white-space: nowrap;
+  }
+
+  .ticker__item {
+    flex-shrink: 0;
+    padding: 0 3rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.9);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .ticker__item::before {
+    content: '◆';
+    font-size: 0.4rem;
+    color: var(--gold);
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ===========================
+     METRICS / NUMBERS
+  =========================== */
+  .metrics {
+    background: var(--forest);
+    padding: clamp(4rem, 8vw, 8rem) 0;
+  }
+
+  .metrics__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+
+  .metric-item {
+    padding: 3rem 3.5rem;
+    border-right: 1px solid rgba(61,140,122,0.15);
+    position: relative;
+  }
+
+  .metric-item:last-child { border-right: none; }
+
+  .metric-item__num {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 5vw, 6rem);
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .metric-item__num .accent { color: var(--gold); }
+
+  .metric-item__label {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    letter-spacing: 0.06em;
+    line-height: 1.5;
+  }
+
+  .metric-item__platform {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal-bright);
+    margin-bottom: 1rem;
+  }
+
+  /* ===========================
+     SERVICES
+  =========================== */
+  .services {
+    background: var(--sage-pale);
+    padding: clamp(5rem, 10vw, 10rem) 0;
+  }
+
+  .section-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: end;
+    margin-bottom: clamp(3rem, 6vw, 6rem);
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 4vw, 4.5rem);
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--text-dark);
+  }
+  .section-title em { font-style: italic; color: var(--teal-mid); }
+
+  .section-desc {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--text-mid);
+    max-width: 45ch;
+    align-self: end;
+  }
+
+  .services__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: rgba(42,92,82,0.12);
+  }
+
+  .service-card {
+    background: var(--sage-pale);
+    padding: 3.5rem;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--teal-mid);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .service-card:hover { background: var(--white); }
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-card__num {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--teal-bright);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .service-card__num::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(42,92,82,0.2);
+  }
+
+  .service-card__icon {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .service-card__title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .service-card__desc {
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: var(--text-mid);
+    margin-bottom: 2rem;
+  }
+
+  .service-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .service-tag {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid rgba(42,92,82,0.25);
+    color: var(--teal-mid);
+    text-transform: uppercase;
+  }
+
+  /* ===========================
+     PORTFOLIO / CASE STUDIES
+  =========================== */
+  .portfolio {
+    background: var(--forest);
+    padding: clamp(5rem, 10vw, 10rem) 0;
+  }
+
+  .portfolio .section-title { color: var(--cream); }
+  .portfolio .section-title em { color: var(--teal-bright); }
+  .portfolio .section-desc { color: var(--text-light); }
+  .portfolio .tag--light { margin-bottom: 1.5rem; }
+
+  .portfolio__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 3rem;
+  }
+
+  .case-card {
+    background: var(--teal-deep);
+    padding: 3.5rem;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .case-card:hover { background: #213D38; }
+
+  .case-card--wide {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .case-card__label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .case-card__label::after {
+    content: '';
+    width: 30px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .case-card__industry {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--teal-bright);
+    margin-bottom: 1rem;
+  }
+
+  .case-card__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+    font-weight: 600;
+    color: var(--cream);
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+
+  .case-card__desc {
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--text-light);
+    margin-bottom: 2.5rem;
+  }
+
+  .case-card__results {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(61,140,122,0.15);
+  }
+
+  .result-item__num {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .result-item__label {
+    font-size: 0.72rem;
+    color: var(--text-light);
+    margin-top: 0.3rem;
+    letter-spacing: 0.04em;
+  }
+
+  .case-card__visual {
+    height: 300px;
+    background: linear-gradient(135deg, var(--teal-mid) 0%, var(--forest) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Mock phone mockup inside case card */
+  .phone-mock {
+    width: 120px;
+    height: 200px;
+    background: var(--forest);
+    border-radius: 16px;
+    border: 2px solid rgba(61,140,122,0.4);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+  }
+
+  .phone-mock__screen {
+    flex: 1;
+    background: var(--teal-deep);
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .mock-row {
+    height: 6px;
+    background: rgba(61,140,122,0.3);
+    border-radius: 3px;
+  }
+  .mock-row--short { width: 60%; }
+  .mock-row--accent { background: var(--gold); height: 4px; }
+  .mock-img {
+    height: 55px;
+    background: linear-gradient(135deg, var(--teal-mid), rgba(61,140,122,0.3));
+    border-radius: 4px;
+    margin-bottom: 0.3rem;
+  }
+
+  /* ===========================
+     PROCESS
+  =========================== */
+  .process {
+    background: var(--cream);
+    padding: clamp(5rem, 10vw, 10rem) 0;
+  }
+
+  .process__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+    margin-top: 4rem;
+    position: relative;
+  }
+
+  .process__grid::before {
+    content: '';
+    position: absolute;
+    top: 2.2rem;
+    left: 2rem;
+    right: 2rem;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--teal-mid) 20%, var(--teal-mid) 80%, transparent);
+  }
+
+  .process-step { position: relative; }
+
+  .process-step__num {
+    width: 44px;
+    height: 44px;
+    background: var(--teal-deep);
+    color: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .process-step__title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.75rem;
+  }
+
+  .process-step__desc {
+    font-size: 0.85rem;
+    line-height: 1.75;
+    color: var(--text-mid);
+  }
+
+  /* ===========================
+     TESTIMONIALS
+  =========================== */
+  .testimonials {
+    background: var(--teal-deep);
+    padding: clamp(5rem, 10vw, 10rem) 0;
+  }
+
+  .testimonials .section-title { color: var(--cream); }
+  .testimonials .section-title em { color: var(--teal-bright); }
+
+  .testimonials__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 4rem;
+  }
+
+  .testi-card {
+    background: rgba(255,255,255,0.04);
+    padding: 3rem;
+    position: relative;
+    transition: background 0.3s;
+  }
+  .testi-card:hover { background: rgba(255,255,255,0.07); }
+
+  .testi-card__quote {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: var(--teal-bright);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .testi-card__text {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--text-light);
+    margin-bottom: 2.5rem;
+    font-style: italic;
+  }
+
+  .testi-card__author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .testi-card__avatar {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--teal-mid), var(--teal-deep));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--cream);
+    flex-shrink: 0;
+  }
+
+  .testi-card__name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--cream);
+    line-height: 1.3;
+  }
+
+  .testi-card__role {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal-bright);
+    margin-top: 0.2rem;
+  }
+
+  /* ===========================
+     ABOUT
+  =========================== */
+  .about {
+    background: var(--sage-pale);
+    padding: clamp(5rem, 10vw, 10rem) 0;
+  }
+
+  .about__inner {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 8rem;
+    align-items: center;
+  }
+
+  .about__visual {
+    position: relative;
+  }
+
+  .about__img-frame {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: linear-gradient(160deg, var(--teal-mid) 0%, var(--teal-deep) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about__img-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(42,92,82,0.06) 2px,
+        rgba(42,92,82,0.06) 3px
+      );
+  }
+
+  .about__initials {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 8rem;
+    font-weight: 700;
+    color: rgba(245,240,232,0.15);
+    letter-spacing: -0.05em;
+  }
+
+  .about__badge {
+    position: absolute;
+    bottom: -1.5rem;
+    right: -1.5rem;
+    width: 120px;
+    height: 120px;
+    background: var(--gold);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+
+  .about__badge-num {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--forest);
+    line-height: 1;
+  }
+
+  .about__badge-label {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--forest);
+    text-align: center;
+    margin-top: 0.25rem;
+  }
+
+  .about__content .tag { margin-bottom: 2rem; }
+
+  .about__content h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.5vw, 3.5rem);
+    font-weight: 600;
+    color: var(--text-dark);
+    line-height: 1.15;
+    margin-bottom: 2rem;
+  }
+  .about__content h2 em { font-style: italic; color: var(--teal-mid); }
+
+  .about__content p {
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: var(--text-mid);
+    margin-bottom: 1.5rem;
+  }
+
+  .about__skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 2.5rem;
+  }
+
+  .skill-chip {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+    background: var(--white);
+    border: 1px solid rgba(42,92,82,0.2);
+    color: var(--teal-mid);
+    transition: background 0.2s, color 0.2s;
+  }
+  .skill-chip:hover { background: var(--teal-mid); color: var(--cream); }
+
+  /* ===========================
+     BRANDS / LOGOS
+  =========================== */
+  .brands {
+    background: var(--white);
+    padding: 5rem 0;
+    border-top: 1px solid rgba(42,92,82,0.1);
+    border-bottom: 1px solid rgba(42,92,82,0.1);
+  }
+
+  .brands__label {
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    margin-bottom: 3rem;
+  }
+
+  .brands__logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5rem;
+    flex-wrap: wrap;
+  }
+
+  .brand-logo {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: rgba(42,92,82,0.25);
+    letter-spacing: -0.02em;
+    transition: color 0.3s;
+  }
+  .brand-logo:hover { color: var(--teal-mid); }
+
+  /* ===========================
+     CTA / CONTACT
+  =========================== */
+  .cta-section {
+    background: var(--teal-mid);
+    padding: clamp(6rem, 12vw, 12rem) 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(212,168,83,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-section__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .cta-section__text .tag--light { margin-bottom: 2rem; }
+
+  .cta-section__title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.05;
+    margin-bottom: 2rem;
+  }
+  .cta-section__title em { font-style: italic; color: var(--gold-light); }
+
+  .cta-section__desc {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: rgba(245,240,232,0.75);
+    margin-bottom: 3rem;
+  }
+
+  .cta-section__form {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 3rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.6);
+    margin-bottom: 0.6rem;
+  }
+
+  .form-input {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 0.85rem 1.1rem;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--cream);
+    outline: none;
+    transition: border-color 0.25s;
+  }
+  .form-input::placeholder { color: rgba(245,240,232,0.3); }
+  .form-input:focus { border-color: var(--gold); }
+
+  .form-input--textarea { resize: vertical; min-height: 120px; }
+
+  .form-submit {
+    width: 100%;
+    padding: 1.1rem;
+    background: var(--gold);
+    color: var(--forest);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    transition: background 0.25s;
+  }
+  .form-submit:hover { background: var(--gold-light); }
+
+  /* ===========================
+     FOOTER
+  =========================== */
+  .footer {
+    background: var(--forest);
+    padding: 4rem 0 3rem;
+  }
+
+  .footer__inner {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 4rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(61,140,122,0.1);
+    margin-bottom: 2.5rem;
+  }
+
+  .footer__brand p {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--text-light);
+    margin-top: 1.2rem;
+    max-width: 28ch;
+  }
+
+  .footer__brand-name {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--cream);
+  }
+
+  .footer__col h4 {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal-bright);
+    margin-bottom: 1.5rem;
+  }
+
+  .footer__links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .footer__links a {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    transition: color 0.2s;
+  }
+  .footer__links a:hover { color: var(--cream); }
+
+  .footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer__copy {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: rgba(245,240,232,0.3);
+    letter-spacing: 0.1em;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .social-link {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.4);
+    transition: color 0.2s;
+  }
+  .social-link:hover { color: var(--teal-bright); }
+
+  /* ===========================
+     RESPONSIVE
+  =========================== */
+  @media (max-width: 1100px) {
+    .hero {
+      grid-template-columns: 1fr;
+    }
+    .hero__left {
+      min-height: 55vh;
+      padding-top: 9rem;
+    }
+    .metrics__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .metric-item:nth-child(2) {
+      border-right: none;
+    }
+    .metric-item:nth-child(1),
+    .metric-item:nth-child(2) {
+      border-bottom: 1px solid rgba(61,140,122,0.15);
+    }
+    .services__grid { grid-template-columns: 1fr 1fr; }
+    .portfolio__grid { grid-template-columns: 1fr; }
+    .case-card--wide { grid-column: span 1; grid-template-columns: 1fr; }
+    .process__grid { grid-template-columns: repeat(2, 1fr); }
+    .process__grid::before { display: none; }
+    .footer__inner { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    .nav__links { display: none; }
+    .services__grid { grid-template-columns: 1fr; }
+    .testimonials__grid { grid-template-columns: 1fr; }
+    .cta-section__inner { grid-template-columns: 1fr; }
+    .about__inner { grid-template-columns: 1fr; }
+    .section-header { grid-template-columns: 1fr; }
+    .brands__logos { gap: 2.5rem; }
+    .footer__inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .case-card__results { grid-template-columns: 1fr; }
+    .metrics__grid { grid-template-columns: 1fr 1fr; }
+    .process__grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    .metrics__grid { grid-template-columns: 1fr; }
+    .metric-item { border-right: none; border-bottom: 1px solid rgba(61,140,122,0.15); }
+    .footer__inner { grid-template-columns: 1fr; }
+    .footer__bottom { flex-direction: column; gap: 1rem; }
+  }
+
+/* ====== PERFORMANCE METRICS ====== */
+.metrics-section {
+  background: #0a1510;
+  border-top: 1px solid rgba(212,168,83,0.15);
+  border-bottom: 1px solid rgba(212,168,83,0.15);
+  padding: 90px 0;
+}
+.metrics-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+.metrics-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 700;
+  color: #f5f0e8;
+  margin: 0;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+.metrics-sub {
+  color: #8a9e8a;
+  font-size: 15px;
+  max-width: 340px;
+  margin: 0;
+  line-height: 1.65;
+}
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+@media (max-width: 900px) { .metrics-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 560px) { .metrics-grid { grid-template-columns: 1fr; } }
+.metric-card {
+  background: #0f1f1c;
+  border: 1px solid rgba(212,168,83,0.18);
+  border-radius: 16px;
+  padding: 28px;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+  opacity: 0;
+  transform: translateY(24px);
+}
+.metric-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.metric-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(212,168,83,0.55);
+}
+.metric-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.metric-delta {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold);
+  background: rgba(212,168,83,0.12);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.04em;
+}
+.metric-value {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 4vw, 48px);
+  font-weight: 700;
+  color: #f5f0e8;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.metric-label {
+  font-size: 13px;
+  color: #8a9e8a;
+  margin-top: 10px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ====== PLATFORM DASHBOARD ====== */
+.dashboard-section {
+  background: #071209;
+  padding: 90px 0;
+}
+.dashboard-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+.dashboard-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 700;
+  color: #f5f0e8;
+  margin: 0;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+.dashboard-sub {
+  color: #8a9e8a;
+  font-size: 15px;
+  max-width: 340px;
+  margin: 0;
+  line-height: 1.65;
+}
+.dashboard-table {
+  background: #0f1f1c;
+  border: 1px solid rgba(212,168,83,0.15);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.dashboard-table__head {
+  display: grid;
+  grid-template-columns: minmax(140px, 1.4fr) repeat(3, 1fr) minmax(160px, 1.8fr);
+  gap: 16px;
+  padding: 16px 28px;
+  border-bottom: 1px solid rgba(212,168,83,0.12);
+}
+.dashboard-table__head span {
+  font-size: 10.5px;
+  font-family: 'DM Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #4a6650;
+}
+.dashboard-table__head span:not(:first-child) { text-align: right; }
+.dashboard-row {
+  display: grid;
+  grid-template-columns: minmax(140px, 1.4fr) repeat(3, 1fr) minmax(160px, 1.8fr);
+  gap: 16px;
+  padding: 18px 28px;
+  border-bottom: 1px solid rgba(212,168,83,0.07);
+  align-items: center;
+  transition: background 0.2s;
+  opacity: 0;
+  transform: translateX(-16px);
+}
+.dashboard-row.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+.dashboard-row:last-child { border-bottom: none; }
+.dashboard-row:hover { background: rgba(212,168,83,0.04); }
+.platform-name {
+  font-weight: 600;
+  font-size: 15px;
+  color: #f5f0e8;
+  font-family: 'DM Sans', sans-serif;
+}
+.platform-stat {
+  text-align: right;
+  font-size: 14px;
+  color: #c8d8c8;
+  font-family: 'DM Mono', monospace;
+}
+.reach-bar-wrap {
+  height: 8px;
+  border-radius: 999px;
+  background: #1a3020;
+  overflow: hidden;
+}
+.reach-bar {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #2a5c52, var(--gold));
+  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (max-width: 700px) {
+  .dashboard-table__head,
+  .dashboard-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .dashboard-table__head span:nth-child(3),
+  .dashboard-table__head span:nth-child(4),
+  .platform-stat:nth-child(3),
+  .platform-stat:nth-child(4) { display: none; }
+}
+
+/* ====== AUDIENCE INSIGHTS ====== */
+.insights-section {
+  background: #0a1510;
+  border-top: 1px solid rgba(212,168,83,0.12);
+  padding: 90px 0;
+}
+.insights-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+.insights-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 700;
+  color: #f5f0e8;
+  margin: 0;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+.insights-sub {
+  color: #8a9e8a;
+  font-size: 15px;
+  max-width: 300px;
+  margin: 0;
+  line-height: 1.65;
+}
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+@media (max-width: 768px) { .insights-grid { grid-template-columns: 1fr; } }
+.insight-card {
+  background: #0f1f1c;
+  border: 1px solid rgba(212,168,83,0.18);
+  border-radius: 16px;
+  padding: 32px 28px;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+  opacity: 0;
+  transform: translateY(24px);
+}
+.insight-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.insight-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(212,168,83,0.5);
+}
+.insight-stat {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 3vw, 38px);
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1.1;
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+.insight-text {
+  font-size: 15px;
+  line-height: 1.65;
+  color: #c8d8c8;
+  margin: 0;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ====== NAV LINKS: add new sections ====== */
+</style>
+</head>
+<body>
+
+<!-- ====== NAVIGATION ====== -->
+<nav class="nav" id="main-nav">
+  <div class="container">
+    <div class="nav__inner">
+      <div class="nav__logo">
+        Summer Zhou
+        <span>Social Media Lead</span>
+      </div>
+      <ul class="nav__links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#metrics">Metrics</a></li>
+        <li><a href="#dashboard">Dashboard</a></li>
+        <li><a href="#insights">Insights</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+      <a href="#contact" class="nav__cta">Schedule a Call</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ====== HERO ====== -->
+<section class="hero" id="hero">
+  <!-- Left dark panel -->
+  <div class="hero__left">
+    <div class="hero__eyebrow">Available for New Projects — 2025</div>
+
+    <!-- Avatar (styled placeholder) -->
+    <div class="hero__avatar">SZ</div>
+
+    <h1 class="hero__name">
+      Meet<br>
+      <em>Summer</em><br>
+      Zhou
+    </h1>
+    <p class="hero__title">
+      Social Media Manager · Communication Strategist · Brand Story Architect
+    </p>
+  </div>
+
+  <!-- Right content panel with floating post cards -->
+  <div class="hero__right">
+    <!-- Animated social feed decorations -->
+    <div class="social-feed" aria-hidden="true">
+      <div class="post-card post-card--1">
+        <div class="post-card__platform">Instagram</div>
+        <div class="post-card__stat">847K</div>
+        <div class="post-card__label">Organic reach, single post</div>
+      </div>
+      <div class="post-card post-card--2">
+        <div class="post-card__platform">LinkedIn</div>
+        <div class="post-card__stat">12.4%</div>
+        <div class="post-card__label">Engagement rate</div>
+      </div>
+      <div class="post-card post-card--3">
+        <div class="post-card__platform">TikTok</div>
+        <div class="post-card__stat">2.1M</div>
+        <div class="post-card__label">Views, viral campaign</div>
+      </div>
+      <div class="post-card post-card--4">
+        <div class="post-card__platform">Twitter/X</div>
+        <div class="post-card__stat">340%</div>
+        <div class="post-card__label">Follower growth YoY</div>
+      </div>
+      <div class="post-card post-card--5">
+        <div class="post-card__platform">YouTube</div>
+        <div class="post-card__stat">92K</div>
+        <div class="post-card__label">Subscribers acquired</div>
+      </div>
+    </div>
+
+    <h2 class="hero__headline reveal">
+      Turning <em>brands</em> into<br>
+      communities people<br>
+      talk about.
+    </h2>
+    <p class="hero__desc reveal">
+      I craft social strategies that create loyal audiences, drive real engagement, and build brand equity that lasts — across every platform that matters.
+    </p>
+    <div class="hero__actions reveal">
+      <a href="#contact" class="btn-primary">
+        Book a Free Consultation
+        <span>→</span>
+      </a>
+      <a href="#work" class="btn-secondary">View my work</a>
+    </div>
+  </div>
+
+  <div class="hero__scroll" aria-hidden="true">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ====== TICKER ====== -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <span class="ticker__item">Content Strategy</span>
+    <span class="ticker__item">Brand Voice Development</span>
+    <span class="ticker__item">Community Management</span>
+    <span class="ticker__item">Influencer Partnerships</span>
+    <span class="ticker__item">Paid Social Campaigns</span>
+    <span class="ticker__item">Analytics & Reporting</span>
+    <span class="ticker__item">Crisis Communication</span>
+    <span class="ticker__item">Growth Hacking</span>
+    <span class="ticker__item">Content Strategy</span>
+    <span class="ticker__item">Brand Voice Development</span>
+    <span class="ticker__item">Community Management</span>
+    <span class="ticker__item">Influencer Partnerships</span>
+    <span class="ticker__item">Paid Social Campaigns</span>
+    <span class="ticker__item">Analytics & Reporting</span>
+    <span class="ticker__item">Crisis Communication</span>
+    <span class="ticker__item">Growth Hacking</span>
+  </div>
+</div>
+
+<!-- ====== METRICS ====== -->
+<section class="metrics">
+  <div class="container">
+    <div class="metrics__grid">
+      <div class="metric-item reveal">
+        <div class="metric-item__platform">Total Reach</div>
+        <div class="metric-item__num">50<span class="accent">M+</span></div>
+        <div class="metric-item__label">Unique monthly impressions generated across managed accounts</div>
+      </div>
+      <div class="metric-item reveal">
+        <div class="metric-item__platform">Campaigns Run</div>
+        <div class="metric-item__num">180<span class="accent">+</span></div>
+        <div class="metric-item__label">Social media campaigns successfully executed globally</div>
+      </div>
+      <div class="metric-item reveal">
+        <div class="metric-item__platform">Avg. Engagement</div>
+        <div class="metric-item__num">8<span class="accent">%</span></div>
+        <div class="metric-item__label">Average engagement rate vs. industry benchmark of 1-3%</div>
+      </div>
+      <div class="metric-item reveal">
+        <div class="metric-item__platform">Brands Elevated</div>
+        <div class="metric-item__num">35<span class="accent">+</span></div>
+        <div class="metric-item__label">Brands transformed from dormant to community-driven</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SERVICES ====== -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="tag reveal">What I Do</div>
+        <h2 class="section-title reveal">
+          Full-spectrum<br>
+          <em>social media</em><br>
+          expertise
+        </h2>
+      </div>
+      <p class="section-desc reveal">
+        From strategy to execution, I handle everything your brand needs to stand out and build genuine connections in the digital landscape. No fluff — just results.
+      </p>
+    </div>
+
+    <div class="services__grid">
+      <div class="service-card reveal">
+        <div class="service-card__num">01</div>
+        <span class="service-card__icon">📐</span>
+        <h3 class="service-card__title">Social Media Strategy</h3>
+        <p class="service-card__desc">
+          Comprehensive strategic roadmaps tailored to your brand's goals, audience personas, and competitive landscape. Built on data, driven by storytelling.
+        </p>
+        <div class="service-card__tags">
+          <span class="service-tag">Audience Research</span>
+          <span class="service-tag">Competitive Audit</span>
+          <span class="service-tag">KPI Framework</span>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-card__num">02</div>
+        <span class="service-card__icon">✍️</span>
+        <h3 class="service-card__title">Content Creation & Management</h3>
+        <p class="service-card__desc">
+          Platform-native content that performs — from scroll-stopping visuals and captions to video scripts and editorial calendars that keep your brand consistently present.
+        </p>
+        <div class="service-card__tags">
+          <span class="service-tag">Copywriting</span>
+          <span class="service-tag">Visual Direction</span>
+          <span class="service-tag">Publishing</span>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-card__num">03</div>
+        <span class="service-card__icon">🤝</span>
+        <h3 class="service-card__title">Community Management</h3>
+        <p class="service-card__desc">
+          Building genuine relationships with your audience. Daily engagement, sentiment monitoring, user-generated content amplification, and crisis response protocols.
+        </p>
+        <div class="service-card__tags">
+          <span class="service-tag">Engagement</span>
+          <span class="service-tag">Moderation</span>
+          <span class="service-tag">UGC Strategy</span>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-card__num">04</div>
+        <span class="service-card__icon">📢</span>
+        <h3 class="service-card__title">Influencer & Partnership Marketing</h3>
+        <p class="service-card__desc">
+          Identifying and managing the right influencer relationships — from micro-creators to macro talent — that authentically extend your brand reach and credibility.
+        </p>
+        <div class="service-card__tags">
+          <span class="service-tag">Creator Sourcing</span>
+          <span class="service-tag">Campaign Briefs</span>
+          <span class="service-tag">ROI Tracking</span>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-card__num">05</div>
+        <span class="service-card__icon">📊</span>
+        <h3 class="service-card__title">Paid Social Advertising</h3>
+        <p class="service-card__desc">
+          Performance-driven campaigns across Meta, TikTok, LinkedIn, and Pinterest. Precise targeting, creative testing, and continuous optimization to maximize your budget.
+        </p>
+        <div class="service-card__tags">
+          <span class="service-tag">Meta Ads</span>
+          <span class="service-tag">TikTok Ads</span>
+          <span class="service-tag">A/B Testing</span>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-card__num">06</div>
+        <span class="service-card__icon">💬</span>
+        <h3 class="service-card__title">Brand Voice & Communication</h3>
+        <p class="service-card__desc">
+          Developing the tone, language, and personality that makes your brand instantly recognizable — and building guidelines your entire team can follow consistently.
+        </p>
+        <div class="service-card__tags">
+          <span class="service-tag">Tone of Voice</span>
+          <span class="service-tag">Brand Guidelines</span>
+          <span class="service-tag">Messaging</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== BRANDS ====== -->
+<section class="brands">
+  <div class="container">
+    <p class="brands__label">Brands I've Worked With</p>
+    <div class="brands__logos">
+      <span class="brand-logo">FENDI</span>
+      <span class="brand-logo">Unilever</span>
+      <span class="brand-logo">MUJI</span>
+      <span class="brand-logo">Glossier</span>
+      <span class="brand-logo">Reformation</span>
+      <span class="brand-logo">Aesop</span>
+      <span class="brand-logo">Hims & Hers</span>
+    </div>
+  </div>
+</section>
+
+<!-- ====== PORTFOLIO ====== -->
+<section class="portfolio" id="work">
+  <div class="container">
+    <div class="tag--light reveal">Selected Work</div>
+    <div class="section-header" style="margin-top:1.5rem">
+      <h2 class="section-title reveal">
+        Campaigns that<br>
+        <em>moved</em> the needle
+      </h2>
+      <p class="section-desc reveal">
+        Every project is a story about a brand finding its voice and its people. Here are a few I'm proud of.
+      </p>
+    </div>
+
+    <div class="portfolio__grid">
+      <!-- Wide featured case study -->
+      <div class="case-card case-card--wide reveal">
+        <div>
+          <div class="case-card__label">Featured Project</div>
+          <div class="case-card__industry">Fashion & Luxury</div>
+          <h3 class="case-card__title">Rebuilding a Legacy Brand's Social Presence for Gen Z</h3>
+          <p class="case-card__desc">
+            A heritage fashion label struggled to connect with younger audiences. I led a full platform overhaul — from redefining their TikTok strategy to creating a content system that felt both timeless and current. The campaign centered on real customer stories, behind-the-scenes craft content, and strategic creator partnerships.
+          </p>
+          <div class="case-card__results">
+            <div class="result-item">
+              <div class="result-item__num">+340%</div>
+              <div class="result-item__label">Follower growth in 6 months</div>
+            </div>
+            <div class="result-item">
+              <div class="result-item__num">12M</div>
+              <div class="result-item__label">Campaign impressions</div>
+            </div>
+            <div class="result-item">
+              <div class="result-item__num">8.2%</div>
+              <div class="result-item__label">Avg. engagement rate</div>
+            </div>
+          </div>
+        </div>
+        <div class="case-card__visual">
+          <div class="phone-mock">
+            <div class="phone-mock__screen">
+              <div class="mock-img"></div>
+              <div class="mock-row"></div>
+              <div class="mock-row--short mock-row"></div>
+              <div class="mock-row--accent mock-row"></div>
+              <div class="mock-row"></div>
+            </div>
+          </div>
+          <!-- Second phone offset -->
+          <div class="phone-mock" style="position:absolute;right:30%;top:20%;transform:rotate(6deg);opacity:0.6">
+            <div class="phone-mock__screen">
+              <div class="mock-img" style="height:40px"></div>
+              <div class="mock-row"></div>
+              <div class="mock-row--short mock-row"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case card 2 -->
+      <div class="case-card reveal">
+        <div class="case-card__industry">Wellness & Beauty</div>
+        <h3 class="case-card__title">Zero-Budget Viral Launch for an Indie Skincare Brand</h3>
+        <p class="case-card__desc">
+          With no paid media budget, I crafted an organic-first TikTok launch strategy leveraging founder authenticity and community seeding. The product sold out in 48 hours.
+        </p>
+        <div class="case-card__results" style="grid-template-columns:1fr 1fr; gap:1rem;">
+          <div class="result-item">
+            <div class="result-item__num">2.1M</div>
+            <div class="result-item__label">TikTok views</div>
+          </div>
+          <div class="result-item">
+            <div class="result-item__num">48h</div>
+            <div class="result-item__label">Sold out window</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case card 3 -->
+      <div class="case-card reveal">
+        <div class="case-card__industry">B2B SaaS</div>
+        <h3 class="case-card__title">LinkedIn Thought Leadership Program Driving $2M Pipeline</h3>
+        <p class="case-card__desc">
+          Transformed a CEO's dormant LinkedIn into a thought leadership engine through a consistent content strategy, employee advocacy program, and strategic comment engagement.
+        </p>
+        <div class="case-card__results" style="grid-template-columns:1fr 1fr; gap:1rem;">
+          <div class="result-item">
+            <div class="result-item__num">$2M+</div>
+            <div class="result-item__label">Revenue attributed</div>
+          </div>
+          <div class="result-item">
+            <div class="result-item__num">85K</div>
+            <div class="result-item__label">New followers</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== PROCESS ====== -->
+<section class="process" id="process">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="tag reveal">How I Work</div>
+        <h2 class="section-title reveal">
+          A process built<br>
+          for <em>results</em>
+        </h2>
+      </div>
+      <p class="section-desc reveal">
+        Every engagement starts with deep understanding and ends with measurable impact. No guesswork, no fluff — just a clear path from where you are to where you want to be.
+      </p>
+    </div>
+
+    <div class="process__grid">
+      <div class="process-step reveal">
+        <div class="process-step__num">01</div>
+        <h3 class="process-step__title">Discovery & Audit</h3>
+        <p class="process-step__desc">
+          Deep dive into your brand, audience, competitors, and existing content. I identify gaps, opportunities, and the core narrative that will drive your strategy.
+        </p>
+      </div>
+      <div class="process-step reveal">
+        <div class="process-step__num">02</div>
+        <h3 class="process-step__title">Strategy & Planning</h3>
+        <p class="process-step__desc">
+          Developing a comprehensive roadmap — platform priorities, content pillars, posting cadence, KPIs, and a 90-day action plan aligned with your business goals.
+        </p>
+      </div>
+      <div class="process-step reveal">
+        <div class="process-step__num">03</div>
+        <h3 class="process-step__title">Create & Execute</h3>
+        <p class="process-step__desc">
+          Production and publishing of content that reflects your brand's voice with precision. Community management, engagement, and real-time optimization on every post.
+        </p>
+      </div>
+      <div class="process-step reveal">
+        <div class="process-step__num">04</div>
+        <h3 class="process-step__title">Measure & Iterate</h3>
+        <p class="process-step__desc">
+          Monthly performance reports with insights that actually matter. We test, learn, and continuously refine — because what works in month one rarely works the same in month six.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== TESTIMONIALS ====== -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="tag--light reveal">Client Stories</div>
+    <h2 class="section-title reveal" style="color:var(--cream); margin-top:1.5rem;">
+      What my clients<br>
+      <em>actually say</em>
+    </h2>
+
+    <div class="testimonials__grid">
+      <div class="testi-card reveal">
+        <div class="testi-card__quote">"</div>
+        <p class="testi-card__text">
+          Summer completely transformed how we show up online. Within three months, we went from being invisible on Instagram to becoming a go-to resource in our niche. Her strategic thinking is unlike anything I've encountered before.
+        </p>
+        <div class="testi-card__author">
+          <div class="testi-card__avatar">AK</div>
+          <div>
+            <div class="testi-card__name">Amanda K.</div>
+            <div class="testi-card__role">CEO, Verdant Beauty</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal">
+        <div class="testi-card__quote">"</div>
+        <p class="testi-card__text">
+          The ROI we've seen from Summer's LinkedIn strategy has been astonishing. She took our B2B brand — typically considered dry and technical — and made it genuinely compelling. Our inbound leads tripled in six months.
+        </p>
+        <div class="testi-card__author">
+          <div class="testi-card__avatar">MR</div>
+          <div>
+            <div class="testi-card__name">Marcus R.</div>
+            <div class="testi-card__role">CMO, PivotStack SaaS</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal">
+        <div class="testi-card__quote">"</div>
+        <p class="testi-card__text">
+          We hired Summer for a TikTok launch with zero budget. I was skeptical. The campaign went viral and we sold out our entire first batch in two days. She's the real deal — creative, data-driven, and incredibly communicative.
+        </p>
+        <div class="testi-card__author">
+          <div class="testi-card__avatar">JL</div>
+          <div>
+            <div class="testi-card__name">Jennifer L.</div>
+            <div class="testi-card__role">Founder, Lune Skincare</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== ABOUT ====== -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about__inner">
+      <div class="about__visual reveal">
+        <div class="about__img-frame">
+          <div class="about__img-overlay"></div>
+          <div class="about__initials">SZ</div>
+        </div>
+        <div class="about__badge">
+          <div class="about__badge-num">7+</div>
+          <div class="about__badge-label">Years of<br>Experience</div>
+        </div>
+      </div>
+
+      <div class="about__content reveal">
+        <div class="tag">About Me</div>
+        <h2>
+          The strategist behind<br>
+          <em>meaningful</em> social media
+        </h2>
+        <p>
+          I'm Summer Zhou — a social media strategist and communication specialist with over 7 years of experience helping brands from indie startups to global enterprises build communities that actually care.
+        </p>
+        <p>
+          My background spans brand communications, digital marketing, and content production. I've led social media for luxury fashion labels, built B2B LinkedIn strategies that generated millions in pipeline, and launched viral campaigns with zero paid media budget.
+        </p>
+        <p>
+          I believe great social media is fundamentally about human connection — understanding what your audience cares about and showing up for them consistently, authentically, and creatively.
+        </p>
+
+        <div class="about__skills">
+          <span class="skill-chip">Instagram Strategy</span>
+          <span class="skill-chip">TikTok Marketing</span>
+          <span class="skill-chip">LinkedIn Growth</span>
+          <span class="skill-chip">Content Strategy</span>
+          <span class="skill-chip">Brand Voice</span>
+          <span class="skill-chip">Influencer Marketing</span>
+          <span class="skill-chip">Meta Ads</span>
+          <span class="skill-chip">Analytics</span>
+          <span class="skill-chip">Crisis Comms</span>
+          <span class="skill-chip">Community Building</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== PERFORMANCE METRICS ====== -->
+<section class="metrics-section" id="metrics">
+  <div class="container">
+    <div class="metrics-header">
+      <div>
+        <div class="section-label"><span class="label-line"></span>Performance Metrics</div>
+        <h2 class="metrics-title">Attention that converts</h2>
+      </div>
+      <p class="metrics-sub">Eighteen months of organic growth across the platform mix — numbers that reflect real business impact, not vanity.</p>
+    </div>
+    <div class="metrics-grid">
+      <div class="metric-card" data-animate>
+        <div class="metric-card__top">
+          <svg width="46" height="18" viewBox="0 0 46 18" fill="none"><polyline points="0,15 9,12 17,13 25,7 33,9 46,2" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="metric-delta">↑ 18 mo</span>
+        </div>
+        <div class="metric-value" data-target="1.8">+1.8M</div>
+        <div class="metric-label">Followers grown</div>
+      </div>
+      <div class="metric-card" data-animate>
+        <div class="metric-card__top">
+          <svg width="46" height="18" viewBox="0 0 46 18" fill="none"><polyline points="0,14 9,11 17,12 25,6 33,8 46,3" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="metric-delta">↑ 4x category</span>
+        </div>
+        <div class="metric-value">7.4%</div>
+        <div class="metric-label">Avg engagement rate</div>
+      </div>
+      <div class="metric-card" data-animate>
+        <div class="metric-card__top">
+          <svg width="46" height="18" viewBox="0 0 46 18" fill="none"><polyline points="0,16 9,13 17,14 25,8 33,10 46,1" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="metric-delta">↑ this year</span>
+        </div>
+        <div class="metric-value">240M</div>
+        <div class="metric-label">Total views</div>
+      </div>
+      <div class="metric-card" data-animate>
+        <div class="metric-card__top">
+          <svg width="46" height="18" viewBox="0 0 46 18" fill="none"><polyline points="0,15 9,10 17,12 25,5 33,7 46,2" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="metric-delta">↑ +38%</span>
+        </div>
+        <div class="metric-value">1.2M</div>
+        <div class="metric-label">Avg views / post</div>
+      </div>
+      <div class="metric-card" data-animate>
+        <div class="metric-card__top">
+          <svg width="46" height="18" viewBox="0 0 46 18" fill="none"><polyline points="0,14 9,11 17,13 25,6 33,9 46,2" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="metric-delta">↑ YoY</span>
+        </div>
+        <div class="metric-value">+63%</div>
+        <div class="metric-label">Saves &amp; shares</div>
+      </div>
+      <div class="metric-card" data-animate>
+        <div class="metric-card__top">
+          <svg width="46" height="18" viewBox="0 0 46 18" fill="none"><polyline points="0,16 9,12 17,13 25,7 33,9 46,3" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="metric-delta">↑ +5pt</span>
+        </div>
+        <div class="metric-value">18%</div>
+        <div class="metric-label">Social → Site CVR</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== PLATFORM DASHBOARD ====== -->
+<section class="dashboard-section" id="dashboard">
+  <div class="container">
+    <div class="dashboard-header">
+      <div>
+        <div class="section-label"><span class="label-line"></span>Live Dashboard</div>
+        <h2 class="dashboard-title">Platform performance</h2>
+      </div>
+      <p class="dashboard-sub">Reach and engagement by platform, last 90 days.</p>
+    </div>
+    <div class="dashboard-table">
+      <div class="dashboard-table__head">
+        <span>Platform</span>
+        <span>Followers</span>
+        <span>Engmt</span>
+        <span>Views</span>
+        <span>Reach</span>
+      </div>
+      <div class="dashboard-row" data-animate>
+        <span class="platform-name">TikTok</span>
+        <span class="platform-stat">840K</span>
+        <span class="platform-stat">9.1%</span>
+        <span class="platform-stat">120M</span>
+        <div class="reach-bar-wrap"><div class="reach-bar" style="width:96%"></div></div>
+      </div>
+      <div class="dashboard-row" data-animate>
+        <span class="platform-name">Instagram</span>
+        <span class="platform-stat">620K</span>
+        <span class="platform-stat">6.8%</span>
+        <span class="platform-stat">78M</span>
+        <div class="reach-bar-wrap"><div class="reach-bar" style="width:74%"></div></div>
+      </div>
+      <div class="dashboard-row" data-animate>
+        <span class="platform-name">YouTube</span>
+        <span class="platform-stat">210K</span>
+        <span class="platform-stat">5.2%</span>
+        <span class="platform-stat">34M</span>
+        <div class="reach-bar-wrap"><div class="reach-bar" style="width:52%"></div></div>
+      </div>
+      <div class="dashboard-row" data-animate>
+        <span class="platform-name">X / Twitter</span>
+        <span class="platform-stat">140K</span>
+        <span class="platform-stat">3.1%</span>
+        <span class="platform-stat">2M</span>
+        <div class="reach-bar-wrap"><div class="reach-bar" style="width:30%"></div></div>
+      </div>
+      <div class="dashboard-row" data-animate>
+        <span class="platform-name">LinkedIn</span>
+        <span class="platform-stat">90K</span>
+        <span class="platform-stat">4.4%</span>
+        <span class="platform-stat">6M</span>
+        <div class="reach-bar-wrap"><div class="reach-bar" style="width:24%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== AUDIENCE INSIGHTS ====== -->
+<section class="insights-section" id="insights">
+  <div class="container">
+    <div class="insights-header">
+      <div>
+        <div class="section-label"><span class="label-line"></span>Insight</div>
+        <h2 class="insights-title">Audience insights</h2>
+      </div>
+      <p class="insights-sub">What the community actually responds to.</p>
+    </div>
+    <div class="insights-grid">
+      <div class="insight-card" data-animate>
+        <div class="insight-stat">3 sec</div>
+        <p class="insight-text">The entire battle is the first three seconds — hooks drive 60% of performance across every platform.</p>
+      </div>
+      <div class="insight-card" data-animate>
+        <div class="insight-stat">Saves &gt; Likes</div>
+        <p class="insight-text">Optimizing for saves and shares beat chasing like counts on reach by a wide margin, consistently.</p>
+      </div>
+      <div class="insight-card" data-animate>
+        <div class="insight-stat">Tue / Thu</div>
+        <p class="insight-text">Two posting windows drove 70% of monthly reach — more posting frequency wasn't the answer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== CTA / CONTACT ====== -->
+<section class="cta-section" id="contact">
+  <div class="container">
+    <div class="cta-section__inner">
+      <div class="cta-section__text">
+        <div class="tag--light">Let's Work Together</div>
+        <h2 class="cta-section__title">
+          Ready to turn your<br>
+          social into your<br>
+          <em>greatest asset?</em>
+        </h2>
+        <p class="cta-section__desc">
+          Whether you're launching a brand, scaling an existing presence, or recovering from a social media crisis — I'd love to talk about what's possible. The first consultation is always free.
+        </p>
+        <div style="display:flex; flex-direction:column; gap:1rem;">
+          <div style="display:flex; align-items:center; gap:1rem;">
+            <span style="font-family:var(--font-mono); font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold);">Email</span>
+            <span style="font-size:0.9rem; color:var(--cream);">summer@summerzhou.co</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:1rem;">
+            <span style="font-family:var(--font-mono); font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold);">Based in</span>
+            <span style="font-size:0.9rem; color:var(--cream);">New York · Available worldwide</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:1rem;">
+            <span style="font-family:var(--font-mono); font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold);">Response</span>
+            <span style="font-size:0.9rem; color:var(--cream);">Within 24 hours, always</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-section__form">
+        <form onsubmit="return false;">
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input class="form-input" type="text" placeholder="Jane Smith">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input class="form-input" type="email" placeholder="jane@company.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Brand / Company</label>
+            <input class="form-input" type="text" placeholder="Your brand or project">
+          </div>
+          <div class="form-group">
+            <label class="form-label">What are you looking for?</label>
+            <textarea class="form-input form-input--textarea" placeholder="Tell me about your brand, current social presence, and what you'd like to achieve..."></textarea>
+          </div>
+          <button class="form-submit" type="submit">Send Message →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== FOOTER ====== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <div class="footer__brand-name">Summer Zhou</div>
+        <p>Social Media Manager & Communication Strategist. Building brands people genuinely love, one post at a time.</p>
+      </div>
+
+      <div class="footer__col">
+        <h4>Services</h4>
+        <ul class="footer__links">
+          <li><a href="#services">Social Strategy</a></li>
+          <li><a href="#services">Content Creation</a></li>
+          <li><a href="#services">Community Management</a></li>
+          <li><a href="#services">Paid Social</a></li>
+          <li><a href="#services">Brand Voice</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h4>Navigation</h4>
+        <ul class="footer__links">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#work">Portfolio</a></li>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h4>Connect</h4>
+        <ul class="footer__links">
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">TikTok</a></li>
+          <li><a href="#">Twitter / X</a></li>
+          <li><a href="#">Download CV</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span class="footer__copy">© 2025 Summer Zhou · All rights reserved</span>
+      <div class="social-links">
+        <a href="#" class="social-link">IG</a>
+        <a href="#" class="social-link">LI</a>
+        <a href="#" class="social-link">TK</a>
+        <a href="#" class="social-link">X</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ===========================
+     NAV SCROLL EFFECT
+  =========================== */
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  }, { passive: true });
+
+  /* ===========================
+     INTERSECTION OBSERVER — REVEALS
+  =========================== */
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+
+  /* Stagger siblings */
+  document.querySelectorAll('.services__grid, .metrics__grid, .portfolio__grid, .process__grid, .testimonials__grid')
+    .forEach(grid => {
+      grid.querySelectorAll('.reveal').forEach((el, i) => {
+        el.style.transitionDelay = `${i * 0.1}s`;
+      });
+    });
+
+  /* ===========================
+     COUNTER ANIMATION
+  =========================== */
+  const counters = document.querySelectorAll('.metric-item__num');
+
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const text = el.textContent;
+        const match = text.match(/[\d.]+/);
+        if (!match) return;
+
+        const target = parseFloat(match[0]);
+        const isFloat = text.includes('.');
+        const suffix = text.replace(/[\d.]+/, '');
+        let start = 0;
+        const duration = 1800;
+        const startTime = performance.now();
+
+        function update(now) {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const ease = 1 - Math.pow(1 - progress, 3);
+          const current = start + (target - start) * ease;
+
+          el.innerHTML = (isFloat ? current.toFixed(1) : Math.floor(current)) + suffix;
+
+          if (progress < 1) requestAnimationFrame(update);
+        }
+
+        requestAnimationFrame(update);
+        countObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(el => countObserver.observe(el));
+
+  /* ===========================
+     SMOOTH ANCHOR LINKS
+  =========================== */
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const id = link.getAttribute('href').slice(1);
+      const target = document.getElementById(id);
+      if (target) {
+        e.preventDefault();
+        const offset = 80;
+        const top = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  /* ===========================
+     METRIC CARDS + INSIGHT CARDS — ANIMATE ON SCROLL
+  =========================== */
+  const animCards = document.querySelectorAll('[data-animate]');
+  const cardObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, idx) => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        // stagger by sibling index
+        const siblings = Array.from(el.parentElement.children);
+        const i = siblings.indexOf(el);
+        setTimeout(() => el.classList.add('visible'), i * 100);
+        cardObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  animCards.forEach(el => cardObserver.observe(el));
+
+  /* ===========================
+     REACH BARS — ANIMATE WIDTH
+  =========================== */
+  const reachBars = document.querySelectorAll('.reach-bar');
+  reachBars.forEach(bar => {
+    const targetW = bar.style.width;
+    bar.style.width = '0%';
+    const barObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setTimeout(() => { bar.style.width = targetW; }, 200);
+          barObserver.unobserve(bar);
+        }
+      });
+    }, { threshold: 0.5 });
+    barObserver.observe(bar);
+  });
+
+  /* ===========================
+     DASHBOARD ROWS — STAGGER
+  =========================== */
+  document.querySelectorAll('.dashboard-row').forEach((row, i) => {
+    row.style.transitionDelay = `${i * 0.08}s`;
+    row.style.transition = `opacity 0.5s ease ${i * 0.08}s, transform 0.5s ease ${i * 0.08}s`;
+  });
+</script>
+</body>
+</html>
