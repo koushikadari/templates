@@ -1,0 +1,2373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Alexandra Monroe — Growth Marketing Lead. Driving exponential revenue growth through data-driven strategy, performance marketing, and scalable acquisition systems.">
+<title>Alexandra Monroe · Growth Marketing Lead</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  --ink:       #0A1628;
+  --teal:      #00B4A0;
+  --teal-dark: #008C7C;
+  --teal-lite: #E0F7F4;
+  --gold:      #F59E0B;
+  --gold-lite: #FEF3C7;
+  --mist:      #F0F4FF;
+  --slate:     #64748B;
+  --border:    #E2E8F0;
+  --white:     #FFFFFF;
+  --bg:        #FAFBFF;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-ui:      'Poppins', system-ui, sans-serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+
+  --r-sm: 8px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --r-xl: 32px;
+
+  --shadow-card: 0 2px 20px rgba(10,22,40,0.06), 0 1px 4px rgba(10,22,40,0.04);
+  --shadow-lift: 0 8px 40px rgba(10,22,40,0.12), 0 2px 8px rgba(10,22,40,0.06);
+  --shadow-teal: 0 8px 32px rgba(0,180,160,0.22);
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+
+/* ============================================================
+   LOADER
+   ============================================================ */
+#loader {
+  position: fixed; inset: 0;
+  background: var(--white);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+#loader.hidden { opacity: 0; visibility: hidden; }
+.loader-logo {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 2rem;
+  letter-spacing: -0.02em;
+}
+.loader-logo span { color: var(--teal); }
+.loader-bar {
+  width: 200px; height: 2px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.loader-bar::after {
+  content: '';
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--teal), var(--gold));
+  border-radius: 2px;
+  animation: loadBar 1.4s ease forwards;
+}
+@keyframes loadBar { to { width: 100%; } }
+
+/* ============================================================
+   CURSOR
+   ============================================================ */
+.cursor {
+  width: 10px; height: 10px;
+  background: var(--teal);
+  border-radius: 50%;
+  position: fixed; pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+  mix-blend-mode: multiply;
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1.5px solid var(--teal);
+  border-radius: 50%;
+  position: fixed; pointer-events: none;
+  z-index: 9997;
+  transform: translate(-50%,-50%);
+  transition: transform 0.18s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+  opacity: 0.5;
+}
+body.hovering .cursor { width: 18px; height: 18px; background: var(--gold); }
+body.hovering .cursor-ring { width: 54px; height: 54px; opacity: 0.25; }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 0 clamp(1.5rem, 5vw, 5rem);
+  height: 72px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+nav.scrolled { border-color: var(--border); box-shadow: 0 2px 20px rgba(10,22,40,0.06); }
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.nav-logo span { color: var(--teal); }
+.nav-links {
+  display: flex; gap: 2rem; align-items: center;
+}
+.nav-links a {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--slate);
+  transition: color 0.2s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: -4px; left: 0; right: 0;
+  height: 1.5px;
+  background: var(--teal);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--ink); }
+.nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+.nav-cta {
+  background: var(--ink);
+  color: var(--white) !important;
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  font-weight: 600 !important;
+  transition: background 0.2s, transform 0.2s !important;
+}
+.nav-cta::after { display: none !important; }
+.nav-cta:hover { background: var(--teal) !important; transform: translateY(-1px); }
+.nav-hamburger {
+  display: none;
+  flex-direction: column; gap: 5px;
+  cursor: pointer; padding: 4px;
+}
+.nav-hamburger span { width: 24px; height: 1.5px; background: var(--ink); border-radius: 2px; transition: 0.3s; }
+.mobile-menu {
+  display: none;
+  position: fixed; top: 72px; left: 0; right: 0;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 1.5rem clamp(1.5rem, 5vw, 5rem);
+  flex-direction: column; gap: 1.25rem;
+  z-index: 999;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--slate);
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ============================================================
+   SECTION UTILITIES
+   ============================================================ */
+.section {
+  padding: clamp(5rem, 10vw, 9rem) clamp(1.5rem, 5vw, 5rem);
+}
+.section-label {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 0.75rem;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 1.25rem;
+}
+.section-sub {
+  font-size: 1.0625rem;
+  color: var(--slate);
+  max-width: 560px;
+  line-height: 1.7;
+}
+.max-w { max-width: 1400px; margin: 0 auto; }
+
+/* Reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+#hero {
+  min-height: 100vh;
+  padding-top: 72px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 6rem);
+  padding-left: clamp(1.5rem, 6vw, 6rem);
+  padding-right: clamp(1.5rem, 6vw, 6rem);
+  background: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+#hero::before {
+  content: '';
+  position: absolute;
+  top: -20%; right: -10%;
+  width: 55%; height: 120%;
+  background: radial-gradient(ellipse at center, #E0F7F4 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 1.25rem;
+  padding: 0.35rem 0.875rem;
+  background: var(--teal-lite);
+  border-radius: 100px;
+  width: fit-content;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--teal);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.6); opacity: 0.5; }
+}
+.hero-headline {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5.5vw, 5rem);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+}
+.hero-headline em {
+  font-style: italic;
+  color: var(--teal);
+}
+.hero-bio {
+  font-size: 1.0625rem;
+  color: var(--slate);
+  line-height: 1.75;
+  max-width: 480px;
+  margin-bottom: 2.5rem;
+}
+.hero-ctas {
+  display: flex; flex-wrap: wrap; gap: 0.875rem;
+  margin-bottom: 3.5rem;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--ink);
+  color: var(--white);
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.85rem 1.75rem;
+  border-radius: var(--r-sm);
+  border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.btn-primary:hover { background: var(--teal); transform: translateY(-2px); box-shadow: var(--shadow-teal); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.85rem 1.75rem;
+  border-radius: var(--r-sm);
+  border: 1.5px solid var(--border);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+.btn-secondary:hover { border-color: var(--teal); background: var(--teal-lite); transform: translateY(-2px); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  color: var(--slate);
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.85rem 0;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.btn-ghost:hover { color: var(--teal); }
+
+.hero-stats {
+  display: flex; gap: clamp(1.5rem, 3vw, 3rem);
+}
+.hero-stat-val {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.hero-stat-val span { color: var(--teal); }
+.hero-stat-label {
+  font-size: 0.75rem;
+  color: var(--slate);
+  font-weight: 500;
+  margin-top: 0.1rem;
+}
+
+/* Growth graph visual */
+.hero-visual {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.hero-card-main {
+  background: var(--white);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-lift);
+  padding: 2rem;
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+}
+.hero-card-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+.hero-card-title {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--slate);
+  margin-bottom: 0.25rem;
+}
+.hero-card-val {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  background: #DCFCE7;
+  color: #16A34A;
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: 100px;
+}
+.hero-chart-wrap { position: relative; height: 160px; margin-bottom: 1.5rem; }
+.hero-mini-kpis {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 0.75rem;
+}
+.hero-mini-kpi {
+  background: var(--mist);
+  border-radius: var(--r-sm);
+  padding: 0.75rem;
+  text-align: center;
+}
+.hero-mini-kpi-val {
+  font-family: var(--font-ui);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.hero-mini-kpi-label {
+  font-size: 0.68rem;
+  color: var(--slate);
+  margin-top: 0.1rem;
+}
+
+/* Floating chip */
+.float-chip {
+  position: absolute;
+  background: var(--white);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-lift);
+  padding: 0.875rem 1.1rem;
+  display: flex; align-items: center; gap: 0.6rem;
+  animation: floatY 4s ease-in-out infinite;
+}
+.float-chip:nth-child(2) { animation-delay: -2s; }
+.chip-icon { font-size: 1.3rem; }
+.chip-val { font-family: var(--font-ui); font-size: 0.875rem; font-weight: 700; color: var(--ink); }
+.chip-sub { font-size: 0.68rem; color: var(--slate); }
+.float-chip.chip-a { top: -1.5rem; right: -2rem; }
+.float-chip.chip-b { bottom: -1rem; left: -2rem; }
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Avatar */
+.hero-avatar {
+  width: 52px; height: 52px;
+  background: linear-gradient(135deg, var(--teal) 0%, var(--gold) 100%);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--white);
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   KPI DASHBOARD
+   ============================================================ */
+#kpis { background: var(--ink); }
+.kpi-header { text-align: center; margin-bottom: 3.5rem; }
+.kpi-header .section-label { color: var(--teal); }
+.kpi-header .section-title { color: var(--white); }
+.kpi-header .section-sub { color: rgba(255,255,255,0.55); margin: 0 auto; }
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 3rem;
+}
+.kpi-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--r-lg);
+  padding: 1.75rem;
+  transition: background 0.3s, transform 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.kpi-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: linear-gradient(90deg, var(--teal), var(--gold));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.kpi-card:hover::before { transform: scaleX(1); }
+.kpi-card:hover { background: rgba(255,255,255,0.08); transform: translateY(-3px); }
+.kpi-icon {
+  width: 42px; height: 42px;
+  border-radius: var(--r-sm);
+  background: rgba(0,180,160,0.18);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+.kpi-label { font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.5); margin-bottom: 0.5rem; }
+.kpi-value {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.35rem;
+}
+.kpi-delta {
+  font-size: 0.75rem; font-weight: 600;
+  display: inline-flex; align-items: center; gap: 0.25rem;
+}
+.kpi-delta.up { color: #4ADE80; }
+.kpi-delta.down { color: #F87171; }
+
+.kpi-chart-row {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+.kpi-chart-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--r-lg);
+  padding: 1.75rem;
+}
+.kpi-chart-card h3 {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 1.25rem;
+}
+.chart-wrap { position: relative; height: 200px; }
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+#about { background: var(--white); }
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 6vw, 7rem);
+  align-items: center;
+}
+.about-visual {
+  position: relative;
+}
+.about-photo-wrap {
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--teal-lite) 0%, var(--mist) 100%);
+  aspect-ratio: 3/4;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.about-photo-inner {
+  width: 80%;
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, var(--teal) 0%, #005F5A 100%);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 700;
+  color: var(--white);
+}
+.about-tag {
+  position: absolute;
+  background: var(--white);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-lift);
+  padding: 1rem 1.25rem;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.about-tag.t1 { bottom: 2rem; right: -1.5rem; }
+.about-tag.t2 { top: 2rem; left: -1.5rem; }
+.tag-icon { font-size: 1.5rem; }
+.tag-val { font-family: var(--font-ui); font-weight: 700; font-size: 1rem; color: var(--ink); }
+.tag-label { font-size: 0.7rem; color: var(--slate); margin-top: 0.1rem; }
+
+.about-bio {
+  font-size: 1.0625rem;
+  color: var(--slate);
+  line-height: 1.8;
+  margin-bottom: 1.75rem;
+}
+.about-pillars {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0.875rem;
+  margin-top: 2rem;
+}
+.pillar {
+  padding: 1.25rem;
+  background: var(--mist);
+  border-radius: var(--r-md);
+  border-left: 3px solid var(--teal);
+}
+.pillar-title {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 0.25rem;
+}
+.pillar-text { font-size: 0.8rem; color: var(--slate); line-height: 1.5; }
+
+/* ============================================================
+   EXPERTISE
+   ============================================================ */
+#expertise { background: var(--bg); }
+.expertise-header { text-align: center; margin-bottom: 3rem; }
+.expertise-header .section-sub { margin: 0 auto; }
+.expertise-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+.expertise-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 1.75rem;
+  transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
+  cursor: default;
+}
+.expertise-card:hover {
+  box-shadow: var(--shadow-lift);
+  transform: translateY(-4px);
+  border-color: var(--teal);
+}
+.exp-icon {
+  width: 48px; height: 48px;
+  border-radius: var(--r-sm);
+  background: var(--teal-lite);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  transition: background 0.3s;
+}
+.expertise-card:hover .exp-icon { background: var(--teal); }
+.exp-title {
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+}
+.exp-text { font-size: 0.82rem; color: var(--slate); line-height: 1.6; }
+
+/* ============================================================
+   CASE STUDIES
+   ============================================================ */
+#cases { background: var(--white); }
+.cases-header { margin-bottom: 3rem; }
+.cases-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 1.5rem;
+}
+.case-card {
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  transition: box-shadow 0.3s, transform 0.3s;
+  background: var(--white);
+}
+.case-card:hover { box-shadow: var(--shadow-lift); transform: translateY(-4px); }
+.case-header {
+  padding: 1.75rem 1.75rem 0;
+  display: flex; justify-content: space-between; align-items: flex-start;
+}
+.case-industry {
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal);
+  background: var(--teal-lite);
+  padding: 0.2rem 0.6rem;
+  border-radius: 100px;
+}
+.case-roi {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.case-roi span { font-size: 0.75rem; color: var(--slate); font-family: var(--font-body); font-weight: 400; }
+.case-body { padding: 1.25rem 1.75rem 1.75rem; }
+.case-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+.case-desc { font-size: 0.85rem; color: var(--slate); line-height: 1.65; margin-bottom: 1.25rem; }
+.case-results {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0.625rem;
+  margin-bottom: 1.25rem;
+}
+.result-item {
+  background: var(--mist);
+  border-radius: var(--r-sm);
+  padding: 0.625rem 0.75rem;
+}
+.result-val { font-family: var(--font-ui); font-size: 1rem; font-weight: 700; color: var(--teal); }
+.result-label { font-size: 0.68rem; color: var(--slate); margin-top: 0.1rem; }
+.case-link {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink);
+  transition: color 0.2s, gap 0.2s;
+}
+.case-link:hover { color: var(--teal); gap: 0.6rem; }
+
+/* ============================================================
+   TECH STACK
+   ============================================================ */
+#stack { background: var(--bg); }
+.stack-header { text-align: center; margin-bottom: 3rem; }
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+}
+.stack-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 1.5rem 1rem;
+  text-align: center;
+  transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;
+  cursor: default;
+}
+.stack-card:hover { box-shadow: var(--shadow-card); transform: translateY(-3px); border-color: var(--teal); }
+.stack-icon { font-size: 2rem; margin-bottom: 0.6rem; }
+.stack-name { font-family: var(--font-ui); font-size: 0.8rem; font-weight: 600; color: var(--ink); }
+.stack-cat { font-size: 0.68rem; color: var(--slate); margin-top: 0.2rem; }
+
+/* ============================================================
+   FUNNEL
+   ============================================================ */
+#funnel { background: var(--white); }
+.funnel-wrap {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 6vw, 6rem);
+  align-items: center;
+}
+.funnel-vis { display: flex; flex-direction: column; gap: 0; }
+.funnel-stage {
+  position: relative;
+  display: flex; align-items: center; gap: 1rem;
+  padding: 0.75rem 0;
+  cursor: default;
+}
+.funnel-bar-wrap { flex: 1; }
+.funnel-bar-bg {
+  height: 52px;
+  background: var(--mist);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  position: relative;
+}
+.funnel-bar-fill {
+  height: 100%;
+  border-radius: var(--r-sm);
+  background: linear-gradient(90deg, var(--teal), #00D4BC);
+  display: flex; align-items: center; padding: 0 1rem;
+  transition: width 1.2s cubic-bezier(0.22,1,0.36,1);
+  width: 0;
+}
+.funnel-bar-fill.animated { /* width set via JS */ }
+.funnel-bar-label {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--white);
+  white-space: nowrap;
+}
+.funnel-pct {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--slate);
+  width: 48px;
+  text-align: right;
+  flex-shrink: 0;
+}
+.funnel-count {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  color: var(--slate);
+  width: 80px;
+  flex-shrink: 0;
+}
+
+.funnel-info .section-sub { margin-bottom: 2rem; }
+.funnel-metrics {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.funnel-metric {
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+}
+.funnel-metric-val {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--teal);
+  margin-bottom: 0.25rem;
+}
+.funnel-metric-label { font-size: 0.78rem; color: var(--slate); }
+
+/* ============================================================
+   A/B TESTING
+   ============================================================ */
+#abtesting { background: var(--bg); }
+.ab-header { margin-bottom: 3rem; }
+.ab-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.25rem;
+}
+.ab-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 1.75rem;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.ab-card:hover { box-shadow: var(--shadow-lift); transform: translateY(-3px); }
+.ab-number {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--border);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+.ab-title { font-family: var(--font-ui); font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 0.5rem; }
+.ab-hypo { font-size: 0.82rem; color: var(--slate); line-height: 1.6; margin-bottom: 1.25rem; }
+.ab-result-tag {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  background: #DCFCE7;
+  color: #15803D;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.3rem 0.75rem;
+  border-radius: 100px;
+  margin-bottom: 0.5rem;
+}
+.ab-impact { font-size: 0.82rem; color: var(--slate); }
+
+/* ============================================================
+   FRAMEWORKS
+   ============================================================ */
+#frameworks { background: var(--ink); }
+.fw-header { text-align: center; margin-bottom: 3.5rem; }
+.fw-header .section-label { color: var(--teal); }
+.fw-header .section-title { color: var(--white); }
+.fw-header .section-sub { color: rgba(255,255,255,0.55); margin: 0 auto; }
+.fw-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+.fw-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--r-lg);
+  padding: 2rem;
+  transition: background 0.3s, transform 0.3s;
+}
+.fw-card:hover { background: rgba(255,255,255,0.08); transform: translateY(-3px); }
+.fw-num {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.08);
+  line-height: 1;
+  margin-bottom: 0.75rem;
+}
+.fw-title { font-family: var(--font-ui); font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 0.75rem; }
+.fw-desc { font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.65; }
+.fw-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+.fw-tag {
+  font-size: 0.68rem; font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  background: rgba(0,180,160,0.15);
+  color: var(--teal);
+}
+
+/* ============================================================
+   TIMELINE
+   ============================================================ */
+#timeline { background: var(--white); }
+.tl-wrap {
+  position: relative;
+  padding-left: 2rem;
+}
+.tl-wrap::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px; bottom: 8px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--teal), var(--gold));
+  border-radius: 2px;
+}
+.tl-item {
+  position: relative;
+  padding: 0 0 3rem 2.5rem;
+}
+.tl-dot {
+  position: absolute;
+  left: -2.5rem;
+  top: 4px;
+  width: 14px; height: 14px;
+  background: var(--teal);
+  border-radius: 50%;
+  border: 3px solid var(--white);
+  box-shadow: 0 0 0 2px var(--teal);
+}
+.tl-date {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 0.4rem;
+}
+.tl-role { font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; color: var(--ink); margin-bottom: 0.15rem; }
+.tl-company { font-family: var(--font-ui); font-size: 0.9rem; font-weight: 600; color: var(--slate); margin-bottom: 0.875rem; }
+.tl-achievements { display: flex; flex-direction: column; gap: 0.4rem; }
+.tl-item-ach {
+  display: flex; align-items: flex-start; gap: 0.5rem;
+  font-size: 0.85rem; color: var(--slate); line-height: 1.5;
+}
+.tl-item-ach::before { content: '▸'; color: var(--teal); flex-shrink: 0; margin-top: 0.05rem; }
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+#testimonials { background: var(--bg); }
+.test-header { text-align: center; margin-bottom: 3rem; }
+.swiper { padding-bottom: 3rem !important; }
+.swiper-slide { height: auto; }
+.test-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 2rem;
+  height: 100%;
+  transition: box-shadow 0.3s;
+}
+.test-card:hover { box-shadow: var(--shadow-lift); }
+.test-stars { display: flex; gap: 0.2rem; margin-bottom: 1.25rem; font-size: 0.9rem; color: var(--gold); }
+.test-quote {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+.test-author { display: flex; align-items: center; gap: 0.875rem; }
+.test-avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--white);
+  flex-shrink: 0;
+}
+.test-name { font-family: var(--font-ui); font-size: 0.9rem; font-weight: 700; color: var(--ink); }
+.test-role { font-size: 0.75rem; color: var(--slate); }
+.swiper-pagination-bullet { background: var(--border) !important; }
+.swiper-pagination-bullet-active { background: var(--teal) !important; }
+
+/* ============================================================
+   CERTIFICATIONS
+   ============================================================ */
+#certifications { background: var(--white); }
+.cert-header { text-align: center; margin-bottom: 3rem; }
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.cert-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 1.75rem;
+  text-align: center;
+  transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
+}
+.cert-card:hover { box-shadow: var(--shadow-card); transform: translateY(-3px); border-color: var(--gold); }
+.cert-icon { font-size: 2.2rem; margin-bottom: 0.75rem; }
+.cert-name { font-family: var(--font-ui); font-size: 0.85rem; font-weight: 700; color: var(--ink); margin-bottom: 0.25rem; }
+.cert-org { font-size: 0.72rem; color: var(--slate); }
+.cert-badge {
+  display: inline-block;
+  margin-top: 0.625rem;
+  background: var(--gold-lite);
+  color: var(--gold);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   THOUGHT LEADERSHIP
+   ============================================================ */
+#thought { background: var(--bg); }
+.thought-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+.article-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.article-card:hover { box-shadow: var(--shadow-lift); transform: translateY(-4px); }
+.article-thumb {
+  height: 160px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3.5rem;
+}
+.article-body { padding: 1.5rem; }
+.article-cat {
+  font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 0.5rem;
+}
+.article-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.35;
+  margin-bottom: 0.625rem;
+}
+.article-excerpt { font-size: 0.82rem; color: var(--slate); line-height: 1.6; margin-bottom: 1rem; }
+.article-meta { font-size: 0.72rem; color: var(--slate); display: flex; justify-content: space-between; }
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+#contact { background: var(--ink); }
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 6vw, 7rem);
+  align-items: start;
+}
+.contact-info .section-label { color: var(--teal); }
+.contact-info .section-title { color: var(--white); }
+.contact-info .section-sub { color: rgba(255,255,255,0.55); margin-bottom: 2.5rem; }
+.contact-links { display: flex; flex-direction: column; gap: 1rem; }
+.contact-link {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1.25rem;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--r-md);
+  color: rgba(255,255,255,0.75);
+  font-size: 0.9rem;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.contact-link:hover { background: rgba(0,180,160,0.12); border-color: var(--teal); color: var(--white); }
+.contact-link-icon { font-size: 1.3rem; }
+.contact-form-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--r-xl);
+  padding: 2rem;
+}
+.contact-form-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+}
+.form-group { margin-bottom: 1rem; }
+.form-group label {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 0.4rem;
+}
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--r-sm);
+  padding: 0.75rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--white);
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: var(--teal);
+  background: rgba(0,180,160,0.06);
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: rgba(255,255,255,0.3); }
+.form-group select option { background: var(--ink); color: var(--white); }
+.form-group textarea { resize: vertical; min-height: 100px; }
+.form-submit {
+  width: 100%;
+  background: var(--teal);
+  color: var(--white);
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 0.9rem;
+  border-radius: var(--r-sm);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  margin-top: 0.5rem;
+}
+.form-submit:hover { background: var(--teal-dark); transform: translateY(-2px); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  background: #060D1C;
+  padding: 3rem clamp(1.5rem, 5vw, 5rem);
+}
+.footer-inner {
+  max-width: 1400px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 2rem; align-items: center;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 2rem;
+}
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 0.35rem;
+}
+.footer-brand span { color: var(--teal); }
+.footer-tagline { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-links a {
+  font-size: 1.4rem;
+  opacity: 0.4;
+  transition: opacity 0.2s, transform 0.2s;
+  display: inline-block;
+}
+.footer-links a:hover { opacity: 1; transform: translateY(-2px); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  #hero { grid-template-columns: 1fr; padding-top: calc(72px + 3rem); text-align: center; }
+  #hero::before { display: none; }
+  .hero-stats { justify-content: center; }
+  .hero-ctas { justify-content: center; }
+  .hero-visual { display: none; }
+  .about-grid { grid-template-columns: 1fr; }
+  .about-visual { display: none; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .funnel-wrap { grid-template-columns: 1fr; }
+  .kpi-chart-row { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr; text-align: center; }
+  .footer-links { justify-content: center; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+}
+@media (max-width: 600px) {
+  .cases-grid, .fw-grid { grid-template-columns: 1fr; }
+  .about-pillars { grid-template-columns: 1fr; }
+  .kpi-grid { grid-template-columns: repeat(2,1fr); }
+  .cert-grid { grid-template-columns: repeat(2,1fr); }
+  .hero-stats { flex-wrap: wrap; gap: 1.25rem; }
+}
+@media (min-width: 1920px) {
+  .max-w { max-width: 1600px; }
+  :root { font-size: 18px; }
+}
+@media (min-width: 2560px) {
+  :root { font-size: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo">Alexandra<span>.</span></div>
+  <div class="loader-bar"></div>
+</div>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">Alexandra<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#kpis">Dashboard</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#cases">Case Studies</a></li>
+    <li><a href="#funnel">Funnel</a></li>
+    <li><a href="#timeline">Experience</a></li>
+    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+  </ul>
+  <div class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#kpis" onclick="closeMobile()">Dashboard</a>
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#cases" onclick="closeMobile()">Case Studies</a>
+  <a href="#funnel" onclick="closeMobile()">Funnel</a>
+  <a href="#timeline" onclick="closeMobile()">Experience</a>
+  <a href="#contact" onclick="closeMobile()">Get in Touch</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div>
+    <div class="hero-eyebrow reveal">Growth Marketing Lead</div>
+    <h1 class="hero-headline reveal reveal-delay-1">
+      Turning data into<br><em>exponential</em><br>growth.
+    </h1>
+    <p class="hero-bio reveal reveal-delay-2">
+      I architect data-driven growth systems that compound — blending performance marketing, lifecycle strategy, and rigorous experimentation to build revenue engines that scale.
+    </p>
+    <div class="hero-ctas reveal reveal-delay-3">
+      <a href="#cases" class="btn-primary">View Case Studies ↓</a>
+      <a href="#contact" class="btn-secondary">Download Resume</a>
+      <a href="#contact" class="btn-ghost">Book a Call →</a>
+    </div>
+    <div class="hero-stats reveal reveal-delay-4">
+      <div>
+        <div class="hero-stat-val"><span class="counter" data-target="500">0</span>%</div>
+        <div class="hero-stat-label">Revenue Growth</div>
+      </div>
+      <div>
+        <div class="hero-stat-val"><span class="counter" data-target="3">0</span>M+</div>
+        <div class="hero-stat-label">Users Acquired</div>
+      </div>
+      <div>
+        <div class="hero-stat-val">$<span class="counter" data-target="50">0</span>M</div>
+        <div class="hero-stat-label">Budget Managed</div>
+      </div>
+      <div>
+        <div class="hero-stat-val"><span class="counter" data-target="8">0</span>X</div>
+        <div class="hero-stat-label">ROAS Achieved</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual reveal reveal-delay-2">
+    <div class="hero-card-main">
+      <div class="hero-card-header">
+        <div>
+          <div class="hero-card-title">Annual Recurring Revenue</div>
+          <div class="hero-card-val">$48.2M</div>
+        </div>
+        <div class="hero-badge">↑ 240% YoY</div>
+      </div>
+      <div class="hero-chart-wrap">
+        <canvas id="heroChart"></canvas>
+      </div>
+      <div class="hero-mini-kpis">
+        <div class="hero-mini-kpi">
+          <div class="hero-mini-kpi-val">8.4X</div>
+          <div class="hero-mini-kpi-label">ROAS</div>
+        </div>
+        <div class="hero-mini-kpi">
+          <div class="hero-mini-kpi-val">38%↓</div>
+          <div class="hero-mini-kpi-label">CAC</div>
+        </div>
+        <div class="hero-mini-kpi">
+          <div class="hero-mini-kpi-val">92%</div>
+          <div class="hero-mini-kpi-label">Retention</div>
+        </div>
+      </div>
+    </div>
+    <div class="float-chip chip-a">
+      <div class="chip-icon">🚀</div>
+      <div>
+        <div class="chip-val">+52%</div>
+        <div class="chip-sub">Conversion Rate</div>
+      </div>
+    </div>
+    <div class="float-chip chip-b">
+      <div class="chip-icon">💰</div>
+      <div>
+        <div class="chip-val">$8M</div>
+        <div class="chip-sub">Pipeline Added</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KPI DASHBOARD -->
+<section id="kpis" class="section">
+  <div class="max-w">
+    <div class="kpi-header reveal">
+      <div class="section-label">Performance Dashboard</div>
+      <h2 class="section-title" style="color:var(--white)">Results that speak loudly.</h2>
+      <p class="section-sub">Cumulative metrics across 8 years of growth leadership — turning ambition into measurable, auditable outcomes.</p>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-card reveal">
+        <div class="kpi-icon">📈</div>
+        <div class="kpi-label">Total Revenue Generated</div>
+        <div class="kpi-value">$<span class="counter dark" data-target="142">0</span>M</div>
+        <div class="kpi-delta up">↑ 38% vs prior period</div>
+      </div>
+      <div class="kpi-card reveal reveal-delay-1">
+        <div class="kpi-icon">👥</div>
+        <div class="kpi-label">Customer Acquisition Growth</div>
+        <div class="kpi-value"><span class="counter dark" data-target="312">0</span>%</div>
+        <div class="kpi-delta up">↑ Best-in-class 2024</div>
+      </div>
+      <div class="kpi-card reveal reveal-delay-2">
+        <div class="kpi-icon">🔄</div>
+        <div class="kpi-label">Customer Retention Rate</div>
+        <div class="kpi-value"><span class="counter dark" data-target="92">0</span>%</div>
+        <div class="kpi-delta up">↑ 14pts vs industry avg</div>
+      </div>
+      <div class="kpi-card reveal reveal-delay-3">
+        <div class="kpi-icon">💡</div>
+        <div class="kpi-label">CAC Reduction</div>
+        <div class="kpi-value"><span class="counter dark" data-target="38">0</span>%</div>
+        <div class="kpi-delta up">↓ $124 per acquisition</div>
+      </div>
+      <div class="kpi-card reveal">
+        <div class="kpi-icon">🎯</div>
+        <div class="kpi-label">Conversion Rate Lift</div>
+        <div class="kpi-value"><span class="counter dark" data-target="52">0</span>%</div>
+        <div class="kpi-delta up">↑ vs control group</div>
+      </div>
+      <div class="kpi-card reveal reveal-delay-1">
+        <div class="kpi-icon">📊</div>
+        <div class="kpi-label">Marketing ROI</div>
+        <div class="kpi-value"><span class="counter dark" data-target="780">0</span>%</div>
+        <div class="kpi-delta up">↑ Across all channels</div>
+      </div>
+      <div class="kpi-card reveal reveal-delay-2">
+        <div class="kpi-icon">⚡</div>
+        <div class="kpi-label">Campaigns Executed</div>
+        <div class="kpi-value"><span class="counter dark" data-target="240">0</span>+</div>
+        <div class="kpi-delta up">↑ 96% on-budget</div>
+      </div>
+      <div class="kpi-card reveal reveal-delay-3">
+        <div class="kpi-icon">🧪</div>
+        <div class="kpi-label">A/B Tests Run</div>
+        <div class="kpi-value"><span class="counter dark" data-target="1200">0</span>+</div>
+        <div class="kpi-delta up">↑ 63% win rate</div>
+      </div>
+    </div>
+    <div class="kpi-chart-row reveal">
+      <div class="kpi-chart-card">
+        <h3>Revenue Growth — Q1 2022 to Q4 2024</h3>
+        <div class="chart-wrap"><canvas id="revenueChart"></canvas></div>
+      </div>
+      <div class="kpi-chart-card">
+        <h3>Channel Performance — ROAS by Platform</h3>
+        <div class="chart-wrap"><canvas id="channelChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+  <div class="max-w about-grid">
+    <div class="about-visual reveal">
+      <div class="about-photo-wrap">
+        <div class="about-photo-inner">AM</div>
+      </div>
+      <div class="about-tag t1">
+        <div class="tag-icon">🏆</div>
+        <div>
+          <div class="tag-val">Top 1%</div>
+          <div class="tag-label">Growth Leader 2023</div>
+        </div>
+      </div>
+      <div class="about-tag t2">
+        <div class="tag-icon">📍</div>
+        <div>
+          <div class="tag-val">San Francisco, CA</div>
+          <div class="tag-label">Available globally</div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <div class="section-label">About Alexandra</div>
+      <h2 class="section-title">Growth isn't luck.<br>It's architecture.</h2>
+      <p class="about-bio">I've spent 8 years building growth systems at the intersection of data, psychology, and technology — leading teams across Series A startups and Fortune 500 enterprises to engineer sustainable revenue at scale.</p>
+      <p class="about-bio">My approach is rooted in first-principles thinking: I diagnose the actual constraint in a growth system, design a targeted experiment, and execute relentlessly until compounding kicks in. I've managed $50M+ in annual marketing budget and led teams of 25 across performance, lifecycle, and product-led growth functions.</p>
+      <div class="about-pillars">
+        <div class="pillar">
+          <div class="pillar-title">Data-First Mindset</div>
+          <div class="pillar-text">Every hypothesis is validated with rigorous experimentation before scaling investment.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-title">Systems Thinking</div>
+          <div class="pillar-text">I build growth engines — not campaigns — that compound and self-optimize over time.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-title">Cross-Functional Leadership</div>
+          <div class="pillar-text">Bridging the gap between marketing, product, sales, and engineering to unlock growth.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-title">Outcome Obsession</div>
+          <div class="pillar-text">Revenue impact is the only metric that matters. Everything else is a leading indicator.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERTISE -->
+<section id="expertise" class="section">
+  <div class="max-w">
+    <div class="expertise-header reveal">
+      <div class="section-label">Core Competencies</div>
+      <h2 class="section-title">The full growth toolkit.</h2>
+      <p class="section-sub">A decade of cross-discipline mastery — from funnel architecture to revenue operations.</p>
+    </div>
+    <div class="expertise-grid">
+      <div class="expertise-card reveal">
+        <div class="exp-icon">🗺️</div>
+        <div class="exp-title">Growth Strategy</div>
+        <div class="exp-text">North star definition, growth model design, market segmentation, and OKR-driven roadmapping for sustainable expansion.</div>
+      </div>
+      <div class="expertise-card reveal reveal-delay-1">
+        <div class="exp-icon">⚡</div>
+        <div class="exp-title">Performance Marketing</div>
+        <div class="exp-text">Multi-channel paid acquisition across Google, Meta, LinkedIn, and programmatic with bid strategy optimization and creative testing.</div>
+      </div>
+      <div class="expertise-card reveal reveal-delay-2">
+        <div class="exp-icon">🎯</div>
+        <div class="exp-title">Demand Generation</div>
+        <div class="exp-text">Full-funnel demand programs including content syndication, ABM, webinars, and integrated digital campaigns driving qualified pipeline.</div>
+      </div>
+      <div class="expertise-card reveal reveal-delay-3">
+        <div class="exp-icon">🚀</div>
+        <div class="exp-title">Customer Acquisition</div>
+        <div class="exp-text">CAC-efficient acquisition engineering through channel diversification, audience modeling, and attribution sophistication.</div>
+      </div>
+      <div class="expertise-card reveal">
+        <div class="exp-icon">✉️</div>
+        <div class="exp-title">Lifecycle Marketing</div>
+        <div class="exp-text">Behavioral email and SMS programs, onboarding flows, and loyalty systems that maximize LTV from existing users.</div>
+      </div>
+      <div class="expertise-card reveal reveal-delay-1">
+        <div class="exp-icon">📐</div>
+        <div class="exp-title">CRO</div>
+        <div class="exp-text">Landing page optimization, UX experimentation, pricing page design, and checkout funnel testing with statistical rigor.</div>
+      </div>
+      <div class="expertise-card reveal reveal-delay-2">
+        <div class="exp-icon">🤖</div>
+        <div class="exp-title">Marketing Automation</div>
+        <div class="exp-text">HubSpot, Marketo, and Salesforce orchestration for scalable lead nurturing, scoring, and CRM synchronization at enterprise scale.</div>
+      </div>
+      <div class="expertise-card reveal reveal-delay-3">
+        <div class="exp-icon">🔁</div>
+        <div class="exp-title">Product-Led Growth</div>
+        <div class="exp-text">Freemium architecture, viral loop design, in-product activation sequences, and expansion revenue from the product surface.</div>
+      </div>
+      <div class="expertise-card reveal">
+        <div class="exp-icon">💎</div>
+        <div class="exp-title">Retention Marketing</div>
+        <div class="exp-text">Churn prediction modeling, win-back campaigns, net revenue retention programs, and customer health score frameworks.</div>
+      </div>
+      <div class="expertise-card reveal reveal-delay-1">
+        <div class="exp-icon">🏗️</div>
+        <div class="exp-title">Revenue Operations</div>
+        <div class="exp-text">GTM alignment, territory design, pipeline governance, and revenue forecast modeling to connect marketing to closed-won.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section id="cases" class="section">
+  <div class="max-w">
+    <div class="cases-header reveal">
+      <div class="section-label">Case Studies</div>
+      <h2 class="section-title">Problems solved at scale.</h2>
+      <p class="section-sub">Six high-impact growth initiatives with full strategy, execution, and measurable outcomes.</p>
+    </div>
+    <div class="cases-grid">
+      <div class="case-card reveal">
+        <div class="case-header">
+          <span class="case-industry">B2B SaaS</span>
+          <div class="case-roi">780% <span>ROI</span></div>
+        </div>
+        <div class="case-body">
+          <h3 class="case-title">SaaS Hypergrowth Engine</h3>
+          <p class="case-desc">Series B startup with strong product but leaky acquisition funnel and no repeatable demand gen motion. Rebuilt the entire GTM stack from attribution to activation.</p>
+          <div class="case-results">
+            <div class="result-item"><div class="result-val">+240%</div><div class="result-label">ARR Growth</div></div>
+            <div class="result-item"><div class="result-val">−38%</div><div class="result-label">CAC Reduction</div></div>
+            <div class="result-item"><div class="result-val">+52%</div><div class="result-label">Conversion Rate</div></div>
+            <div class="result-item"><div class="result-val">$8M</div><div class="result-label">New Revenue</div></div>
+          </div>
+          <a href="#" class="case-link">Read case study →</a>
+        </div>
+      </div>
+      <div class="case-card reveal reveal-delay-1">
+        <div class="case-header">
+          <span class="case-industry">E-Commerce</span>
+          <div class="case-roi">$22M <span>impact</span></div>
+        </div>
+        <div class="case-body">
+          <h3 class="case-title">Paid Social Scale-Up</h3>
+          <p class="case-desc">Global DTC brand plateauing on Meta with rising CPAs. Rebuilt creative strategy, audience architecture, and bidding models to unlock international expansion.</p>
+          <div class="case-results">
+            <div class="result-item"><div class="result-val">8.4X</div><div class="result-label">ROAS</div></div>
+            <div class="result-item"><div class="result-val">+180%</div><div class="result-label">Revenue</div></div>
+            <div class="result-item"><div class="result-val">−29%</div><div class="result-label">CPA</div></div>
+            <div class="result-item"><div class="result-val">12</div><div class="result-label">Markets Entered</div></div>
+          </div>
+          <a href="#" class="case-link">Read case study →</a>
+        </div>
+      </div>
+      <div class="case-card reveal reveal-delay-2">
+        <div class="case-header">
+          <span class="case-industry">FinTech</span>
+          <div class="case-roi">3M <span>users</span></div>
+        </div>
+        <div class="case-body">
+          <h3 class="case-title">Viral Referral Launch</h3>
+          <p class="case-desc">B2C fintech with exceptional product/market fit but zero organic growth mechanism. Designed and launched a viral referral loop from 0 to 3M users in 18 months.</p>
+          <div class="case-results">
+            <div class="result-item"><div class="result-val">3M</div><div class="result-label">Users Acquired</div></div>
+            <div class="result-item"><div class="result-val">$4</div><div class="result-label">Avg. CAC</div></div>
+            <div class="result-item"><div class="result-val">41%</div><div class="result-label">Referral Rate</div></div>
+            <div class="result-item"><div class="result-val">K=1.7</div><div class="result-label">Viral Coefficient</div></div>
+          </div>
+          <a href="#" class="case-link">Read case study →</a>
+        </div>
+      </div>
+      <div class="case-card reveal">
+        <div class="case-header">
+          <span class="case-industry">Enterprise SaaS</span>
+          <div class="case-roi">$50M <span>pipeline</span></div>
+        </div>
+        <div class="case-body">
+          <h3 class="case-title">ABM Enterprise Demand Gen</h3>
+          <p class="case-desc">Mid-market software company targeting Fortune 500 accounts with no ABM infrastructure. Built account-based motion from ICP definition to personalized multi-touch programs.</p>
+          <div class="case-results">
+            <div class="result-item"><div class="result-val">$50M</div><div class="result-label">Pipeline Created</div></div>
+            <div class="result-item"><div class="result-val">+67%</div><div class="result-label">Win Rate</div></div>
+            <div class="result-item"><div class="result-val">−42%</div><div class="result-label">Sales Cycle</div></div>
+            <div class="result-item"><div class="result-val">3X</div><div class="result-label">ACV Growth</div></div>
+          </div>
+          <a href="#" class="case-link">Read case study →</a>
+        </div>
+      </div>
+      <div class="case-card reveal reveal-delay-1">
+        <div class="case-header">
+          <span class="case-industry">Consumer Tech</span>
+          <div class="case-roi">92% <span>retention</span></div>
+        </div>
+        <div class="case-body">
+          <h3 class="case-title">Lifecycle Retention Overhaul</h3>
+          <p class="case-desc">Consumer subscription app with 58% year-1 churn. Redesigned onboarding, built behavioral trigger sequences, and deployed churn prediction ML model.</p>
+          <div class="case-results">
+            <div class="result-item"><div class="result-val">+34pts</div><div class="result-label">Retention Lift</div></div>
+            <div class="result-item"><div class="result-val">+$18</div><div class="result-label">LTV Growth</div></div>
+            <div class="result-item"><div class="result-val">−60%</div><div class="result-label">Churn</div></div>
+            <div class="result-item"><div class="result-val">$12M</div><div class="result-label">Revenue Saved</div></div>
+          </div>
+          <a href="#" class="case-link">Read case study →</a>
+        </div>
+      </div>
+      <div class="case-card reveal reveal-delay-2">
+        <div class="case-header">
+          <span class="case-industry">Marketplace</span>
+          <div class="case-roi">500% <span>growth</span></div>
+        </div>
+        <div class="case-body">
+          <h3 class="case-title">Two-Sided Marketplace Ignition</h3>
+          <p class="case-desc">Early-stage marketplace with cold-start problem on both supply and demand sides. Designed dual-sided growth loops with asymmetric incentives and network effect triggers.</p>
+          <div class="case-results">
+            <div class="result-item"><div class="result-val">500%</div><div class="result-label">GMV Growth</div></div>
+            <div class="result-item"><div class="result-val">4X</div><div class="result-label">Supply Growth</div></div>
+            <div class="result-item"><div class="result-val">68%</div><div class="result-label">Organic Mix</div></div>
+            <div class="result-item"><div class="result-val">$30M</div><div class="result-label">Series A Raised</div></div>
+          </div>
+          <a href="#" class="case-link">Read case study →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section id="stack" class="section">
+  <div class="max-w">
+    <div class="stack-header reveal">
+      <div class="section-label">Technology</div>
+      <h2 class="section-title">The stack I command.</h2>
+      <p class="section-sub">Proficiency across the modern marketing technology ecosystem — from analytics to automation.</p>
+    </div>
+    <div class="stack-grid">
+      <div class="stack-card reveal"><div class="stack-icon">📊</div><div class="stack-name">Google Analytics 4</div><div class="stack-cat">Analytics</div></div>
+      <div class="stack-card reveal reveal-delay-1"><div class="stack-icon">🎯</div><div class="stack-name">Google Ads</div><div class="stack-cat">Paid Search</div></div>
+      <div class="stack-card reveal reveal-delay-2"><div class="stack-icon">📘</div><div class="stack-name">Meta Ads</div><div class="stack-cat">Paid Social</div></div>
+      <div class="stack-card reveal reveal-delay-3"><div class="stack-icon">💼</div><div class="stack-name">LinkedIn Ads</div><div class="stack-cat">B2B Paid</div></div>
+      <div class="stack-card reveal"><div class="stack-icon">🟠</div><div class="stack-name">HubSpot</div><div class="stack-cat">CRM / MAP</div></div>
+      <div class="stack-card reveal reveal-delay-1"><div class="stack-icon">☁️</div><div class="stack-name">Salesforce</div><div class="stack-cat">CRM / RevOps</div></div>
+      <div class="stack-card reveal reveal-delay-2"><div class="stack-icon">💜</div><div class="stack-name">Marketo</div><div class="stack-cat">Marketing Automation</div></div>
+      <div class="stack-card reveal reveal-delay-3"><div class="stack-icon">🔮</div><div class="stack-name">Mixpanel</div><div class="stack-cat">Product Analytics</div></div>
+      <div class="stack-card reveal"><div class="stack-icon">📈</div><div class="stack-name">Amplitude</div><div class="stack-cat">Behavioral Analytics</div></div>
+      <div class="stack-card reveal reveal-delay-1"><div class="stack-icon">🔍</div><div class="stack-name">Looker Studio</div><div class="stack-cat">Data Visualization</div></div>
+      <div class="stack-card reveal reveal-delay-2"><div class="stack-icon">📉</div><div class="stack-name">Tableau</div><div class="stack-cat">BI & Reporting</div></div>
+      <div class="stack-card reveal reveal-delay-3"><div class="stack-icon">⚡</div><div class="stack-name">Power BI</div><div class="stack-cat">Executive Dashboards</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKETING FUNNEL -->
+<section id="funnel" class="section">
+  <div class="max-w funnel-wrap">
+    <div class="reveal">
+      <div class="section-label">Funnel Performance</div>
+      <h2 class="section-title">Every stage,<br>optimized.</h2>
+      <p class="section-sub">Real conversion benchmarks from a $50M SaaS demand generation program — each stage optimized through iterative experimentation.</p>
+      <div class="funnel-metrics">
+        <div class="funnel-metric">
+          <div class="funnel-metric-val">2.8%</div>
+          <div class="funnel-metric-label">Traffic → Customer Rate</div>
+        </div>
+        <div class="funnel-metric">
+          <div class="funnel-metric-val">14:1</div>
+          <div class="funnel-metric-label">Marketing ROI Ratio</div>
+        </div>
+        <div class="funnel-metric">
+          <div class="funnel-metric-val">$42</div>
+          <div class="funnel-metric-label">Blended CAC</div>
+        </div>
+        <div class="funnel-metric">
+          <div class="funnel-metric-val">$1,240</div>
+          <div class="funnel-metric-label">Average LTV</div>
+        </div>
+      </div>
+    </div>
+    <div class="funnel-vis reveal reveal-delay-2" id="funnelVis">
+      <div class="funnel-stage">
+        <div class="funnel-count">1,200,000</div>
+        <div class="funnel-bar-wrap">
+          <div class="funnel-bar-bg">
+            <div class="funnel-bar-fill" data-width="100"><span class="funnel-bar-label">Traffic</span></div>
+          </div>
+        </div>
+        <div class="funnel-pct">100%</div>
+      </div>
+      <div class="funnel-stage">
+        <div class="funnel-count">156,000</div>
+        <div class="funnel-bar-wrap">
+          <div class="funnel-bar-bg">
+            <div class="funnel-bar-fill" data-width="84" style="background:linear-gradient(90deg,#0096CC,#00B4A0)"><span class="funnel-bar-label">Leads</span></div>
+          </div>
+        </div>
+        <div class="funnel-pct">13%</div>
+      </div>
+      <div class="funnel-stage">
+        <div class="funnel-count">46,800</div>
+        <div class="funnel-bar-wrap">
+          <div class="funnel-bar-bg">
+            <div class="funnel-bar-fill" data-width="60" style="background:linear-gradient(90deg,#00B4A0,#00C8A8)"><span class="funnel-bar-label">MQLs</span></div>
+          </div>
+        </div>
+        <div class="funnel-pct">30%</div>
+      </div>
+      <div class="funnel-stage">
+        <div class="funnel-count">18,720</div>
+        <div class="funnel-bar-wrap">
+          <div class="funnel-bar-bg">
+            <div class="funnel-bar-fill" data-width="44" style="background:linear-gradient(90deg,#00B4A0,#00D4BC)"><span class="funnel-bar-label">SQLs</span></div>
+          </div>
+        </div>
+        <div class="funnel-pct">40%</div>
+      </div>
+      <div class="funnel-stage">
+        <div class="funnel-count">7,488</div>
+        <div class="funnel-bar-wrap">
+          <div class="funnel-bar-bg">
+            <div class="funnel-bar-fill" data-width="30" style="background:linear-gradient(90deg,#F59E0B,#FBBF24)"><span class="funnel-bar-label">Opportunities</span></div>
+          </div>
+        </div>
+        <div class="funnel-pct">40%</div>
+      </div>
+      <div class="funnel-stage">
+        <div class="funnel-count">2,621</div>
+        <div class="funnel-bar-wrap">
+          <div class="funnel-bar-bg">
+            <div class="funnel-bar-fill" data-width="18" style="background:linear-gradient(90deg,#F59E0B,#F97316)"><span class="funnel-bar-label">Customers</span></div>
+          </div>
+        </div>
+        <div class="funnel-pct">35%</div>
+      </div>
+      <div class="funnel-stage">
+        <div class="funnel-count">$48.2M</div>
+        <div class="funnel-bar-wrap">
+          <div class="funnel-bar-bg">
+            <div class="funnel-bar-fill" data-width="10" style="background:linear-gradient(90deg,#0A1628,#1E3A5F)"><span class="funnel-bar-label">Revenue</span></div>
+          </div>
+        </div>
+        <div class="funnel-pct">$18K</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- A/B TESTING -->
+<section id="abtesting" class="section">
+  <div class="max-w">
+    <div class="ab-header reveal">
+      <div class="section-label">Experimentation Lab</div>
+      <h2 class="section-title">Test. Learn. Scale.</h2>
+      <p class="section-sub">1,200+ experiments across 8 years. A sample of high-impact tests that moved the needle significantly.</p>
+    </div>
+    <div class="ab-grid">
+      <div class="ab-card reveal">
+        <div class="ab-number">01</div>
+        <div class="ab-title">Landing Page Headline Test</div>
+        <div class="ab-hypo">Hypothesis: Benefit-focused headlines outperform feature-focused headlines for conversion among mid-market buyers entering via paid search.</div>
+        <div class="ab-result-tag">✓ +34% Conversion Lift</div>
+        <div class="ab-impact">Impact: $2.4M annualized pipeline from reduced CPL on core acquisition campaigns.</div>
+      </div>
+      <div class="ab-card reveal reveal-delay-1">
+        <div class="ab-number">02</div>
+        <div class="ab-title">Email Send-Time Optimization</div>
+        <div class="ab-hypo">Hypothesis: Personalized send-time delivery based on individual engagement history outperforms fixed 10 AM Tuesday cadence for open rates.</div>
+        <div class="ab-result-tag">✓ +28% Open Rate</div>
+        <div class="ab-impact">Impact: 41% increase in email-sourced pipeline across lifecycle nurture programs.</div>
+      </div>
+      <div class="ab-card reveal reveal-delay-2">
+        <div class="ab-number">03</div>
+        <div class="ab-title">Pricing Page Architecture</div>
+        <div class="ab-hypo">Hypothesis: Three-tier pricing with a "most popular" visual anchor drives higher plan selection toward mid-tier vs. two-tier layout.</div>
+        <div class="ab-result-tag">✓ +52% Upgrade Rate</div>
+        <div class="ab-impact">Impact: $6.1M incremental ARR from improved pricing page conversion within 90 days.</div>
+      </div>
+      <div class="ab-card reveal">
+        <div class="ab-number">04</div>
+        <div class="ab-title">Ad Creative Format Testing</div>
+        <div class="ab-hypo">Hypothesis: UGC-style video with authentic customer testimonials outperforms polished brand video for TOFU paid social at scale.</div>
+        <div class="ab-result-tag">✓ 3.2X CTR</div>
+        <div class="ab-impact">Impact: Reduced CPA by 44% and enabled 2X budget reallocation to scale winning creative.</div>
+      </div>
+      <div class="ab-card reveal reveal-delay-1">
+        <div class="ab-number">05</div>
+        <div class="ab-title">Onboarding Flow Sequence</div>
+        <div class="ab-hypo">Hypothesis: Personalized onboarding path based on job function increases time-to-first-value and 30-day activation rate vs. single generic flow.</div>
+        <div class="ab-result-tag">✓ +47% Activation</div>
+        <div class="ab-impact">Impact: 34-point retention improvement at day-90 cohort, reducing churn-driven revenue loss by $3.8M.</div>
+      </div>
+      <div class="ab-card reveal reveal-delay-2">
+        <div class="ab-number">06</div>
+        <div class="ab-title">Referral Incentive Structure</div>
+        <div class="ab-hypo">Hypothesis: Dual-sided cash incentive ($25/$25) outperforms single-sided credit for both referral initiation rate and referred user conversion quality.</div>
+        <div class="ab-result-tag">✓ 2.8X Referrals</div>
+        <div class="ab-impact">Impact: K-factor increased from 0.4 to 1.7, enabling self-sustaining organic growth loop.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FRAMEWORKS -->
+<section id="frameworks" class="section">
+  <div class="max-w">
+    <div class="fw-header reveal">
+      <div class="section-label">Growth Frameworks</div>
+      <h2 class="section-title">The mental models<br>I operate by.</h2>
+      <p class="section-sub">Frameworks aren't templates — they're lenses for diagnosing constraints and designing targeted interventions.</p>
+    </div>
+    <div class="fw-grid">
+      <div class="fw-card reveal">
+        <div class="fw-num">01</div>
+        <div class="fw-title">AARRR Pirate Funnel</div>
+        <div class="fw-desc">Structured diagnosis of Acquisition, Activation, Retention, Referral, and Revenue stages to identify the highest-leverage constraint in any growth system.</div>
+        <div class="fw-tags"><span class="fw-tag">Acquisition</span><span class="fw-tag">Retention</span><span class="fw-tag">Revenue</span></div>
+      </div>
+      <div class="fw-card reveal reveal-delay-1">
+        <div class="fw-num">02</div>
+        <div class="fw-title">Growth Loops</div>
+        <div class="fw-desc">Designing self-reinforcing feedback loops where each user action creates the input for the next acquisition event — building compounding rather than linear growth.</div>
+        <div class="fw-tags"><span class="fw-tag">Virality</span><span class="fw-tag">PLG</span><span class="fw-tag">Compounding</span></div>
+      </div>
+      <div class="fw-card reveal reveal-delay-2">
+        <div class="fw-num">03</div>
+        <div class="fw-title">Flywheel Model</div>
+        <div class="fw-desc">Momentum-based growth architecture where supply, demand, and trust reinforce each other — eliminating the need for constant external growth investment at scale.</div>
+        <div class="fw-tags"><span class="fw-tag">Network Effects</span><span class="fw-tag">Marketplace</span></div>
+      </div>
+      <div class="fw-card reveal">
+        <div class="fw-num">04</div>
+        <div class="fw-title">North Star Metrics</div>
+        <div class="fw-desc">Identifying the single metric that best captures the value delivered to customers — aligning entire organizations around a common growth direction with clear leading indicators.</div>
+        <div class="fw-tags"><span class="fw-tag">Strategy</span><span class="fw-tag">Alignment</span><span class="fw-tag">OKRs</span></div>
+      </div>
+      <div class="fw-card reveal reveal-delay-1">
+        <div class="fw-num">05</div>
+        <div class="fw-title">Experimentation Framework</div>
+        <div class="fw-desc">ICE / PIE scoring combined with Bayesian hypothesis testing to build a prioritized experiment backlog, run tests at velocity, and scale winners with confidence.</div>
+        <div class="fw-tags"><span class="fw-tag">A/B Testing</span><span class="fw-tag">Statistical Rigor</span></div>
+      </div>
+      <div class="fw-card reveal reveal-delay-2">
+        <div class="fw-num">06</div>
+        <div class="fw-title">Customer Journey Mapping</div>
+        <div class="fw-desc">Mapping awareness-to-advocacy touchpoints across channels and moments — identifying drop-off points, message-market fit gaps, and personalization opportunities.</div>
+        <div class="fw-tags"><span class="fw-tag">Lifecycle</span><span class="fw-tag">UX</span><span class="fw-tag">Personalization</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline" class="section">
+  <div class="max-w" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,6vw,7rem);">
+    <div class="reveal">
+      <div class="section-label">Experience</div>
+      <h2 class="section-title">8 years.<br>5 companies.<br>1 obsession.</h2>
+      <p class="section-sub" style="margin-bottom:2rem;">A career deliberately built around high-growth inflection points — from Series A startups to global enterprise scale.</p>
+      <div class="hero-badge" style="font-size:0.85rem;padding:0.5rem 1rem;">Available for VP / Director roles</div>
+    </div>
+    <div class="tl-wrap reveal reveal-delay-2">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">2022 – Present</div>
+        <div class="tl-role">VP of Growth Marketing</div>
+        <div class="tl-company">ScaleAI Technologies · San Francisco, CA</div>
+        <div class="tl-achievements">
+          <div class="tl-item-ach">Grew ARR from $18M to $48M (167% growth) in 24 months</div>
+          <div class="tl-item-ach">Built and led 25-person growth team across 4 functions</div>
+          <div class="tl-item-ach">Managed $22M annual marketing budget with 780% ROI</div>
+          <div class="tl-item-ach">Launched ABM motion generating $50M in enterprise pipeline</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">2019 – 2022</div>
+        <div class="tl-role">Head of Growth</div>
+        <div class="tl-company">Finora · New York, NY</div>
+        <div class="tl-achievements">
+          <div class="tl-item-ach">Acquired 3M users in 18 months via viral referral program</div>
+          <div class="tl-item-ach">Reduced blended CAC from $68 to $4 through growth loops</div>
+          <div class="tl-item-ach">Contributed to $30M Series A fundraise through growth metrics</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">2017 – 2019</div>
+        <div class="tl-role">Senior Growth Manager</div>
+        <div class="tl-company">Cortex Commerce · Austin, TX</div>
+        <div class="tl-achievements">
+          <div class="tl-item-ach">Scaled Meta paid social from $200K to $8M annual spend</div>
+          <div class="tl-item-ach">Achieved 8.4X blended ROAS across 12 international markets</div>
+          <div class="tl-item-ach">Built CRO program that lifted checkout conversion by 52%</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">2015 – 2017</div>
+        <div class="tl-role">Growth Marketing Manager</div>
+        <div class="tl-company">Beacon Digital · Chicago, IL</div>
+        <div class="tl-achievements">
+          <div class="tl-item-ach">Launched demand gen program generating $12M in pipeline</div>
+          <div class="tl-item-ach">Implemented HubSpot CRM and lead scoring from ground up</div>
+          <div class="tl-item-ach">Grew email list from 8K to 94K subscribers in 18 months</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" class="section">
+  <div class="max-w">
+    <div class="test-header reveal">
+      <div class="section-label">Testimonials</div>
+      <h2 class="section-title">What leaders say.</h2>
+      <p class="section-sub">Perspectives from CEOs, investors, and peers who've seen the work up close.</p>
+    </div>
+    <div class="swiper reveal">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="test-card">
+            <div class="test-stars">★★★★★</div>
+            <div class="test-quote">"Alexandra restructured our entire demand engine in less than a year. She has the rare combination of strategic clarity and hands-on execution — the kind of growth leader you build a company around."</div>
+            <div class="test-author">
+              <div class="test-avatar" style="background:linear-gradient(135deg,#0A1628,#1E3A5F)">MR</div>
+              <div>
+                <div class="test-name">Marcus Rivera</div>
+                <div class="test-role">CEO, ScaleAI Technologies</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="test-card">
+            <div class="test-stars">★★★★★</div>
+            <div class="test-quote">"The referral program Alexandra built for us was transformative. We went from a paid acquisition treadmill to a self-sustaining growth engine. Best strategic hire of my career."</div>
+            <div class="test-author">
+              <div class="test-avatar" style="background:linear-gradient(135deg,#00B4A0,#008C7C)">SK</div>
+              <div>
+                <div class="test-name">Sarah Kim</div>
+                <div class="test-role">Co-Founder & CEO, Finora</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="test-card">
+            <div class="test-stars">★★★★★</div>
+            <div class="test-quote">"We've backed 40 portfolio companies and Alexandra stands out as one of the most commercially-minded growth leaders we've seen. She connects every tactic to revenue with precision and speed."</div>
+            <div class="test-author">
+              <div class="test-avatar" style="background:linear-gradient(135deg,#F59E0B,#D97706)">JP</div>
+              <div>
+                <div class="test-name">James Park</div>
+                <div class="test-role">Partner, Sequoia Capital</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="test-card">
+            <div class="test-stars">★★★★★</div>
+            <div class="test-quote">"Our paid social had plateaued for two years. Alexandra diagnosed the creative fatigue, rebuilt our testing infrastructure, and had us at 8X ROAS within a quarter. She's the real deal."</div>
+            <div class="test-author">
+              <div class="test-avatar" style="background:linear-gradient(135deg,#7C3AED,#4C1D95)">LN</div>
+              <div>
+                <div class="test-name">Lisa Nguyen</div>
+                <div class="test-role">CMO, Cortex Commerce</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="test-card">
+            <div class="test-stars">★★★★★</div>
+            <div class="test-quote">"Working alongside Alexandra taught me what rigorous growth actually looks like. She never moves fast without data, and she never waits for data when the test can answer faster. Extraordinary discipline."</div>
+            <div class="test-author">
+              <div class="test-avatar" style="background:linear-gradient(135deg,#DC2626,#991B1B)">DW</div>
+              <div>
+                <div class="test-name">David Walsh</div>
+                <div class="test-role">Head of Product, ScaleAI Technologies</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications" class="section">
+  <div class="max-w">
+    <div class="cert-header reveal">
+      <div class="section-label">Certifications</div>
+      <h2 class="section-title">Credentialed expertise.</h2>
+    </div>
+    <div class="cert-grid">
+      <div class="cert-card reveal"><div class="cert-icon">🎯</div><div class="cert-name">Google Ads Certified</div><div class="cert-org">Google</div><div class="cert-badge">Active</div></div>
+      <div class="cert-card reveal reveal-delay-1"><div class="cert-icon">📊</div><div class="cert-name">GA4 Certification</div><div class="cert-org">Google Analytics</div><div class="cert-badge">Active</div></div>
+      <div class="cert-card reveal reveal-delay-2"><div class="cert-icon">📘</div><div class="cert-name">Meta Blueprint Pro</div><div class="cert-org">Meta</div><div class="cert-badge">Active</div></div>
+      <div class="cert-card reveal reveal-delay-3"><div class="cert-icon">🟠</div><div class="cert-name">HubSpot Marketing</div><div class="cert-org">HubSpot Academy</div><div class="cert-badge">Active</div></div>
+      <div class="cert-card reveal"><div class="cert-icon">☁️</div><div class="cert-name">Salesforce Marketing</div><div class="cert-org">Salesforce</div><div class="cert-badge">Active</div></div>
+      <div class="cert-card reveal reveal-delay-1"><div class="cert-icon">🚀</div><div class="cert-name">Growth Hacking</div><div class="cert-org">GrowthHackers</div><div class="cert-badge">Active</div></div>
+      <div class="cert-card reveal reveal-delay-2"><div class="cert-icon">💼</div><div class="cert-name">LinkedIn Marketing</div><div class="cert-org">LinkedIn</div><div class="cert-badge">Active</div></div>
+      <div class="cert-card reveal reveal-delay-3"><div class="cert-icon">🧮</div><div class="cert-name">Data Analytics</div><div class="cert-org">Google</div><div class="cert-badge">Active</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- THOUGHT LEADERSHIP -->
+<section id="thought" class="section">
+  <div class="max-w">
+    <div class="reveal" style="margin-bottom:3rem;">
+      <div class="section-label">Thought Leadership</div>
+      <h2 class="section-title">Ideas worth reading.</h2>
+      <p class="section-sub">Frameworks, case breakdowns, and contrarian takes on growth marketing — published across LinkedIn, Substack, and industry media.</p>
+    </div>
+    <div class="thought-grid">
+      <div class="article-card reveal">
+        <div class="article-thumb" style="background:var(--teal-lite)">📈</div>
+        <div class="article-body">
+          <div class="article-cat">Strategy</div>
+          <div class="article-title">Why Your Growth Team Keeps Failing (It's Not the Channel)</div>
+          <div class="article-excerpt">The most common growth failure isn't poor execution — it's optimizing the wrong stage of the funnel. Here's the diagnostic framework I use to find the real constraint.</div>
+          <div class="article-meta"><span>8 min read</span><span>42K views</span></div>
+        </div>
+      </div>
+      <div class="article-card reveal reveal-delay-1">
+        <div class="article-thumb" style="background:var(--gold-lite)">🔬</div>
+        <div class="article-body">
+          <div class="article-cat">Experimentation</div>
+          <div class="article-title">The 1,200-Test Framework: How to Build a Culture of Experimentation</div>
+          <div class="article-excerpt">Running tests isn't enough. The teams that win build systems where experimentation is a core operating rhythm, not a side project. Here's exactly how we did it.</div>
+          <div class="article-meta"><span>12 min read</span><span>67K views</span></div>
+        </div>
+      </div>
+      <div class="article-card reveal reveal-delay-2">
+        <div class="article-thumb" style="background:var(--mist)">🔁</div>
+        <div class="article-body">
+          <div class="article-cat">Product-Led Growth</div>
+          <div class="article-title">Growth Loops vs. Funnels: The Structural Difference That Determines Scale</div>
+          <div class="article-excerpt">Funnels are linear. Loops compound. If your growth model can't answer "where does each user generate the next user?" — you're building on borrowed time.</div>
+          <div class="article-meta"><span>10 min read</span><span>89K views</span></div>
+        </div>
+      </div>
+      <div class="article-card reveal">
+        <div class="article-thumb" style="background:#FFF1F2">💡</div>
+        <div class="article-body">
+          <div class="article-cat">Retention</div>
+          <div class="article-title">The $12M Churn Problem: How We Saved It With One Model</div>
+          <div class="article-excerpt">We were losing $12M a year to predictable churn we weren't predicting. The solution combined ML propensity scoring with human-touch intervention at exactly the right moment.</div>
+          <div class="article-meta"><span>15 min read</span><span>51K views</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section">
+  <div class="max-w contact-grid">
+    <div class="contact-info reveal">
+      <div class="section-label">Get in Touch</div>
+      <h2 class="section-title" style="color:var(--white)">Let's build<br>something<br>extraordinary.</h2>
+      <p class="section-sub">Open to VP/Director growth roles, advisory engagements, and speaking opportunities. Response within 24 hours.</p>
+      <div class="contact-links">
+        <a href="mailto:alexandra@example.com" class="contact-link">
+          <span class="contact-link-icon">✉️</span>
+          <span>alexandra@example.com</span>
+        </a>
+        <a href="tel:+14155550182" class="contact-link">
+          <span class="contact-link-icon">📞</span>
+          <span>+1 (415) 555-0182</span>
+        </a>
+        <a href="#" class="contact-link">
+          <span class="contact-link-icon">💼</span>
+          <span>linkedin.com/in/alexandra-monroe</span>
+        </a>
+        <a href="#" class="contact-link">
+          <span class="contact-link-icon">📅</span>
+          <span>Book 30-min intro call on Calendly</span>
+        </a>
+        <a href="#" class="contact-link">
+          <span class="contact-link-icon">📄</span>
+          <span>Download Full Resume (PDF)</span>
+        </a>
+      </div>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <div class="contact-form-card">
+        <h3>Send a Message</h3>
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label>Company</label>
+          <input type="text" placeholder="Your company">
+        </div>
+        <div class="form-group">
+          <label>Reason for Reaching Out</label>
+          <select>
+            <option>Full-time opportunity</option>
+            <option>Advisory / consulting</option>
+            <option>Speaking engagement</option>
+            <option>Collaboration</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Tell me about the opportunity or what you're working on..."></textarea>
+        </div>
+        <button class="form-submit">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Alexandra<span>.</span></div>
+      <div class="footer-tagline">Building growth systems that compound. © 2024 Alexandra Monroe.</div>
+    </div>
+    <div class="footer-links">
+      <a href="#" title="LinkedIn">💼</a>
+      <a href="#" title="Twitter">🐦</a>
+      <a href="#" title="Substack">📝</a>
+      <a href="#" title="Email">✉️</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   LOADER
+   ============================================================ */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+  }, 1600);
+});
+
+/* ============================================================
+   CURSOR
+   ============================================================ */
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let cx = 0, cy = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { cx = e.clientX; cy = e.clientY; });
+(function animCursor() {
+  rx += (cx - rx) * 0.14;
+  ry += (cy - ry) * 0.14;
+  cursor.style.left = cx + 'px'; cursor.style.top = cy + 'px';
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animCursor);
+})();
+document.querySelectorAll('a,button,.expertise-card,.case-card,.stack-card,.kpi-card,.fw-card,.ab-card').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+});
+
+/* ============================================================
+   NAV
+   ============================================================ */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+  // Active link highlighting
+  const sections = ['hero','kpis','about','expertise','cases','stack','funnel','abtesting','frameworks','timeline','testimonials','certifications','thought','contact'];
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 120) current = id;
+  });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+function closeMobile() { mobileMenu.classList.remove('open'); }
+
+/* ============================================================
+   INTERSECTION OBSERVER — REVEAL + COUNTERS + FUNNEL
+   ============================================================ */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+// Counters
+function animCounter(el) {
+  const target = +el.dataset.target;
+  const duration = 1800;
+  const start = performance.now();
+  (function tick(now) {
+    const p = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(ease * target).toLocaleString();
+    if (p < 1) requestAnimationFrame(tick);
+    else el.textContent = target.toLocaleString();
+  })(start);
+}
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.counter').forEach(c => animCounter(c));
+      counterObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('#hero, #kpis').forEach(s => counterObs.observe(s));
+
+// Funnel bars
+const funnelObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.funnel-bar-fill').forEach(bar => {
+        bar.style.width = bar.dataset.width + '%';
+      });
+      funnelObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.2 });
+const funnelEl = document.getElementById('funnelVis');
+if (funnelEl) funnelObs.observe(funnelEl);
+
+/* ============================================================
+   CHARTS
+   ============================================================ */
+Chart.defaults.font.family = "'Inter', system-ui, sans-serif";
+
+// Hero chart
+new Chart(document.getElementById('heroChart'), {
+  type: 'line',
+  data: {
+    labels: ['Jan','Mar','May','Jul','Sep','Nov','Dec'],
+    datasets: [{
+      data: [8, 12, 16, 22, 30, 40, 48.2],
+      borderColor: '#00B4A0',
+      backgroundColor: ctx => {
+        const g = ctx.chart.ctx.createLinearGradient(0, 0, 0, 160);
+        g.addColorStop(0, 'rgba(0,180,160,0.18)');
+        g.addColorStop(1, 'rgba(0,180,160,0)');
+        return g;
+      },
+      borderWidth: 2.5,
+      fill: true,
+      tension: 0.45,
+      pointRadius: 0,
+      pointHoverRadius: 5,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { mode: 'index', intersect: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { font: { size: 10 }, color: '#94A3B8' } },
+      y: { grid: { color: '#F1F5F9' }, ticks: { font: { size: 10 }, color: '#94A3B8', callback: v => '$' + v + 'M' } }
+    }
+  }
+});
+
+// Revenue chart
+new Chart(document.getElementById('revenueChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Q1\'22','Q2\'22','Q3\'22','Q4\'22','Q1\'23','Q2\'23','Q3\'23','Q4\'23','Q1\'24','Q2\'24','Q3\'24','Q4\'24'],
+    datasets: [{
+      data: [8, 10, 13, 18, 22, 26, 32, 38, 42, 46, 50, 56],
+      backgroundColor: ctx => ctx.dataIndex > 7 ? '#00B4A0' : 'rgba(0,180,160,0.4)',
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => '$' + ctx.parsed.y + 'M ARR' } } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: 'rgba(255,255,255,0.4)', font: { size: 9 } } },
+      y: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: 'rgba(255,255,255,0.4)', font: { size: 10 }, callback: v => '$' + v + 'M' } }
+    }
+  }
+});
+
+// Channel chart
+new Chart(document.getElementById('channelChart'), {
+  type: 'radar',
+  data: {
+    labels: ['Google Ads','Meta Ads','LinkedIn','Email','SEO','Referral','Content'],
+    datasets: [{
+      label: 'ROAS',
+      data: [8.4, 6.2, 5.8, 12.4, 18.2, 24.6, 9.8],
+      borderColor: '#00B4A0',
+      backgroundColor: 'rgba(0,180,160,0.15)',
+      borderWidth: 2,
+      pointBackgroundColor: '#00B4A0',
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      r: {
+        grid: { color: 'rgba(255,255,255,0.08)' },
+        angleLines: { color: 'rgba(255,255,255,0.08)' },
+        ticks: { display: false },
+        pointLabels: { color: 'rgba(255,255,255,0.5)', font: { size: 10 } }
+      }
+    }
+  }
+});
+
+/* ============================================================
+   SWIPER
+   ============================================================ */
+new Swiper('.swiper', {
+  slidesPerView: 1,
+  spaceBetween: 24,
+  pagination: { el: '.swiper-pagination', clickable: true },
+  breakpoints: {
+    640: { slidesPerView: 1.5 },
+    900: { slidesPerView: 2.5 },
+    1200: { slidesPerView: 3 }
+  },
+  autoplay: { delay: 5000, disableOnInteraction: false },
+});
+</script>
+</body>
+</html>
