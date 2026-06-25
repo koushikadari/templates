@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sarah Johnson — Senior HR Director</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F8F4EF;
+    --primary: #C7A17A;
+    --secondary: #9B7E63;
+    --dark: #1E1E1E;
+    --mid: #6D6D6D;
+    --white: #FFFFFF;
+    --gold: #D4A373;
+    --glass: rgba(255,255,255,0.55);
+    --glass-border: rgba(255,255,255,0.75);
+    --shadow-soft: 0 8px 40px rgba(199,161,122,0.12);
+    --shadow-card: 0 20px 60px rgba(30,30,30,0.08);
+    --shadow-hover: 0 30px 80px rgba(30,30,30,0.14);
+    --radius-xl: 28px;
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --radius-sm: 10px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  h1,h2,h3,h4,h5 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; line-height: 1.2; }
+
+  /* ── BLOBS ── */
+  .blob-wrap { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.35;
+    animation: blobDrift 18s ease-in-out infinite alternate;
+  }
+  .blob-1 { width: 600px; height: 600px; background: radial-gradient(circle, #D4A373 0%, #C7A17A 60%, transparent 100%); top: -200px; right: -150px; animation-delay: 0s; }
+  .blob-2 { width: 500px; height: 500px; background: radial-gradient(circle, #9B7E63 0%, #C7A17A 60%, transparent 100%); bottom: 20%; left: -150px; animation-delay: -6s; }
+  .blob-3 { width: 400px; height: 400px; background: radial-gradient(circle, #F8D5A3 0%, #D4A373 60%, transparent 100%); top: 50%; left: 40%; animation-delay: -12s; }
+
+  @keyframes blobDrift {
+    0%   { transform: translate(0, 0) scale(1); }
+    33%  { transform: translate(40px, -30px) scale(1.05); }
+    66%  { transform: translate(-20px, 20px) scale(0.97); }
+    100% { transform: translate(30px, 10px) scale(1.03); }
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+    width: calc(100% - 48px); max-width: 1300px;
+    background: rgba(248,244,239,0.72);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1.5px solid var(--glass-border);
+    border-radius: 60px;
+    padding: 14px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    z-index: 1000;
+    box-shadow: 0 8px 40px rgba(199,161,122,0.15), 0 2px 0 rgba(255,255,255,0.8) inset;
+    transition: box-shadow 0.3s;
+  }
+  .nav-logo { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--dark); letter-spacing: -0.5px; }
+  .nav-logo span { color: var(--primary); }
+  .nav-links { display: flex; gap: 6px; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--mid); font-size: 0.875rem; font-weight: 500; padding: 7px 14px; border-radius: 50px; transition: all 0.25s; }
+  .nav-links a:hover { color: var(--dark); background: rgba(199,161,122,0.12); }
+  .btn-nav {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white; border: none; padding: 10px 22px; border-radius: 50px;
+    font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 0.85rem;
+    cursor: pointer; transition: all 0.3s; white-space: nowrap;
+    box-shadow: 0 4px 16px rgba(199,161,122,0.35);
+  }
+  .btn-nav:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(199,161,122,0.45); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .hamburger span { width: 22px; height: 2px; background: var(--dark); border-radius: 2px; transition: all 0.3s; display: block; }
+
+  /* ── WRAPPER ── */
+  main { position: relative; z-index: 1; }
+  .section { padding: 100px 24px; max-width: 1300px; margin: 0 auto; }
+
+  /* ── HERO ── */
+  #hero { padding: 160px 24px 100px; max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(199,161,122,0.12); border: 1px solid rgba(199,161,122,0.3);
+    border-radius: 50px; padding: 7px 16px; margin-bottom: 24px;
+    font-size: 0.8rem; font-weight: 600; color: var(--secondary); letter-spacing: 0.3px;
+  }
+  .hero-badge::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--primary); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+
+  .hero-h1 { font-size: clamp(2.2rem, 4vw, 3.4rem); color: var(--dark); margin-bottom: 20px; letter-spacing: -1.5px; }
+  .hero-h1 .highlight { background: linear-gradient(135deg, var(--primary), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-sub { font-size: 1.05rem; color: var(--mid); line-height: 1.75; margin-bottom: 36px; max-width: 480px; }
+
+  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 48px; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white; border: none; padding: 14px 28px; border-radius: 50px;
+    font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 0.9rem;
+    cursor: pointer; transition: all 0.3s; box-shadow: 0 6px 24px rgba(199,161,122,0.35);
+    text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(199,161,122,0.45); }
+  .btn-outline {
+    background: transparent; color: var(--dark);
+    border: 1.5px solid rgba(30,30,30,0.15); padding: 13px 26px; border-radius: 50px;
+    font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 0.9rem;
+    cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-outline:hover { background: rgba(199,161,122,0.08); border-color: var(--primary); transform: translateY(-2px); }
+
+  .hero-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .stat-card {
+    background: var(--glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1.5px solid var(--glass-border); border-radius: var(--radius-lg);
+    padding: 18px 20px;
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+  .stat-num { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 1.6rem; color: var(--dark); letter-spacing: -1px; }
+  .stat-num span { background: linear-gradient(135deg, var(--primary), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .stat-label { font-size: 0.78rem; color: var(--mid); margin-top: 2px; }
+
+  /* HERO DASHBOARD */
+  .hero-dashboard { position: relative; }
+  .dashboard-main {
+    background: var(--glass); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    border: 1.5px solid var(--glass-border); border-radius: var(--radius-xl);
+    padding: 28px; box-shadow: var(--shadow-card);
+    position: relative; overflow: hidden;
+  }
+  .dashboard-main::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--gold), var(--secondary));
+  }
+  .dash-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+  .dash-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--dark); }
+  .dash-dot { width: 8px; height: 8px; border-radius: 50%; background: #4CAF50; box-shadow: 0 0 0 3px rgba(76,175,80,0.2); animation: pulse 2s infinite; }
+  .dash-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+  .metric-item { background: rgba(255,255,255,0.6); border-radius: var(--radius-md); padding: 14px 16px; border: 1px solid rgba(255,255,255,0.8); }
+  .metric-label { font-size: 0.72rem; color: var(--mid); margin-bottom: 6px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+  .metric-val { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--dark); }
+  .metric-sub { font-size: 0.72rem; color: #4CAF50; font-weight: 600; margin-top: 2px; }
+  .progress-list { display: flex; flex-direction: column; gap: 12px; }
+  .progress-item {}
+  .progress-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .progress-name { font-size: 0.78rem; font-weight: 600; color: var(--dark); }
+  .progress-pct { font-size: 0.78rem; font-weight: 700; color: var(--primary); }
+  .progress-bar { height: 6px; background: rgba(199,161,122,0.15); border-radius: 10px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 10px; background: linear-gradient(90deg, var(--primary), var(--gold)); transition: width 1.5s ease; }
+
+  /* floating profile card */
+  .profile-float {
+    position: absolute; bottom: -28px; left: -28px;
+    background: white; border-radius: var(--radius-lg); padding: 18px 20px;
+    box-shadow: 0 20px 60px rgba(30,30,30,0.14);
+    border: 1px solid rgba(255,255,255,0.9);
+    display: flex; align-items: center; gap: 14px;
+    min-width: 240px; animation: floatY 4s ease-in-out infinite;
+  }
+  @keyframes floatY { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  .profile-avatar {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    display: flex; align-items: center; justify-content: center; color: white;
+    font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 1rem;
+    overflow: hidden; flex-shrink: 0; cursor: pointer; position: relative;
+  }
+  .profile-avatar img { width: 100%; height: 100%; object-fit: cover; display: none; }
+  .profile-avatar input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .profile-name { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--dark); }
+  .profile-role { font-size: 0.72rem; color: var(--mid); }
+  .profile-stats { margin-top: 6px; display: flex; gap: 12px; }
+  .pstat { text-align: center; }
+  .pstat-val { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 0.95rem; color: var(--primary); }
+  .pstat-l { font-size: 0.65rem; color: var(--mid); }
+
+  /* geo shapes */
+  .geo { position: absolute; pointer-events: none; }
+  .geo-circle { width: 80px; height: 80px; border-radius: 50%; border: 2px solid rgba(199,161,122,0.25); top: -20px; right: -20px; }
+  .geo-ring { width: 50px; height: 50px; border-radius: 50%; border: 8px solid rgba(212,163,115,0.2); top: 80px; right: 10px; animation: floatY 5s ease-in-out infinite reverse; }
+  .geo-dot-grid { position: absolute; bottom: 60px; right: -10px; display: grid; grid-template-columns: repeat(4,10px); gap: 7px; }
+  .geo-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(199,161,122,0.3); }
+
+  /* ── SECTION HEADERS ── */
+  .section-label { font-size: 0.78rem; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+  .section-title { font-size: clamp(1.8rem, 3vw, 2.6rem); color: var(--dark); margin-bottom: 16px; letter-spacing: -1px; }
+  .section-sub { font-size: 1rem; color: var(--mid); max-width: 560px; line-height: 1.75; margin-bottom: 48px; }
+
+  /* ── ABOUT ── */
+  #about .about-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 48px; align-items: start; }
+  .about-img-wrap {
+    aspect-ratio: 3/4; border-radius: var(--radius-xl);
+    background: linear-gradient(135deg, rgba(199,161,122,0.12), rgba(155,126,99,0.08));
+    border: 2px dashed rgba(199,161,122,0.3);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 14px; position: relative; overflow: hidden; cursor: pointer;
+    transition: border-color 0.3s;
+  }
+  .about-img-wrap:hover { border-color: var(--primary); }
+  .about-img-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; border-radius: var(--radius-xl); }
+  .about-img-wrap input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; z-index: 2; }
+  .upload-hint { font-size: 0.8rem; color: var(--mid); text-align: center; z-index: 1; padding: 0 20px; }
+  .upload-icon { width: 52px; height: 52px; border-radius: 50%; background: rgba(199,161,122,0.12); border: 1.5px solid rgba(199,161,122,0.3); display: flex; align-items: center; justify-content: center; z-index: 1; }
+  .about-text { padding: 8px 0; }
+  .about-text p { color: var(--mid); line-height: 1.85; margin-bottom: 18px; font-size: 0.97rem; }
+  .about-metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 32px; }
+  .about-metric { background: var(--glass); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid var(--glass-border); border-radius: var(--radius-md); padding: 20px; text-align: center; box-shadow: var(--shadow-soft); transition: transform 0.3s; }
+  .about-metric:hover { transform: translateY(-4px); }
+  .am-num { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 2rem; color: var(--primary); letter-spacing: -1px; }
+  .am-label { font-size: 0.78rem; color: var(--mid); margin-top: 4px; font-weight: 500; }
+
+  /* ── EXPERTISE BENTO ── */
+  #expertise { background: rgba(255,255,255,0.3); }
+  .bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .bento-card {
+    background: var(--glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1.5px solid var(--glass-border); border-radius: var(--radius-lg);
+    padding: 28px 24px; box-shadow: var(--shadow-soft);
+    transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    cursor: default; position: relative; overflow: hidden;
+  }
+  .bento-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(199,161,122,0), rgba(199,161,122,0.06)); opacity: 0; transition: opacity 0.3s; }
+  .bento-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: var(--shadow-hover); }
+  .bento-card:hover::after { opacity: 1; }
+  .bento-card.large { grid-column: span 2; }
+  .bento-icon { width: 46px; height: 46px; border-radius: var(--radius-sm); background: linear-gradient(135deg, rgba(199,161,122,0.2), rgba(212,163,115,0.1)); border: 1px solid rgba(199,161,122,0.2); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; font-size: 1.3rem; }
+  .bento-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 1rem; color: var(--dark); margin-bottom: 8px; }
+  .bento-desc { font-size: 0.8rem; color: var(--mid); line-height: 1.65; }
+  .bento-tag { display: inline-block; background: rgba(199,161,122,0.1); color: var(--secondary); font-size: 0.7rem; font-weight: 600; padding: 4px 10px; border-radius: 50px; margin-top: 14px; border: 1px solid rgba(199,161,122,0.2); }
+
+  /* ── TIMELINE ── */
+  .timeline { position: relative; padding: 20px 0; }
+  .timeline::before { content: ''; position: absolute; left: 32px; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--primary) 0%, rgba(199,161,122,0) 100%); }
+  .tl-item { display: flex; gap: 32px; margin-bottom: 40px; position: relative; }
+  .tl-dot { width: 18px; height: 18px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--gold)); border: 3px solid var(--bg); box-shadow: 0 0 0 3px rgba(199,161,122,0.25); flex-shrink: 0; margin-top: 6px; margin-left: 24px; }
+  .tl-content { background: var(--glass); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid var(--glass-border); border-radius: var(--radius-lg); padding: 24px 28px; flex: 1; box-shadow: var(--shadow-soft); transition: transform 0.3s; }
+  .tl-content:hover { transform: translateX(6px); }
+  .tl-year { font-size: 0.75rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .tl-role { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--dark); margin-bottom: 4px; }
+  .tl-company { font-size: 0.85rem; color: var(--mid); margin-bottom: 12px; }
+  .tl-desc { font-size: 0.85rem; color: var(--mid); line-height: 1.7; }
+  .tl-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+  .tl-tag { font-size: 0.7rem; background: rgba(199,161,122,0.1); color: var(--secondary); padding: 4px 10px; border-radius: 50px; font-weight: 600; border: 1px solid rgba(199,161,122,0.2); }
+
+  /* ── ACHIEVEMENTS ── */
+  #achievements { background: linear-gradient(135deg, rgba(199,161,122,0.06), rgba(212,163,115,0.03)); }
+  .achieve-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .achieve-card {
+    background: var(--white); border-radius: var(--radius-xl);
+    padding: 32px 24px; box-shadow: var(--shadow-card);
+    border: 1px solid rgba(255,255,255,0.9); position: relative; overflow: hidden;
+    transition: all 0.3s;
+  }
+  .achieve-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--primary), var(--gold)); }
+  .achieve-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
+  .achieve-icon { font-size: 2rem; margin-bottom: 20px; }
+  .achieve-num { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 2.8rem; color: var(--dark); letter-spacing: -2px; margin-bottom: 8px; }
+  .achieve-num .counter-suffix { font-size: 1.8rem; color: var(--primary); }
+  .achieve-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--dark); margin-bottom: 8px; }
+  .achieve-desc { font-size: 0.8rem; color: var(--mid); line-height: 1.65; }
+
+  /* ── SERVICES ── */
+  .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .service-card {
+    background: var(--white); border: 1.5px solid rgba(199,161,122,0.12); border-radius: var(--radius-lg);
+    padding: 28px 24px; transition: all 0.35s; cursor: default;
+    box-shadow: 0 4px 20px rgba(30,30,30,0.04);
+  }
+  .service-card:hover { border-color: var(--primary); transform: translateY(-6px); box-shadow: var(--shadow-hover); background: linear-gradient(135deg, #fff, rgba(248,244,239,0.5)); }
+  .service-icon { width: 48px; height: 48px; border-radius: var(--radius-sm); background: linear-gradient(135deg, var(--primary), var(--gold)); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 16px; }
+  .service-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 0.97rem; color: var(--dark); margin-bottom: 10px; }
+  .service-desc { font-size: 0.8rem; color: var(--mid); line-height: 1.65; }
+  .service-arrow { margin-top: 20px; color: var(--primary); font-weight: 700; font-size: 1.2rem; transition: transform 0.3s; }
+  .service-card:hover .service-arrow { transform: translateX(6px); }
+
+  /* ── CERTIFICATIONS ── */
+  #certs { background: rgba(255,255,255,0.3); }
+  .certs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .cert-card {
+    background: var(--glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1.5px solid var(--glass-border); border-radius: var(--radius-lg);
+    padding: 28px 24px; text-align: center; box-shadow: var(--shadow-soft);
+    transition: all 0.3s; position: relative; overflow: hidden;
+  }
+  .cert-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(199,161,122,0.06), transparent); opacity: 0; transition: opacity 0.3s; }
+  .cert-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+  .cert-card:hover::before { opacity: 1; }
+  .cert-badge { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--gold)); margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; color: white; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 0.75rem; letter-spacing: -0.5px; }
+  .cert-name { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--dark); margin-bottom: 6px; }
+  .cert-org { font-size: 0.78rem; color: var(--mid); margin-bottom: 4px; }
+  .cert-year { font-size: 0.72rem; font-weight: 700; color: var(--primary); }
+
+  /* ── TESTIMONIALS ── */
+  #testimonials { overflow: hidden; }
+  .testi-wrap { position: relative; }
+  .testi-track { display: flex; gap: 24px; transition: transform 0.6s cubic-bezier(0.4,0,0.2,1); }
+  .testi-card {
+    background: var(--white); border-radius: var(--radius-xl); padding: 32px 28px;
+    min-width: 380px; flex-shrink: 0; box-shadow: var(--shadow-card);
+    border: 1px solid rgba(255,255,255,0.9);
+  }
+  .testi-stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 16px; letter-spacing: 2px; }
+  .testi-text { font-size: 0.92rem; color: var(--mid); line-height: 1.8; margin-bottom: 24px; font-style: italic; }
+  .testi-author { display: flex; align-items: center; gap: 14px; }
+  .testi-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; color: white; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
+  .testi-name { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--dark); }
+  .testi-role { font-size: 0.75rem; color: var(--mid); }
+  .testi-controls { display: flex; gap: 12px; margin-top: 28px; }
+  .testi-btn { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid rgba(199,161,122,0.3); background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; font-size: 1rem; }
+  .testi-btn:hover { background: var(--primary); border-color: var(--primary); color: white; }
+  .testi-dots { display: flex; gap: 8px; align-items: center; margin-left: auto; }
+  .testi-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(199,161,122,0.25); cursor: pointer; transition: all 0.3s; }
+  .testi-dot.active { background: var(--primary); width: 24px; border-radius: 4px; }
+
+  /* ── BLOG ── */
+  .blog-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .blog-card {
+    background: var(--white); border-radius: var(--radius-xl); overflow: hidden;
+    box-shadow: var(--shadow-card); border: 1px solid rgba(255,255,255,0.9);
+    transition: all 0.3s; cursor: pointer;
+  }
+  .blog-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
+  .blog-img { height: 160px; background: linear-gradient(135deg, rgba(199,161,122,0.2), rgba(212,163,115,0.1)); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; position: relative; overflow: hidden; }
+  .blog-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(30,30,30,0.05)); }
+  .blog-body { padding: 20px; }
+  .blog-cat { font-size: 0.7rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .blog-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 0.92rem; color: var(--dark); line-height: 1.45; margin-bottom: 10px; }
+  .blog-meta { font-size: 0.72rem; color: var(--mid); }
+
+  /* ── PROJECTS ── */
+  #projects .projects-header { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 20px; margin-bottom: 40px; }
+  .btn-add-project { background: linear-gradient(135deg, var(--primary), var(--gold)); color: white; border: none; padding: 12px 22px; border-radius: 50px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 16px rgba(199,161,122,0.35); }
+  .btn-add-project:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(199,161,122,0.45); }
+  .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .project-card {
+    background: var(--white); border-radius: var(--radius-xl); overflow: hidden;
+    box-shadow: var(--shadow-card); border: 1px solid rgba(255,255,255,0.9);
+    transition: all 0.35s; cursor: pointer; position: relative;
+  }
+  .project-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
+  .project-img {
+    height: 200px; background: linear-gradient(135deg, rgba(199,161,122,0.15), rgba(212,163,115,0.08));
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 10px; position: relative; overflow: hidden; cursor: pointer;
+    border-bottom: 1px solid rgba(199,161,122,0.1);
+  }
+  .project-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; }
+  .project-img input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; z-index: 2; }
+  .proj-upload-hint { font-size: 0.75rem; color: var(--mid); z-index: 1; text-align: center; padding: 0 16px; }
+  .proj-upload-icon { font-size: 1.8rem; z-index: 1; }
+  .project-body { padding: 20px; }
+  .project-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+  .project-tag { font-size: 0.68rem; font-weight: 700; color: var(--primary); background: rgba(199,161,122,0.1); padding: 3px 10px; border-radius: 50px; border: 1px solid rgba(199,161,122,0.2); }
+  .project-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 1rem; color: var(--dark); margin-bottom: 8px; }
+  .project-desc { font-size: 0.8rem; color: var(--mid); line-height: 1.65; }
+  .project-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(199,161,122,0.1); }
+  .project-result { font-size: 0.75rem; font-weight: 700; color: #4CAF50; }
+  .project-arrow { color: var(--primary); font-weight: 700; transition: transform 0.3s; }
+  .project-card:hover .project-arrow { transform: translateX(4px); }
+  .add-project-placeholder {
+    background: rgba(248,244,239,0.6); border: 2px dashed rgba(199,161,122,0.3); border-radius: var(--radius-xl);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 12px; padding: 40px; cursor: pointer; transition: all 0.3s; min-height: 280px;
+  }
+  .add-project-placeholder:hover { border-color: var(--primary); background: rgba(199,161,122,0.06); }
+  .add-project-placeholder .add-icon { width: 56px; height: 56px; border-radius: 50%; background: rgba(199,161,122,0.12); border: 1.5px solid rgba(199,161,122,0.3); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--primary); }
+  .add-project-placeholder p { font-size: 0.85rem; color: var(--mid); text-align: center; }
+
+  /* ── CONTACT ── */
+  #contact { background: rgba(255,255,255,0.3); }
+  .contact-wrap { display: grid; grid-template-columns: 1fr 1.4fr; gap: 60px; align-items: start; }
+  .contact-info {}
+  .contact-info h2 { font-size: 2.2rem; color: var(--dark); margin-bottom: 16px; letter-spacing: -1px; }
+  .contact-info p { color: var(--mid); line-height: 1.8; margin-bottom: 32px; }
+  .contact-items { display: flex; flex-direction: column; gap: 16px; }
+  .contact-item { display: flex; align-items: center; gap: 16px; }
+  .contact-ic { width: 44px; height: 44px; border-radius: var(--radius-sm); background: rgba(199,161,122,0.1); border: 1px solid rgba(199,161,122,0.2); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+  .contact-item-text { font-size: 0.88rem; color: var(--mid); }
+  .contact-item-text strong { display: block; color: var(--dark); font-size: 0.85rem; margin-bottom: 2px; }
+  .contact-form { background: var(--white); border-radius: var(--radius-xl); padding: 40px; box-shadow: var(--shadow-card); border: 1px solid rgba(255,255,255,0.9); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { margin-bottom: 18px; }
+  .form-group label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--dark); margin-bottom: 8px; }
+  .form-group input, .form-group textarea {
+    width: 100%; padding: 13px 16px; border: 1.5px solid rgba(199,161,122,0.2);
+    border-radius: var(--radius-sm); background: rgba(248,244,239,0.5);
+    font-family: 'Inter', sans-serif; font-size: 0.88rem; color: var(--dark);
+    transition: all 0.3s; outline: none; resize: none;
+  }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); background: white; box-shadow: 0 0 0 4px rgba(199,161,122,0.1); }
+  .form-group textarea { height: 120px; }
+  .form-btns { display: flex; gap: 12px; margin-top: 8px; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--dark); color: rgba(255,255,255,0.85); padding: 60px 24px 32px; }
+  .footer-inner { max-width: 1300px; margin: 0 auto; }
+  .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; margin-bottom: 48px; }
+  .footer-brand { }
+  .footer-logo { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 1.3rem; color: white; margin-bottom: 14px; }
+  .footer-logo span { color: var(--primary); }
+  .footer-brand p { font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.8; max-width: 280px; }
+  .footer-socials { display: flex; gap: 12px; margin-top: 24px; }
+  .social-btn { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); font-size: 1rem; cursor: pointer; transition: all 0.3s; text-decoration: none; }
+  .social-btn:hover { background: var(--primary); border-color: var(--primary); color: white; transform: translateY(-3px); }
+  .footer-col h5 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 0.85rem; color: white; margin-bottom: 18px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul a { text-decoration: none; color: rgba(255,255,255,0.5); font-size: 0.83rem; transition: color 0.2s; }
+  .footer-col ul a:hover { color: var(--primary); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; display: flex; align-items: center; justify-content: space-between; }
+  .footer-bottom p { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
+
+  /* ── MODAL ── */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(30,30,30,0.55); backdrop-filter: blur(8px); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: white; border-radius: var(--radius-xl); padding: 40px; max-width: 540px; width: 100%; box-shadow: 0 40px 120px rgba(30,30,30,0.2); animation: modalIn 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+  @keyframes modalIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .modal h3 { font-size: 1.4rem; color: var(--dark); margin-bottom: 24px; }
+  .modal .form-group { margin-bottom: 16px; }
+  .modal-btns { display: flex; gap: 12px; margin-top: 24px; }
+  .btn-modal-close { background: rgba(199,161,122,0.1); color: var(--secondary); border: 1px solid rgba(199,161,122,0.2); padding: 12px 22px; border-radius: 50px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; cursor: pointer; transition: all 0.3s; font-size: 0.85rem; }
+  .btn-modal-close:hover { background: rgba(199,161,122,0.2); }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ── TOAST ── */
+  .toast { position: fixed; bottom: 32px; right: 32px; background: var(--dark); color: white; padding: 14px 22px; border-radius: var(--radius-md); font-size: 0.85rem; font-weight: 500; z-index: 3000; transform: translateY(100px); opacity: 0; transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1); box-shadow: 0 8px 32px rgba(30,30,30,0.25); }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast-icon { margin-right: 8px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1100px) {
+    .bento-grid { grid-template-columns: repeat(2, 1fr); }
+    .achieve-grid { grid-template-columns: repeat(2, 1fr); }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .blog-grid { grid-template-columns: repeat(2, 1fr); }
+    .projects-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 900px) {
+    #hero { grid-template-columns: 1fr; gap: 40px; }
+    .hero-stats { grid-template-columns: repeat(4, 1fr); }
+    #about .about-grid { grid-template-columns: 1fr; }
+    .about-img-wrap { aspect-ratio: 16/7; }
+    .contact-wrap { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    nav { display: flex; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+  }
+  @media (max-width: 640px) {
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .achieve-grid { grid-template-columns: 1fr 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+    .certs-grid { grid-template-columns: 1fr 1fr; }
+    .blog-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; gap: 32px; }
+    .tl-item { gap: 16px; }
+    .bento-card.large { grid-column: span 1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- AMBIENT BLOBS -->
+<div class="blob-wrap" aria-hidden="true">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <div class="nav-logo">Sarah<span>.</span>HR</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#expertise">Services</a></li>
+    <li><a href="#timeline">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="btn-nav" onclick="scrollToContact()">Book Consultation</button>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<main>
+
+<!-- SECTION 1: HERO -->
+<section id="hero">
+  <!-- LEFT -->
+  <div class="hero-left">
+    <div class="hero-badge">HR Professional &bull; Talent Strategist</div>
+    <h1 class="hero-h1">Building <span class="highlight">High-Performing</span> Teams Through Modern HR Leadership</h1>
+    <p class="hero-sub">Helping organizations attract, engage, develop and retain exceptional talent through strategic workforce planning and employee-focused solutions.</p>
+    <div class="hero-btns">
+      <a href="#" class="btn-primary" onclick="handleResume(event)">⬇ Download Resume</a>
+      <a href="#contact" class="btn-outline">📅 Schedule Meeting</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card reveal">
+        <div class="stat-num"><span class="counter" data-target="10">0</span><span>+</span></div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat-card reveal reveal-delay-1">
+        <div class="stat-num"><span class="counter" data-target="500">0</span><span>+</span></div>
+        <div class="stat-label">Employees Hired</div>
+      </div>
+      <div class="stat-card reveal reveal-delay-2">
+        <div class="stat-num"><span class="counter" data-target="95">0</span><span>%</span></div>
+        <div class="stat-label">Retention Rate</div>
+      </div>
+      <div class="stat-card reveal reveal-delay-3">
+        <div class="stat-num"><span class="counter" data-target="50">0</span><span>+</span></div>
+        <div class="stat-label">Organizations Supported</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: DASHBOARD -->
+  <div class="hero-dashboard reveal">
+    <div class="geo geo-circle"></div>
+    <div class="geo geo-ring"></div>
+    <div class="geo-dot-grid geo">
+      <div class="geo-dot"></div><div class="geo-dot"></div><div class="geo-dot"></div><div class="geo-dot"></div>
+      <div class="geo-dot"></div><div class="geo-dot"></div><div class="geo-dot"></div><div class="geo-dot"></div>
+      <div class="geo-dot"></div><div class="geo-dot"></div><div class="geo-dot"></div><div class="geo-dot"></div>
+    </div>
+    <div class="dashboard-main">
+      <div class="dash-header">
+        <div class="dash-title">HR Analytics Dashboard</div>
+        <div class="dash-dot"></div>
+      </div>
+      <div class="dash-metrics">
+        <div class="metric-item">
+          <div class="metric-label">Active Roles</div>
+          <div class="metric-val">24</div>
+          <div class="metric-sub">↑ 8 this month</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-label">Engagement Score</div>
+          <div class="metric-val">96%</div>
+          <div class="metric-sub">↑ +3% vs last Q</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-label">Time to Hire</div>
+          <div class="metric-val">18d</div>
+          <div class="metric-sub">↓ 45% faster</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-label">Team NPS</div>
+          <div class="metric-val">82</div>
+          <div class="metric-sub">↑ Industry best</div>
+        </div>
+      </div>
+      <div class="progress-list">
+        <div class="progress-item">
+          <div class="progress-top">
+            <span class="progress-name">Talent Acquisition</span>
+            <span class="progress-pct">92%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style="width:92%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-top">
+            <span class="progress-name">Employee Engagement</span>
+            <span class="progress-pct">96%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style="width:96%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-top">
+            <span class="progress-name">Performance Management</span>
+            <span class="progress-pct">88%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style="width:88%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-top">
+            <span class="progress-name">Retention Metrics</span>
+            <span class="progress-pct">95%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style="width:95%"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="profile-float">
+      <div class="profile-avatar" title="Click to upload photo">
+        SJ
+        <img id="profileAvatarImg" alt="Profile Photo">
+        <input type="file" accept="image/*" onchange="handleProfilePhoto(event)" title="Upload profile photo">
+      </div>
+      <div>
+        <div class="profile-name">Sarah Johnson</div>
+        <div class="profile-role">Senior HR Manager</div>
+        <div class="profile-stats">
+          <div class="pstat"><div class="pstat-val">96%</div><div class="pstat-l">Satisfaction</div></div>
+          <div class="pstat"><div class="pstat-val">92%</div><div class="pstat-l">Success Rate</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: ABOUT -->
+<section id="about">
+  <div class="section">
+    <div class="about-grid">
+      <div>
+        <div class="about-img-wrap" id="aboutImgWrap" title="Click to upload photo">
+          <img id="aboutImg" alt="Sarah Johnson">
+          <input type="file" accept="image/*" onchange="handleAboutPhoto(event)">
+          <div class="upload-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C7A17A" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          </div>
+          <div class="upload-hint">Click to upload your professional photo<br><small style="font-size:0.68rem;opacity:0.6">PNG, JPG up to 10MB</small></div>
+        </div>
+      </div>
+      <div class="about-text">
+        <div class="section-label">About Me</div>
+        <h2 class="section-title">Passionate About People & Organizational Excellence</h2>
+        <p>With over a decade of progressive HR leadership experience, I specialize in building the people infrastructure that enables organizations to grow, innovate, and thrive. My approach blends data-driven decision making with deep human empathy.</p>
+        <p>I've partnered with startups scaling from 10 to 500 employees, guided Fortune 500 restructurings, and built learning ecosystems that unlock career potential at every level. I believe that great people strategy is the ultimate competitive advantage.</p>
+        <p>Currently open to CHRO, VP HR, and senior consulting engagements with organizations ready to put people first.</p>
+        <div class="about-metrics">
+          <div class="about-metric reveal">
+            <div class="am-num"><span class="counter" data-target="10">0</span>+</div>
+            <div class="am-label">Years Experience</div>
+          </div>
+          <div class="about-metric reveal reveal-delay-1">
+            <div class="am-num"><span class="counter" data-target="48">0</span></div>
+            <div class="am-label">Hiring Projects</div>
+          </div>
+          <div class="about-metric reveal reveal-delay-2">
+            <div class="am-num"><span class="counter" data-target="120">0</span>+</div>
+            <div class="am-label">Training Sessions</div>
+          </div>
+          <div class="about-metric reveal reveal-delay-3">
+            <div class="am-num"><span class="counter" data-target="35">0</span>%</div>
+            <div class="am-label">Retention Improvements</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: EXPERTISE BENTO -->
+<section id="expertise">
+  <div class="section">
+    <div class="section-label">Core Skills</div>
+    <h2 class="section-title">HR Expertise That Moves Organizations Forward</h2>
+    <p class="section-sub">A comprehensive suite of human resources capabilities built across industries, company sizes, and stages of growth.</p>
+    <div class="bento-grid">
+      <div class="bento-card large reveal">
+        <div class="bento-icon">🎯</div>
+        <div class="bento-title">Talent Acquisition</div>
+        <div class="bento-desc">Full-cycle recruiting strategy from employer branding and sourcing pipeline design to interview frameworks and offer negotiation. Specialized in technical and executive hiring.</div>
+        <span class="bento-tag">Executive Search</span>
+      </div>
+      <div class="bento-card reveal reveal-delay-1">
+        <div class="bento-icon">🤝</div>
+        <div class="bento-title">Employee Relations</div>
+        <div class="bento-desc">Conflict resolution, culture building, and creating psychologically safe workplaces where talent thrives.</div>
+        <span class="bento-tag">Culture Design</span>
+      </div>
+      <div class="bento-card reveal reveal-delay-2">
+        <div class="bento-icon">⚙️</div>
+        <div class="bento-title">HR Operations</div>
+        <div class="bento-desc">HRIS implementation, process automation, compliance infrastructure, and scalable HR systems.</div>
+        <span class="bento-tag">HRIS & Systems</span>
+      </div>
+      <div class="bento-card reveal">
+        <div class="bento-icon">🚀</div>
+        <div class="bento-title">Learning & Development</div>
+        <div class="bento-desc">Designing and delivering impactful L&D programs, leadership pipelines, and mentoring ecosystems.</div>
+        <span class="bento-tag">Leadership Pipeline</span>
+      </div>
+      <div class="bento-card reveal reveal-delay-1">
+        <div class="bento-icon">💰</div>
+        <div class="bento-title">Compensation & Benefits</div>
+        <div class="bento-desc">Competitive benchmarking, total rewards design, equity programs, and benefits strategy optimization.</div>
+        <span class="bento-tag">Total Rewards</span>
+      </div>
+      <div class="bento-card large reveal reveal-delay-2">
+        <div class="bento-icon">📊</div>
+        <div class="bento-title">Workforce Analytics</div>
+        <div class="bento-desc">Data-driven HR insights — workforce planning models, attrition prediction, engagement scoring, and executive reporting that translates people data into business outcomes.</div>
+        <span class="bento-tag">People Analytics</span>
+      </div>
+      <div class="bento-card reveal">
+        <div class="bento-icon">📋</div>
+        <div class="bento-title">Compliance & Policies</div>
+        <div class="bento-desc">Employment law compliance, handbook development, and audit-ready HR policy frameworks.</div>
+        <span class="bento-tag">Employment Law</span>
+      </div>
+      <div class="bento-card reveal reveal-delay-1">
+        <div class="bento-icon">🗺️</div>
+        <div class="bento-title">Workforce Planning</div>
+        <div class="bento-desc">Headcount modeling, succession planning, organizational design, and strategic talent road mapping.</div>
+        <span class="bento-tag">Org Design</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: TIMELINE -->
+<section id="timeline">
+  <div class="section">
+    <div class="section-label">Career Path</div>
+    <h2 class="section-title">Experience That Spans Industries & Scale</h2>
+    <p class="section-sub">A decade of progressive HR leadership from talent specialist to executive director.</p>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-year">2021 — Present</div>
+          <div class="tl-role">HR Director</div>
+          <div class="tl-company">Meridian Global Ventures · Full-time</div>
+          <div class="tl-desc">Led people strategy for a 1,200-person global organization across 8 countries. Redesigned the entire performance management system, resulting in 40% improvement in goal alignment. Built a leadership academy that accelerated 22 high-potentials into senior roles within 18 months.</div>
+          <div class="tl-tags"><span class="tl-tag">Strategy</span><span class="tl-tag">Global Teams</span><span class="tl-tag">Leadership Dev</span><span class="tl-tag">HRIS</span></div>
+        </div>
+      </div>
+      <div class="tl-item reveal reveal-delay-1">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-year">2018 — 2021</div>
+          <div class="tl-role">Senior HR Manager</div>
+          <div class="tl-company">Apex Technologies Inc. · Full-time</div>
+          <div class="tl-desc">Scaled HR function from 50 to 350 employees during rapid growth phase. Implemented AI-assisted recruitment tools that reduced time-to-hire by 45%. Designed a comprehensive DEI roadmap that increased underrepresented talent by 38% in two years.</div>
+          <div class="tl-tags"><span class="tl-tag">Scaling</span><span class="tl-tag">DEI</span><span class="tl-tag">Recruitment</span><span class="tl-tag">Compliance</span></div>
+        </div>
+      </div>
+      <div class="tl-item reveal reveal-delay-2">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-year">2015 — 2018</div>
+          <div class="tl-role">HR Business Partner</div>
+          <div class="tl-company">NovaCorp Financial · Full-time</div>
+          <div class="tl-desc">Served as strategic HR partner to three business units totaling 400 employees. Overhauled onboarding experience, improving 30-day retention by 28%. Designed a competency-based promotion framework adopted company-wide.</div>
+          <div class="tl-tags"><span class="tl-tag">HRBP</span><span class="tl-tag">Onboarding</span><span class="tl-tag">Comp Design</span></div>
+        </div>
+      </div>
+      <div class="tl-item reveal reveal-delay-3">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-year">2012 — 2015</div>
+          <div class="tl-role">Talent Acquisition Specialist</div>
+          <div class="tl-company">Brightfield Consulting Group · Full-time</div>
+          <div class="tl-desc">Managed end-to-end recruitment for 200+ roles annually across tech, finance, and operations. Built the firm's first structured interview framework and candidate scoring system, increasing offer acceptance rate from 67% to 89%.</div>
+          <div class="tl-tags"><span class="tl-tag">Recruiting</span><span class="tl-tag">Sourcing</span><span class="tl-tag">Interview Design</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section">
+    <div class="section-label">Impact Metrics</div>
+    <h2 class="section-title">Measurable Results Across Every Role</h2>
+    <p class="section-sub">Numbers that reflect real organizational transformation, not just activity.</p>
+    <div class="achieve-grid">
+      <div class="achieve-card reveal">
+        <div class="achieve-icon">📉</div>
+        <div class="achieve-num"><span class="counter" data-target="35">0</span><span class="counter-suffix">%</span></div>
+        <div class="achieve-title">Reduced Employee Turnover</div>
+        <div class="achieve-desc">Implemented retention-focused culture programs and competitive total rewards packages across three organizations.</div>
+      </div>
+      <div class="achieve-card reveal reveal-delay-1">
+        <div class="achieve-icon">⚡</div>
+        <div class="achieve-num"><span class="counter" data-target="45">0</span><span class="counter-suffix">%</span></div>
+        <div class="achieve-title">Faster Hiring Speed</div>
+        <div class="achieve-desc">Redesigned the recruitment pipeline with structured processes and AI-assisted screening tools.</div>
+      </div>
+      <div class="achieve-card reveal reveal-delay-2">
+        <div class="achieve-icon">🌟</div>
+        <div class="achieve-num"><span class="counter" data-target="60">0</span><span class="counter-suffix">%</span></div>
+        <div class="achieve-title">Employee Engagement Boost</div>
+        <div class="achieve-desc">Culture redesign, manager training, and employee voice programs transformed engagement scores over 18 months.</div>
+      </div>
+      <div class="achieve-card reveal reveal-delay-3">
+        <div class="achieve-icon">🏆</div>
+        <div class="achieve-num"><span class="counter" data-target="22">0</span><span class="counter-suffix">+</span></div>
+        <div class="achieve-title">Leaders Developed</div>
+        <div class="achieve-desc">Built a Leadership Development Program that accelerated high-potentials into senior roles in under 18 months.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: SERVICES -->
+<section id="services">
+  <div class="section">
+    <div class="section-label">What I Offer</div>
+    <h2 class="section-title">Premium HR Services for Growing Organizations</h2>
+    <p class="section-sub">Tailored HR consulting and fractional leadership engagements designed to solve your people challenges.</p>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">🎯</div>
+        <div class="service-title">Recruitment Strategy</div>
+        <div class="service-desc">End-to-end talent acquisition design, employer branding, and structured hiring frameworks.</div>
+        <div class="service-arrow">→</div>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-icon">💼</div>
+        <div class="service-title">HR Consulting</div>
+        <div class="service-desc">Fractional CHRO and strategic HR advisory for scaling companies and transformation projects.</div>
+        <div class="service-arrow">→</div>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-icon">🗺️</div>
+        <div class="service-title">Workforce Planning</div>
+        <div class="service-desc">Headcount modeling, succession planning, and long-term organizational design engagements.</div>
+        <div class="service-arrow">→</div>
+      </div>
+      <div class="service-card reveal reveal-delay-3">
+        <div class="service-icon">📊</div>
+        <div class="service-title">Performance Reviews</div>
+        <div class="service-desc">Designing fair, transparent, and effective performance management systems that drive growth.</div>
+        <div class="service-arrow">→</div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🚀</div>
+        <div class="service-title">Training Programs</div>
+        <div class="service-desc">Custom L&D curricula, leadership workshops, and skills development journeys for all levels.</div>
+        <div class="service-arrow">→</div>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-icon">❤️</div>
+        <div class="service-title">Employee Engagement</div>
+        <div class="service-desc">Pulse surveys, culture assessment, DEI roadmaps, and action planning frameworks.</div>
+        <div class="service-arrow">→</div>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-icon">⚖️</div>
+        <div class="service-title">Compliance Audits</div>
+        <div class="service-desc">Employment law audits, policy gap analysis, and regulatory compliance programs.</div>
+        <div class="service-arrow">→</div>
+      </div>
+      <div class="service-card reveal reveal-delay-3">
+        <div class="service-icon">📋</div>
+        <div class="service-title">Policy Development</div>
+        <div class="service-desc">Employee handbook creation, HR policy design, and workplace governance frameworks.</div>
+        <div class="service-arrow">→</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 7: CERTIFICATIONS -->
+<section id="certs">
+  <div class="section">
+    <div class="section-label">Credentials</div>
+    <h2 class="section-title">Professional Certifications</h2>
+    <p class="section-sub">Globally recognized HR certifications that validate strategic expertise and professional commitment.</p>
+    <div class="certs-grid">
+      <div class="cert-card reveal">
+        <div class="cert-badge">SHRM-CP</div>
+        <div class="cert-name">SHRM-CP</div>
+        <div class="cert-org">Society for Human Resource Management</div>
+        <div class="cert-year">Certified 2016 · Renewed 2022</div>
+      </div>
+      <div class="cert-card reveal reveal-delay-1">
+        <div class="cert-badge">SHRM-SCP</div>
+        <div class="cert-name">SHRM-SCP</div>
+        <div class="cert-org">Society for Human Resource Management</div>
+        <div class="cert-year">Certified 2019 · Renewed 2022</div>
+      </div>
+      <div class="cert-card reveal reveal-delay-2">
+        <div class="cert-badge">PHR</div>
+        <div class="cert-name">PHR</div>
+        <div class="cert-org">HR Certification Institute</div>
+        <div class="cert-year">Certified 2015 · Renewed 2021</div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-badge">SPHR</div>
+        <div class="cert-name">SPHR</div>
+        <div class="cert-org">HR Certification Institute</div>
+        <div class="cert-year">Certified 2018 · Renewed 2021</div>
+      </div>
+      <div class="cert-card reveal reveal-delay-1">
+        <div class="cert-badge">CIPD L5</div>
+        <div class="cert-name">CIPD Level 5</div>
+        <div class="cert-org">Chartered Institute of Personnel & Development</div>
+        <div class="cert-year">Completed 2017</div>
+      </div>
+      <div class="cert-card reveal reveal-delay-2">
+        <div class="cert-badge">CIPD L7</div>
+        <div class="cert-name">CIPD Level 7</div>
+        <div class="cert-org">Chartered Institute of Personnel & Development</div>
+        <div class="cert-year">Completed 2020</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 8: TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section">
+    <div class="section-label">Social Proof</div>
+    <h2 class="section-title">What Leaders & Teams Say</h2>
+    <p class="section-sub">Feedback from executives, employees, and clients across a decade of partnerships.</p>
+    <div class="testi-wrap">
+      <div class="testi-track" id="testiTrack">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Sarah transformed our people strategy from reactive to genuinely proactive. She built systems that scaled with us from 80 to 400 employees without losing an ounce of culture. Hiring her was the best decision we made as founders."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">MK</div>
+            <div>
+              <div class="testi-name">Marcus Kim</div>
+              <div class="testi-role">CEO, Apex Technologies Inc.</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Working with Sarah completely redefined how our company views HR. She's not just a practitioner — she's a business strategist who happens to specialize in people. The engagement scores she delivered were unlike anything we'd seen in 15 years."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">AL</div>
+            <div>
+              <div class="testi-name">Amanda Liu</div>
+              <div class="testi-role">CFO, Meridian Global Ventures</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"The leadership development program Sarah built is genuinely the thing I'm most proud of in my entire career. I went from senior associate to Head of Engineering in 14 months. She saw potential in me I didn't see in myself."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">DJ</div>
+            <div>
+              <div class="testi-name">David Jensen</div>
+              <div class="testi-role">Head of Engineering, Apex Technologies</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Sarah's compliance audit saved us from significant legal exposure before our Series B. Her depth of knowledge across employment law, policy design, and documentation standards is extraordinary. She's now our go-to HR advisor."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">PR</div>
+            <div>
+              <div class="testi-name">Patricia Russo</div>
+              <div class="testi-role">General Counsel, NovaCorp Financial</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-controls">
+        <button class="testi-btn" id="testiBtnPrev">←</button>
+        <button class="testi-btn" id="testiBtnNext">→</button>
+        <div class="testi-dots" id="testiDots"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 9: BLOG -->
+<section id="blog">
+  <div class="section">
+    <div class="section-label">HR Insights</div>
+    <h2 class="section-title">Perspectives on the Future of Work</h2>
+    <p class="section-sub">Thought leadership on HR strategy, workforce trends, and organizational design.</p>
+    <div class="blog-grid">
+      <div class="blog-card reveal">
+        <div class="blog-img">🔮</div>
+        <div class="blog-body">
+          <div class="blog-cat">HR Strategy</div>
+          <div class="blog-title">The Future of HR: From Administrative Function to Strategic Powerhouse</div>
+          <div class="blog-meta">June 2025 · 8 min read</div>
+        </div>
+      </div>
+      <div class="blog-card reveal reveal-delay-1">
+        <div class="blog-img">🤖</div>
+        <div class="blog-body">
+          <div class="blog-cat">Technology</div>
+          <div class="blog-title">AI in Recruitment: How to Use It Without Losing the Human Element</div>
+          <div class="blog-meta">April 2025 · 6 min read</div>
+        </div>
+      </div>
+      <div class="blog-card reveal reveal-delay-2">
+        <div class="blog-img">❤️</div>
+        <div class="blog-body">
+          <div class="blog-cat">Retention</div>
+          <div class="blog-title">Why Your Best Employees Are Quietly Leaving — And How to Keep Them</div>
+          <div class="blog-meta">February 2025 · 7 min read</div>
+        </div>
+      </div>
+      <div class="blog-card reveal reveal-delay-3">
+        <div class="blog-img">🌱</div>
+        <div class="blog-body">
+          <div class="blog-cat">Leadership</div>
+          <div class="blog-title">Building Leadership Pipelines That Actually Work in the Real World</div>
+          <div class="blog-meta">January 2025 · 5 min read</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 10: PROJECTS -->
+<section id="projects">
+  <div class="section">
+    <div class="projects-header">
+      <div>
+        <div class="section-label">Portfolio</div>
+        <h2 class="section-title" style="margin-bottom:0">Featured HR Projects</h2>
+      </div>
+      <button class="btn-add-project" onclick="openAddProjectModal()">+ Add Project</button>
+    </div>
+    <div class="projects-grid" id="projectsGrid">
+      <!-- Default projects -->
+      <div class="project-card reveal">
+        <div class="project-img">
+          <img alt="Project photo">
+          <input type="file" accept="image/*" onchange="handleProjectPhoto(event, this)">
+          <div class="proj-upload-icon">📸</div>
+          <div class="proj-upload-hint">Click to add project photo</div>
+        </div>
+        <div class="project-body">
+          <div class="project-tags"><span class="project-tag">Culture</span><span class="project-tag">Engagement</span></div>
+          <div class="project-title">Global Employee Engagement Transformation</div>
+          <div class="project-desc">Redesigned the engagement measurement framework across 8 countries, introduced quarterly pulse surveys and manager accountability programs.</div>
+          <div class="project-meta">
+            <div class="project-result">↑ 60% engagement score</div>
+            <div class="project-arrow">→</div>
+          </div>
+        </div>
+      </div>
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-img">
+          <img alt="Project photo">
+          <input type="file" accept="image/*" onchange="handleProjectPhoto(event, this)">
+          <div class="proj-upload-icon">📸</div>
+          <div class="proj-upload-hint">Click to add project photo</div>
+        </div>
+        <div class="project-body">
+          <div class="project-tags"><span class="project-tag">Leadership</span><span class="project-tag">L&D</span></div>
+          <div class="project-title">Leadership Academy — Cohort Program Design</div>
+          <div class="project-desc">Built a 12-month leadership development curriculum for high-potential employees, combining executive coaching, stretch assignments, and peer learning circles.</div>
+          <div class="project-meta">
+            <div class="project-result">22 leaders promoted</div>
+            <div class="project-arrow">→</div>
+          </div>
+        </div>
+      </div>
+      <div class="project-card reveal reveal-delay-2">
+        <div class="project-img">
+          <img alt="Project photo">
+          <input type="file" accept="image/*" onchange="handleProjectPhoto(event, this)">
+          <div class="proj-upload-icon">📸</div>
+          <div class="proj-upload-hint">Click to add project photo</div>
+        </div>
+        <div class="project-body">
+          <div class="project-tags"><span class="project-tag">Recruiting</span><span class="project-tag">Tech</span></div>
+          <div class="project-title">AI-Assisted Recruitment Pipeline Overhaul</div>
+          <div class="project-desc">Introduced AI screening tools, structured interview scorecards, and data-driven sourcing strategies to modernize the talent acquisition function.</div>
+          <div class="project-meta">
+            <div class="project-result">↓ 45% time-to-hire</div>
+            <div class="project-arrow">→</div>
+          </div>
+        </div>
+      </div>
+      <!-- Add placeholder -->
+      <div class="add-project-placeholder" onclick="openAddProjectModal()">
+        <div class="add-icon">+</div>
+        <p>Click to add your next project</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 11: CONTACT -->
+<section id="contact">
+  <div class="section">
+    <div class="contact-wrap">
+      <div class="contact-info">
+        <div class="section-label">Get In Touch</div>
+        <h2 class="section-title" style="margin-bottom:16px">Let's Build Something Exceptional Together</h2>
+        <p>Whether you're scaling a startup, transforming a legacy culture, or building a world-class people function — I'd love to explore how we can work together.</p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-ic">✉️</div>
+            <div class="contact-item-text"><strong>Email</strong>sarah.johnson@hrleader.com</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-ic">📱</div>
+            <div class="contact-item-text"><strong>Phone / WhatsApp</strong>+1 (555) 234-5678</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-ic">🌍</div>
+            <div class="contact-item-text"><strong>Location</strong>New York, NY · Available Globally</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-ic">🔗</div>
+            <div class="contact-item-text"><strong>LinkedIn</strong>linkedin.com/in/sarahjohnsonhr</div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group"><label>Full Name</label><input type="text" placeholder="Jane Smith"></div>
+          <div class="form-group"><label>Email Address</label><input type="email" placeholder="jane@company.com"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Company</label><input type="text" placeholder="Acme Corp"></div>
+          <div class="form-group"><label>Phone</label><input type="tel" placeholder="+1 555 000 0000"></div>
+        </div>
+        <div class="form-group"><label>Message</label><textarea placeholder="Tell me about your HR challenge or the engagement you have in mind..."></textarea></div>
+        <div class="form-btns">
+          <button class="btn-primary" onclick="handleFormSubmit()">📅 Book Meeting</button>
+          <button class="btn-outline" onclick="handleFormSubmit()">✉️ Send Message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">Sarah<span>.</span>HR</div>
+        <p>Senior HR Director & Organizational Consultant. Helping organizations build high-performing teams and cultures that last.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-btn" title="LinkedIn">in</a>
+          <a href="#" class="social-btn" title="Email">✉</a>
+          <a href="#" class="social-btn" title="WhatsApp">💬</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Navigation</h5>
+        <ul>
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About Me</a></li>
+          <li><a href="#expertise">Expertise</a></li>
+          <li><a href="#timeline">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="#services">Recruitment Strategy</a></li>
+          <li><a href="#services">HR Consulting</a></li>
+          <li><a href="#services">Workforce Planning</a></li>
+          <li><a href="#services">Performance Reviews</a></li>
+          <li><a href="#services">Training Programs</a></li>
+          <li><a href="#services">Compliance Audits</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Sarah Johnson HR Portfolio. All rights reserved.</p>
+      <p>Designed with ❤️ for people-first leaders</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ADD PROJECT MODAL -->
+<div class="modal-overlay" id="addProjectModal">
+  <div class="modal">
+    <h3>Add New Project</h3>
+    <div class="form-group">
+      <label>Project Title</label>
+      <input type="text" id="newProjTitle" placeholder="e.g. DEI Initiative 2025">
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <textarea id="newProjDesc" style="height:90px" placeholder="Describe the project, your role, and the approach..."></textarea>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Tags (comma separated)</label>
+        <input type="text" id="newProjTags" placeholder="DEI, Culture, Strategy">
+      </div>
+      <div class="form-group">
+        <label>Result / Impact</label>
+        <input type="text" id="newProjResult" placeholder="e.g. ↑ 40% engagement">
+      </div>
+    </div>
+    <div class="modal-btns">
+      <button class="btn-modal-close" onclick="closeAddProjectModal()">Cancel</button>
+      <button class="btn-primary" onclick="addProject()">Add Project</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><span class="toast-icon">✓</span><span id="toastMsg">Done!</span></div>
+
+<script>
+// ── HAMBURGER MENU ──
+document.getElementById('hamburger').addEventListener('click', function() {
+  const links = document.getElementById('navLinks');
+  const isOpen = links.style.display === 'flex';
+  if (isOpen) {
+    links.style.display = 'none';
+  } else {
+    links.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:70px;left:0;right:0;background:rgba(248,244,239,0.97);backdrop-filter:blur(20px);padding:20px;border-radius:0 0 20px 20px;border:1.5px solid rgba(255,255,255,0.75);gap:4px;z-index:999;';
+  }
+});
+
+// ── SCROLL REVEAL ──
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(el => {
+    if (el.isIntersecting) {
+      el.target.classList.add('visible');
+      // Trigger counters when revealed
+      el.target.querySelectorAll('.counter').forEach(startCounter);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// Reveal hero immediately
+document.querySelectorAll('#hero .reveal').forEach(el => {
+  setTimeout(() => el.classList.add('visible'), 200);
+});
+
+// ── COUNTERS ──
+const countersDone = new WeakSet();
+function startCounter(el) {
+  if (countersDone.has(el)) return;
+  countersDone.add(el);
+  const target = parseInt(el.dataset.target);
+  const duration = 1800;
+  const step = target / (duration / 16);
+  let current = 0;
+  const timer = setInterval(() => {
+    current = Math.min(current + step, target);
+    el.textContent = Math.floor(current);
+    if (current >= target) clearInterval(timer);
+  }, 16);
+}
+
+// Trigger counters in view on load
+setTimeout(() => {
+  document.querySelectorAll('.counter').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight) startCounter(el);
+  });
+}, 600);
+
+// ── TESTIMONIAL SLIDER ──
+const track = document.getElementById('testiTrack');
+const cards = track.querySelectorAll('.testi-card');
+const dotsWrap = document.getElementById('testiDots');
+let currentSlide = 0;
+let autoSlide;
+
+cards.forEach((_, i) => {
+  const dot = document.createElement('div');
+  dot.className = 'testi-dot' + (i === 0 ? ' active' : '');
+  dot.addEventListener('click', () => goTo(i));
+  dotsWrap.appendChild(dot);
+});
+
+function goTo(idx) {
+  currentSlide = (idx + cards.length) % cards.length;
+  const cardW = cards[0].offsetWidth + 24;
+  track.style.transform = `translateX(-${currentSlide * cardW}px)`;
+  dotsWrap.querySelectorAll('.testi-dot').forEach((d,i) => d.classList.toggle('active', i === currentSlide));
+}
+
+document.getElementById('testiBtnNext').addEventListener('click', () => { goTo(currentSlide + 1); resetAuto(); });
+document.getElementById('testiBtnPrev').addEventListener('click', () => { goTo(currentSlide - 1); resetAuto(); });
+
+function resetAuto() { clearInterval(autoSlide); autoSlide = setInterval(() => goTo(currentSlide + 1), 5000); }
+autoSlide = setInterval(() => goTo(currentSlide + 1), 5000);
+window.addEventListener('resize', () => goTo(currentSlide));
+
+// ── TOAST ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// ── PROFILE PHOTO ──
+function handleProfilePhoto(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const img = document.getElementById('profileAvatarImg');
+  img.src = URL.createObjectURL(file);
+  img.style.display = 'block';
+  document.querySelector('.profile-avatar').style.fontSize = '0';
+  showToast('Profile photo updated!');
+}
+
+// ── ABOUT PHOTO ──
+function handleAboutPhoto(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const img = document.getElementById('aboutImg');
+  img.src = URL.createObjectURL(file);
+  img.style.display = 'block';
+  document.querySelector('.upload-icon').style.display = 'none';
+  document.querySelector('.upload-hint').style.display = 'none';
+  showToast('Photo uploaded!');
+}
+
+// ── PROJECT PHOTO ──
+function handleProjectPhoto(e, input) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const wrap = input.closest('.project-img');
+  const img = wrap.querySelector('img');
+  img.src = URL.createObjectURL(file);
+  img.style.display = 'block';
+  wrap.querySelector('.proj-upload-icon').style.display = 'none';
+  wrap.querySelector('.proj-upload-hint').style.display = 'none';
+  showToast('Project photo added!');
+}
+
+// ── ADD PROJECT MODAL ──
+function openAddProjectModal() {
+  document.getElementById('addProjectModal').classList.add('open');
+}
+function closeAddProjectModal() {
+  document.getElementById('addProjectModal').classList.remove('open');
+}
+document.getElementById('addProjectModal').addEventListener('click', function(e) {
+  if (e.target === this) closeAddProjectModal();
+});
+
+function addProject() {
+  const title = document.getElementById('newProjTitle').value.trim();
+  const desc = document.getElementById('newProjDesc').value.trim();
+  const tags = document.getElementById('newProjTags').value.trim();
+  const result = document.getElementById('newProjResult').value.trim();
+  if (!title) { showToast('Please add a project title'); return; }
+
+  const tagHtml = tags ? tags.split(',').map(t => `<span class="project-tag">${t.trim()}</span>`).join('') : '';
+  const card = document.createElement('div');
+  card.className = 'project-card';
+  card.innerHTML = `
+    <div class="project-img">
+      <img alt="Project photo">
+      <input type="file" accept="image/*" onchange="handleProjectPhoto(event, this)">
+      <div class="proj-upload-icon">📸</div>
+      <div class="proj-upload-hint">Click to add project photo</div>
+    </div>
+    <div class="project-body">
+      <div class="project-tags">${tagHtml}</div>
+      <div class="project-title">${title}</div>
+      <div class="project-desc">${desc || 'Project description coming soon.'}</div>
+      <div class="project-meta">
+        <div class="project-result">${result}</div>
+        <div class="project-arrow">→</div>
+      </div>
+    </div>`;
+
+  const grid = document.getElementById('projectsGrid');
+  const placeholder = grid.querySelector('.add-project-placeholder');
+  grid.insertBefore(card, placeholder);
+
+  ['newProjTitle','newProjDesc','newProjTags','newProjResult'].forEach(id => document.getElementById(id).value = '');
+  closeAddProjectModal();
+  showToast('Project added!');
+
+  setTimeout(() => {
+    card.style.opacity = '0'; card.style.transform = 'translateY(20px)';
+    requestAnimationFrame(() => {
+      card.style.transition = 'opacity 0.5s, transform 0.5s';
+      card.style.opacity = '1'; card.style.transform = 'translateY(0)';
+    });
+  }, 50);
+}
+
+// ── RESUME ──
+function handleResume(e) {
+  e.preventDefault();
+  showToast('Add your resume PDF to enable download');
+}
+
+// ── FORM ──
+function handleFormSubmit() {
+  showToast('Message received! I\'ll be in touch within 24 hours.');
+}
+
+// ── CONTACT SCROLL ──
+function scrollToContact() {
+  document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ── NAV HIGHLIGHT ON SCROLL ──
+const sections = document.querySelectorAll('section[id], #hero');
+const navAs = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 120) current = s.id;
+  });
+  navAs.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--dark)' : '';
+    a.style.background = a.getAttribute('href') === '#' + current ? 'rgba(199,161,122,0.12)' : '';
+  });
+}, { passive: true });
+
+// ── INITIAL COUNTERS FOR VISIBLE ITEMS ──
+window.addEventListener('load', () => {
+  document.querySelectorAll('.counter').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight) startCounter(el);
+  });
+});
+</script>
+</body>
+</html>
